@@ -1,6 +1,21 @@
-language: python
-python:
-  - "3.6"
-# command to install dependencies
-install:
-  - pip install -r requirements.txt
+  language: python
+
+  python:
+    - 3.6
+
+  env:
+    - DJANGO=2.0.4
+
+  install:
+    - pip install -r requirements.txt
+
+  # command to run tests
+  script:  make
+
+
+
+  # CI 실행 완료시 메일로 알람
+  notifications:
+    email:
+      recipients:
+        - tadanmf@gmail.com

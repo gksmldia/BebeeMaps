@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="col-md-9">
+        <div class="row">
+            <div class="dropdown col-md-2 pad-right-0">
+                <select class="btn btn-default dropdown-toggle col-md-12" id="field">
+                    <option value="0">전체검색</option>
+                    <option value="1">상호명 검색</option>
+                    <option value="2">위치 검색</option>
+                </select>
+            </div>
+            <div class="input-group col-md-9">
+                <input id="query" type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon2">
+                <span class="input-group-addon" id="basic-addon2">
+                    <i class="fas fa-search" id="list_search"></i>
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="map"></div>
+            </div>
+        </div>
+    </div>
+    <div class="f-col col-md-3" id="addr">
+        
+    </div>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7e4adf0fdd68c765c5871e89dda5ba30&libraries=services"></script>
+    <script type="text/javascript">
+        var APP = {
+            map: null,
+            mapList: null,
+            markers: [],
+            marker: null,
+            positions: [],
+        } 
+
+        window.onload = function(){ 
+            MAP.mapInit();
+            listEventBind();
+        };
+        var MAP = {
+            mapInit: function() {
+                var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+                var options = { //지도를 생성할 때 필요한 기본 옵션
+                    center: new daum.maps.LatLng(37.5662952, 126.97794509999994), //지도의 중심좌표.
+                    level: 8 //지도의 레벨(확대, 축소 정도)
+                };
+                
+                APP.map = new daum.maps.Map(container, options); //지도 생성 및 객체 리턴
+                
+                APP.mapList = JSON.parse("{{ list|escapejs }}");
+                this.addMarker(APP.mapList);
+            },
+            addMarker: function(mapList) {
+                var geocoder = new daum.maps.services.Geocoder();
+                var returnVal;
+                for(var i in mapList) {
+                    addr = mapList[i].RN_ADDR;
+                    geocoder.addressSearch(addr, function(result, status) {
+                        // 정상적으로 검색이 완료됐으면 
+                        if (status === daum.maps.services.Status.OK) {
+                            var newObj = {
+                                content: mapList[i].NAME,
+                                latlng: new daum.maps.LatLng(result[0].y, result[0].x)
+                            }
+                            APP.positions.push(newObj);
+                            
+                            var position = new daum.maps.LatLng(result[0].y, result[0].x);
+                            
+                            // 마커를 생성합니다
+                            APP.marker = new daum.maps.Marker({
+                                position: position
+                            });
+
+                            // 마커가 지도 위에 표시되도록 설정합니다
+                            APP.marker.setMap(APP.map);
+
+                            // 생성된 마커를 배열에 추가합니다
+                            APP.markers.push(APP.marker);
+                            
+                        }
+                    });
+                }
+            },
+        };
+        var SEARCH = {
+            doSearch: function() {
+                SEARCH.getSearchData();
+                $.ajax({
+                    url:'/?q='+APP.query+'&field='+APP.field,
+                    dataType:'json',
+                    type:'GET',
+                    success:function(result){
+                        alert(result);
+                    }
+                });
+            },
+            getSearchData: function() {
+                APP.query = $("#query").val();
+                var selectedField = $("#field").val();
+                APP.field = "";
+                switch (selectedField) {
+                    case "0": APP.field = ""
+                        break;
+                    case "1": APP.field = "NAME"
+                        break;
+                    case "2": APP.field = "RN_ADDR"
+                        break;
+                    default: APP.field = ""
+                        break;
+                }
+            }
+        }
+        function listEventBind() {
+            $("#list_search").click(function() {
+                SEARCH.doSearch();
+            });
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,64 @@
+.f-container {
+    display: flex;
+    padding: 10px;
+    flex-direction: column;
+}
+
+.f-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.betw {
+    justify-content: space-between;
+}
+
+.f-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.titleP {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; 
+    font-size: 60pt;
+    color: rgb(108, 48, 163);
+}
+
+.mar10 {
+    margin: 10px;
+}
+
+.head_div div {
+    flex-basis: 1350px;
+}
+
+.headitem1 {
+    flex-shrink: 1;
+}
+
+.headitem2 {
+    flex-shrink: 6;
+    padding-top: 2%;
+}
+
+.pad-right-0 {
+    padding-right: 0;
+}
+
+.fa-caret-down {
+    float: right;
+    margin-top: 7px;
+}
+
+#map {
+    margin-top: 15px;
+    width: 93%;
+    height: 60%;
+    border: solid 5px rgb(108, 48, 163);
+}
+
+.map_info {
+    width: 10px;
+    height: 5px;
+    background-color: white;
+}

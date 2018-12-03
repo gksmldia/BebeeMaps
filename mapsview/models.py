@@ -16,6 +16,7 @@ def list(queryString, field):
                                 body = {
                                     'size': 100,
                                 })
+        es_client.update
     else:
         if field is None or field is "":
             print("field is None")

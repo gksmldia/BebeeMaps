@@ -1,0 +1,293 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="col-md-8 col-sm-7 col-xs-12 mar-top-10">
+        <div class="row">
+            <div class="dropdown col-md-3 col-sm-3 col-xs-5 pad-right-0">
+                <select class="btn btn-default form-control col-md-12" id="field">
+                    <option value="0">전체검색</option>
+                    <option value="1">상호명 검색</option>
+                    <option value="2">위치 검색</option>
+                </select>
+            </div>
+            <div class="input-group col-md-9 col-sm-9 col-xs-7 pad-right-15">
+                <input id="query_ipt" type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon2">
+                <span class="input-group-addon" id="basic-addon2">
+                    <i class="fas fa-search" id="list_search"></i>
+                </span>
+            </div>
+        </div>
+        <div class="row mar-top-10">
+            <div class="col-md-12">
+                <div id="map"></div>
+            </div>
+        </div>
+        <div class="row mar-top-10">
+            <div class="col-md-5">
+                <button type="button" class="btn btn-bebeemap" data-toggle="modal" data-target="#regist_modal">
+                    <span id="pls_regi">플레이스 등록</span>
+                </button>
+            </div>
+            <div class="dropdown col-md-5">
+                <select class="btn btn-default form-control col-md-12" id="quration">
+                    <option value="0">추천보기</option>
+                    <option value="1">맛집 이상형 월드컵</option>
+                    <option value="2">돌려 돌려 돌림판</option>
+                    <option value="3">맛집 코스 제안</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-5 col-xs-12 map_info mar-top-10" id="info_detail_div">
+
+    </div>
+    {% include "mapviews/regist_modal.html" %}
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7e4adf0fdd68c765c5871e89dda5ba30&libraries=services"></script>
+    <script type="text/javascript">
+        var APP = {
+            map: null,
+            mapList: null,
+            customOverlay: null,
+            overlayFlag: false,
+            bounds: null,
+            markers: [],
+            positions: [],
+        }
+        /*
+        window.onload = function(){
+            MAP.mapInit();
+            listEventBind();
+        };*/
+
+        $(document).ready(function(){
+            MAP.mapInit();
+            listEventBind();
+        });
+
+        var MAP = {
+            mapInit: function() {
+                APP.mapList = JSON.parse("{{ list|escapejs }}");
+
+                var center = getCenter(APP.mapList);
+
+                var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+                var options = { //지도를 생성할 때 필요한 기본 옵션
+                    center: new daum.maps.LatLng(center.x, center.y), //지도의 중심좌표.
+                    level: 14 //지도의 레벨(확대, 축소 정도)
+                };
+
+                APP.map = new daum.maps.Map(container, options); //지도 생성 및 객체 리턴
+
+                this.addMarker(APP.mapList);
+                INFO_D.add_info_detail(APP.mapList);
+            },
+            addMarker: function(mapList) {
+                // var geocoder = new daum.maps.services.Geocoder();
+                APP.positions = [];
+                for(var i in mapList) {
+                    var tempObj = {
+                        content: mapList[i].NAME,
+                        latlng: new daum.maps.LatLng(mapList[i].lat, mapList[i].lng)
+                    }
+                    APP.positions.push(tempObj);
+                }
+
+                APP.bounds = new daum.maps.LatLngBounds();
+
+                for (var i = 0; i < APP.positions.length; i ++) {
+                    // 마커를 생성합니다
+                    var marker = new daum.maps.Marker({
+                        map: APP.map, // 마커를 표시할 지도
+                        position: APP.positions[i].latlng // 마커의 위치
+                    });
+
+                    APP.bounds.extend(APP.positions[i].latlng);
+
+                    // 마커에 표시할 인포윈도우를 생성합니다
+                    var infowindow = new daum.maps.InfoWindow({
+                        content: APP.positions[i].content, // 인포윈도우에 표시할 내용
+                    });
+
+                    // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+                    // 이벤트 리스너로는 클로저를 만들어 등록합니다
+                    // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
+                    daum.maps.event.addListener(marker, 'mouseover', MAP.makeOverListener(APP.map, marker, infowindow));
+                    daum.maps.event.addListener(marker, 'mouseout', MAP.makeOutListener(infowindow));
+
+                    // daum.maps.event.addListener(marker, 'click', MAP.clickListener(APP.map, marker, infowindow));
+                    APP.markers.push(marker);
+                }
+
+            },
+            removeMarker: function() {
+                if(APP.markers != null && APP.markers.length != 0) {
+                    for ( var i = 0; i < APP.markers.length; i++ ) {
+                        APP.markers[i].setMap(null);
+                    }
+                }
+                APP.markers = [];
+            },
+            redrawMap: function(relist) {
+                MAP.removeMarker();
+                APP.mapList = relist;
+                if(relist.length != 0) {
+                    var center = getCenter(relist);
+
+                    APP.map.setCenter(new daum.maps.LatLng(center.x, center.y));
+
+                    MAP.addMarker(relist);
+                    APP.map.setBounds(APP.bounds, 50);
+                } else {
+                    APP.map.setCenter(new daum.maps.LatLng(36.682922, 127.95191690000001));
+                    APP.map.setLevel(14);
+                }
+            },
+            makeOverListener: function(map, marker, infowindow) {
+                return function() {
+                    infowindow.open(map, marker);
+                };
+            },
+            makeOutListener: function(infowindow) {
+                return function() {
+                    infowindow.close();
+                };
+            },
+            clickListener: function(map, marker, infowindow) {
+                return function() {
+                    if(APP.overlayFlag) {
+                        APP.overlayFlag = false;
+                        infowindow.open(map, marker);
+                    } else {
+                        APP.overlayFlag = true;
+                        infowindow.close();
+                    }
+                };
+            },
+            makeCustomOveray: function(thisName) {
+                var content = '<span class="label label-info">'+thisName+'</span>';
+                var position = null;
+                for(var i in APP.mapList) {
+                    if(APP.mapList[i].NAME.trim() == thisName) {
+                        position = new daum.maps.LatLng(APP.mapList[i].lat, APP.mapList[i].lng);
+                    }
+                }
+
+                // 커스텀 오버레이를 생성합니다
+                var customOverlay = new daum.maps.CustomOverlay({
+                    position: position,
+                    content: content,
+                    yAnchor: 1,
+                    xAnchor: 0
+                });
+                customOverlay.setMap(APP.map);
+            }
+        };
+        var SEARCH = {
+            doSearch: function() {
+                SEARCH.getSearchData();
+                $.ajax({
+                    url:'/?q='+APP.query+'&field='+APP.field,
+                    dataType:'json',
+                    type:'GET',
+                    success:function(result){
+                        MAP.redrawMap(result);
+                        INFO_D.add_info_detail(result);
+                    },
+                    done: function(result) {
+                    }
+                });
+            },
+            getSearchData: function() {
+                APP.query = $("#query_ipt").val().trim();
+                var selectedField = $("#field").val();
+                APP.field = "";
+                switch (selectedField) {
+                    case "0": APP.field = ""
+                        break;
+                    case "1": APP.field = "NAME"
+                        break;
+                    case "2": APP.field = "RN_ADDR"
+                        break;
+                    default: APP.field = ""
+                        break;
+                }
+            }
+        }
+
+        var INFO_D = {
+            add_info_detail: function(list) {
+                var info_detail_div = $("#info_detail_div");
+                if(info_detail_div.children.length != 0) {
+                    info_detail_div.empty();
+                }
+
+                for(var i in list) {
+                    var info_detail_child = '<div class="panel panel-info">';
+                        info_detail_child +=    '<div class="panel-heading">';
+                        info_detail_child +=        '<h3 class="panel-title">' + list[i].NAME + '</h3>';
+                        info_detail_child +=    '</div>';
+                        info_detail_child +=    '<div class="panel-body">' + list[i].RN_ADDR + '</div>';
+                        info_detail_child += '</div>';
+
+                    info_detail_div.append(info_detail_child);
+                }
+
+                $(".panel-info").hover(function() {
+                    var name = $(this).children(".panel-heading").text().trim();
+                    MAP.makeCustomOveray(name);
+                },
+                function() {
+                    var name = $(this).children(".panel-heading").text().trim();
+                    $("span.label-info").filter(function(){
+                        return $(this).text().trim() == name;
+                    }).remove();
+                });
+            }
+        }
+
+        function getCenter(list) {
+            var xLst = [];
+            var yLst = [];
+            for(var i in list) {
+                if(list[i].lat != null) {
+                    xLst.push(list[i].lat);
+                }
+                if(list[i].lng != null) {
+                    yLst.push(list[i].lng);
+                }
+            }
+
+            var x1 = xLst.sort()[0];
+            var x2 = xLst.sort()[xLst.length-1];
+            var y1 = yLst.sort()[0];
+            var y2 = yLst.sort()[yLst.length-1];
+
+            var center = new Object();
+            center.x = x1 + ((x2 - x1) / 2);
+            center.y = y1 + ((y2 - y1) / 2);
+
+            return center;
+        }
+
+        function listEventBind() {
+            $("#list_search").click(function() {
+                SEARCH.doSearch();
+            });
+
+            $("#query_ipt").on('keydown', function (e) {
+                if (e.keyCode == 13) {
+                    SEARCH.doSearch();
+                }
+            });
+
+            $("#quration").change(function() {
+                if($(this).find("option:selected").val() != "0") {
+                    alert($(this).find("option:selected").text() + "은 개발중입니다.");
+                }
+            });
+
+            $('#regist_modal').on('shown.bs.modal', function () {
+                $('#txt').val("??");
+            });
+        }
+    </script>
+{% endblock %}

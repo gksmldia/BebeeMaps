@@ -1,0 +1,81 @@
+@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
+.f-container {
+    display: flex;
+    padding: 10px;
+    flex-direction: column;
+}
+
+.f-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.betw {
+    justify-content: space-between;
+}
+
+.f-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.titleP {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; 
+    font-size: 60pt;
+    color: rgb(104, 41, 130);
+}
+
+.head_div div {
+    flex-basis: 130px;
+}
+
+.headitem1 {
+    flex-shrink: 1;
+}
+
+.headitem2 {
+    flex-shrink: 6;
+    padding-top: 2%;
+}
+
+.caret {
+    float: right;
+    margin-top: 7px;
+}
+
+#map {
+    width: 100%;
+    height: 60%;
+    border: solid 5px rgb(104, 41, 130);
+}
+
+.map_info {
+    height: calc(100% - 200px) ;
+    overflow-y: auto;
+}
+
+.panel {
+    font-family: 'Jeju Gothic', sans-serif;
+}
+
+.custom {
+    background-color: aliceblue;
+}
+
+.btn-bebeemap {
+    background-color: rgb(104, 41, 130);
+    width: 100%;
+}
+
+#pls_regi {
+    color: #ffffff;
+    font-family: 'Jeju Gothic', sans-serif;
+}
+
+select option {
+    background-color: #ffffff;
+}
+
+.modal > * {
+    font-family: 'Jeju Gothic', sans-serif;
+}

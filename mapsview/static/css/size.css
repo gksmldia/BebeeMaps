@@ -1,0 +1,19 @@
+.mar10 {
+    margin: 10px;
+}
+
+.mar-top-10 {
+    margin-top: 10px;
+}
+
+.pad-right-0 {
+    padding-right: 0;
+}
+
+.pad-right-15 {
+    padding-right: 15px !important;
+}
+
+.wid100 {
+    width: 100%;
+}

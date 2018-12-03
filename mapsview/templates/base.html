@@ -1,0 +1,31 @@
+{% load static %}
+<html>
+    <head>
+        <title>BebeeMaps</title>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="{% static 'css/maps.css' %}">
+        <link rel="stylesheet" href="{% static 'css/size.css' %}">
+    </head>
+    <body>
+        <div class="f-container">
+            <div class="head_div f-row betw">
+                <div class="headitem1">
+                    <p class="mar10 titleP">BebeeMaps</p>
+                </div>
+                <div class="headitem2">
+                    <span style="color: rgb(104, 41, 130)">
+                        <i class="fas fa-circle fa-user fa-6x"></i>
+                    </span>
+                </div>
+            </div>
+            <div>
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+    </body>
+</html>

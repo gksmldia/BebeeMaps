@@ -1,13 +1,13 @@
 from django.db import models
 from django.utils import timezone
 import elasticsearch
-import urllib
+# import urllib
 import json as simplejson
 
 googleGeocodeUrl = 'https://maps.googleapis.com/maps/api/geocode/json?'
 
 def list(queryString, field):
-    es_client = elasticsearch.Elasticsearch("localhost:9200")
+    es_client = elasticsearch.Elasticsearch("http://127.0.0.1:9200")
     # print(field)
     if queryString is None or queryString is "":
         print("queryString is None")
@@ -16,7 +16,6 @@ def list(queryString, field):
                                 body = {
                                     'size': 100,
                                 })
-        es_client.update
     else:
         if field is None or field is "":
             print("field is None")
@@ -46,8 +45,9 @@ def list(queryString, field):
     
     matList = data['hits']['hits']
 
-    return get_coordinates(matList)
-    
+    return matList
+
+''' 
 def get_coordinates(matList, from_sensor=False):
     # query = query.encode('utf-8')
 
@@ -69,3 +69,4 @@ def get_coordinates(matList, from_sensor=False):
             matdict['_source']['lat'], matdict['_source']['lng'] = None, None
             print(matdict['_source']['RN_ADDR'], "<no results>")
     return matList
+'''

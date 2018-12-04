@@ -6,7 +6,32 @@
             <h4 class="modal-title">Regist Place</h4>
         </div>
         <div class="modal-body">
-            <input type="text" id="txt">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="ipt_name" id="lab_name">상호명</label>
+                        <div class="dropdown">
+                            <input type="text" class="form-control dropdown-toggle" id="ipt_name" placeholder="입력 후 엔터">
+                            <ul class="dropdown-menu" role="menu" id="view_list" style="width: 100%;"></ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="p_addr" id="lab_addr">주소</label>
+                                <p class="form-control-static" id="p_addr"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="name" id="lab_tel">전화번호</label>
+                                <p class="form-control-static" id="p_tel"></p>
+                                <input type="hidden" id="itp_tel">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -14,4 +39,53 @@
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
+</div><!-- /.modal -->
+<script type="text/javascript">
+var MODAL = {
+    view_list : $("#view_list"),
+    modalInit: function() {
+        MODAL.modalEventBind();
+    },
+    modalEventBind: function() {
+        $("#ipt_name").keypress(function(e) {
+            if(e.which == 13) {
+                var ps = new daum.maps.services.Places();
+                ps.keywordSearch($(this).val(), placesSearchCB);
+            }
+        });
+    },
+}
+
+// 키워드 검색 완료 시 호출되는 콜백함수 입니다
+function placesSearchCB (data, status, pagination) {
+    if (status === daum.maps.services.Status.OK) {
+        for(var i in data) {
+            var list = '<li role="presentation" class="menu_item">'
+                list += '<a role="menuitem" tabindex="-1">'
+                list += ((i*1)+1) + " / " + data[i].place_name + " / " + data[i].road_address_name
+                list += '</a>';
+                list += '<span hidden="true">' + data[i].phone + '</span>'
+                list += '</li>';
+
+            MODAL.view_list.append(list);
+        }
+
+        MODAL.view_list.css("display", "block");
+
+        $(".menu_item").click(function() {
+            var addr = $(this).children("a").text().split("/")[2].trim();
+            var tel = $(this).children("span").text().trim();
+            $("#p_addr").text(addr);
+
+            if(tel == "" || tel == null) {
+                $("#ipt_tel").attr("type", "tel");
+                $("#p_tel").attr("hidden", true);
+            } else {
+                $("#p_tel").text(tel);
+            }
+            MODAL.view_list.empty();
+            MODAL.view_list.css("display", "none");
+        });
+    }
+}
+</script>

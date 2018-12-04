@@ -83,3 +83,7 @@ select option {
 .modal > * {
     font-family: 'Jeju Gothic', sans-serif;
 }
+
+#lab_name {
+    color: #959595;
+}

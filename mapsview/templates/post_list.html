@@ -3,7 +3,7 @@
     <div class="col-md-8 col-sm-7 col-xs-12 mar-top-10">
         <div class="row">
             <div class="dropdown col-md-3 col-sm-3 col-xs-5 pad-right-0">
-                <select class="btn btn-default form-control col-md-12" id="field">
+                <select class="form-control col-md-12" id="field">
                     <option value="0">전체검색</option>
                     <option value="1">상호명 검색</option>
                     <option value="2">위치 검색</option>
@@ -28,7 +28,7 @@
                 </button>
             </div>
             <div class="dropdown col-md-5">
-                <select class="btn btn-default form-control col-md-12" id="quration">
+                <select class="form-control col-md-12" id="quration">
                     <option value="0">추천보기</option>
                     <option value="1">맛집 이상형 월드컵</option>
                     <option value="2">돌려 돌려 돌림판</option>
@@ -38,7 +38,9 @@
         </div>
     </div>
     <div class="col-md-4 col-sm-5 col-xs-12 map_info mar-top-10" id="info_detail_div">
-
+        <ul class="cards" id="cards">
+            
+        </ul>
     </div>
     {% include "mapviews/regist_modal.html" %}
     <script type="text/javascript">
@@ -60,6 +62,7 @@
         $(document).ready(function(){
             MAP.mapInit();
             listEventBind();
+            MODAL.modalInit();
         });
 
         var MAP = {
@@ -214,31 +217,43 @@
 
         var INFO_D = {
             add_info_detail: function(list) {
-                var info_detail_div = $("#info_detail_div");
-                if(info_detail_div.children.length != 0) {
-                    info_detail_div.empty();
+                var cards = $("#cards");
+                if(cards.children.length != 0) {
+                    cards.empty();
                 }
 
                 for(var i in list) {
-                    var info_detail_child = '<div class="panel panel-info">';
-                        info_detail_child +=    '<div class="panel-heading">';
-                        info_detail_child +=        '<h3 class="panel-title">' + list[i].NAME + '</h3>';
-                        info_detail_child +=    '</div>';
-                        info_detail_child +=    '<div class="panel-body">' + list[i].RN_ADDR + '</div>';
-                        info_detail_child += '</div>';
-
-                    info_detail_div.append(info_detail_child);
+                    var card = '<li class="cards__item">';
+                        card += '<div class="card">';
+                        card += '<input type="hidden" class="card__lat" value='+list[i].lat+'>';
+                        card += '<input type="hidden" class="card__lng" value='+list[i].lng+'>';
+                        card += '<div class="card__image card__image--fence"></div>';
+                        card += '<div class="card__content">';
+                        card += '<div class="card__title">' + ((i*1)+1) + ". " + list[i].NAME + '</div>';
+                        card += '<p class="card__text">' + list[i].RN_ADDR + '</p>';
+                        //card += '<button class="btn btn--block card__btn">Button</button>';
+                        card += '</div>';
+                        card += '</div>';
+                        card += '</li>';
+                    cards.append(card);
                 }
 
-                $(".panel-info").hover(function() {
-                    var name = $(this).children(".panel-heading").text().trim();
+                $(".card").hover(function() {
+                    var name = $(this).children(".card__content").children(".card__title").text().split(".")[1].trim()
                     MAP.makeCustomOveray(name);
                 },
                 function() {
-                    var name = $(this).children(".panel-heading").text().trim();
+                    var name = $(this).children(".card__content").children(".card__title").text().split(".")[1].trim();
                     $("span.label-info").filter(function(){
                         return $(this).text().trim() == name;
                     }).remove();
+                });
+
+                $(".card").click(function() {
+                    var lat = $(this).children(".card__lat").val();
+                    var lng = $(this).children(".card__lng").val();
+                    APP.map.setCenter(new daum.maps.LatLng(lat, lng));
+                    APP.map.setLevel(2);
                 });
             }
         }

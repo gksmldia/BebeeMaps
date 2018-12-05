@@ -21,6 +21,17 @@ def list():
     matList = data['hits']['hits']
 
     return matList
+
+def searchById(search_id):
+    # print(field)
+    es_client = elasticsearch.Elasticsearch("http://127.0.0.1:9200")
+    data = es_client.get(index = 'matzip',
+                        doc_type = 'doc',
+                        id = search_id)
+    
+    # matList = data['_source']
+
+    return [data]
    
 def get_coordinates_list(matList, from_sensor=False):
     # query = query.encode('utf-8')
@@ -81,8 +92,7 @@ def es_update(lists):
                     'TEL': one['_source']['TEL'], 
                     'DETAIL_ADDR': one['_source']['DETAIL_ADDR'], 
                     'RN_ADDR': one['_source']['RN_ADDR'], 
-                    'PARKING': one['_source']['PARKING'], 
-                    'NEAR_STATION': one['_source']['NEAR_STATION'], 
+                    'PARKING': one['_source']['PARKING'],
                     'DESC': one['_source']['DESC'], 
                     'NAME': one['_source']['NAME'], 
                     'BREAK': one['_source']['BREAK'], 
@@ -93,7 +103,8 @@ def es_update(lists):
                     'OFF_DAY': one['_source']['OFF_DAY'], 
                     'TRY': one['_source']['TRY'], 
                     'lng': one['_source']['lng'], 
-                    'lat': one['_source']['lat']
+                    'lat': one['_source']['lat'],
+                    'tag': []
                 }
             }
         )
@@ -102,32 +113,33 @@ def es_update(lists):
 
 def es_insert():
     es_client = elasticsearch.Elasticsearch("http://127.0.0.1:9200")
-    latLng = get_coordinates('서울 종로구 삼일대로 430')
+    addr = '경남 진주시 촉석로 165'
+    latLng = get_coordinates(addr)
+    source = {
+                'ID': es_last_index()+1, 
+                'NAME': '원깐돌이', 
+                'RN_ADDR': addr, 
+                'LB_ADDR': '중안동 101', 
+                'DETAIL_ADDR': None, 
+                'TEL': '055-742-3937', 
+                'PARKING': 'FALSE',
+                'OFF_DAY': ['SUN'], 
+                'FROM-TO': '10:00 ~ 17:00',
+                'BREAK': None,
+                'TYPE': 'M',
+                'SUB_TYPE': 'K', 
+                'TRY': 'TRUE',
+                'DESC': '사실은 국수맛집, 육회비빔밥도, 알쓸신잡 진주편 수다장소',
+                'lat': latLng[0],
+                'lng': latLng[1]
+            }
     # print(latLng[0], latLng[1])
     docs = []
     for cnt in range(1):
         docs.append({
             '_index': 'matzip',
             '_type': 'doc',
-            '_source': {
-                'ID': es_last_index()+1, 
-                'NAME': '여진곱', 
-                'TEL': '02-762-5157', 
-                'RN_ADDR': '서울 종로구 삼일대로 430', 
-                'DETAIL_ADDR': None, 
-                'PARKING': 'FALSE', 
-                'NEAR_STATION': ['종로3가역(5)'], 
-                'DESC': '알곱창 드세요. 제가 여태껏 먹었던 곱창은 곱창 껍데기 같은 거였나.... 곱 꽉 차 있고 세상 고소하고 진짜.... 예약하지 않으면 수량이 없는 날도 있으니 주의! 한우곱창부대전골도 안주로 최고예요.', 
-                'BREAK': None, 
-                'TYPE': 'M', 
-                'FROM-TO': '10:00 ~ 23:00', 
-                'SUB_TYPE': 'K', 
-                'LB_ADDR': '낙원동 66', 
-                'OFF_DAY': [], 
-                'TRY': 'FALSE', 
-                'lat': latLng[0],
-                'lng': latLng[1]
-            }
+            '_source': source
         })
 
     elasticsearch.helpers.bulk(es_client, docs)
@@ -165,4 +177,7 @@ def es_last_index():
     return ids[len(ids)-1]
     
 if __name__ == '__main__':    # 프로그램의 시작점일 때만 아래 코드 실행
-    es_insert()
+    # searchById("TM7RD2cBZ4ljROrfRJ0b")
+    es_update(list())
+    # 특정필드 지우기
+    # http://kyungseop.tistory.com/6 

@@ -6,27 +6,82 @@
             <h4 class="modal-title">Regist Place</h4>
         </div>
         <div class="modal-body">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label for="ipt_name" id="lab_name">상호명</label>
-                        <div class="dropdown">
-                            <input type="text" class="form-control dropdown-toggle" id="ipt_name" placeholder="입력 후 엔터">
-                            <ul class="dropdown-menu" role="menu" id="view_list" style="width: 100%;"></ul>
+            <div id="regi_form">
+                <div class="form-group">
+                    <label for="ipt_name" id="lab_name">상호명</label>
+                    <div class="dropdown">
+                        <input type="text" class="form-control dropdown-toggle" id="ipt_name" placeholder="입력 후 엔터">
+                        <ul class="dropdown-menu" role="menu" id="view_list" style="width: 100%;"></ul>
+                    </div>
+                </div>
+                <div class="form-inline">
+                    <div class="form-group" style="width: 50%;">
+                        <label for="p_addr" class="lab_addr">주소</label>
+                        <p class="form-control-static pad-left-10" id="p_addr"></p>
+                    </div>
+                    <div class="form-group" style="width: 49%;">
+                        <label for="p_tel" class="lab_tel">전화번호</label>
+                        <p class="form-control-static pad-left-10" id="p_tel"></p>
+                        <input type="hidden" id="ipt_tel" class="pad-left-10 form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="ipt_tag" id="lab_tag">태그</label>
+                    <div class="new-tag ">
+                        <div class="tags">
+                            <input type="text" placeholder="add a new tag" class="new-tag-input form-control">
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="p_addr" id="lab_addr">주소</label>
-                                <p class="form-control-static" id="p_addr"></p>
+                </div>
+                <div class="form-group">
+                    <label for="ipt_memo" id="lab_memo">한줄평</label>
+                    <textarea class="form-control" rows="3" id="ipt_memo"></textarea>
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-default" id="btn_plus" data-toggle="button" aria-pressed="false" autocomplete="off">
+                        <i class="fas fa-plus-square"></i> 상세
+                    </button>
+                </div>
+                <div class="panel-body" id="div_detail" style="display: none;">
+                    <div class="form-group">
+                        <label for="chk_off_day" class="col-sm-3 lab_off_day pad-0">휴무일</label>
+                        <div class="col-sm-9">
+                            <div class="btn-group mar-bot-10" data-toggle="buttons" id="chk_off_week">
+                                <label class="btn btn-default">
+                                    <input type="checkbox" autocomplete="off" value="1"> 첫째주
+                                </label>
+                                <label class="btn btn-default">
+                                    <input type="checkbox" autocomplete="off" value="2"> 둘째주
+                                </label>
+                                <label class="btn btn-default">
+                                    <input type="checkbox" autocomplete="off" value="3"> 셋째주
+                                </label>
+                                <label class="btn btn-default">
+                                    <input type="checkbox" autocomplete="off" value="4"> 넷째주
+                                </label>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="name" id="lab_tel">전화번호</label>
-                                <p class="form-control-static" id="p_tel"></p>
-                                <input type="hidden" id="itp_tel">
+                            <div class="btn-group" data-toggle="buttons" id="chk_off_day">
+                                <label class="btn btn-default">
+                                    <input type="checkbox" autocomplete="off" value="MON"> 월
+                                </label>
+                                <label class="btn btn-default">
+                                    <input type="checkbox" autocomplete="off" value="TUE"> 화
+                                </label>
+                                <label class="btn btn-default">
+                                    <input type="checkbox" autocomplete="off" value="WED"> 수
+                                </label>
+                                <label class="btn btn-default">
+                                    <input type="checkbox" autocomplete="off" value="THU"> 목
+                                </label>
+                                <label class="btn btn-default">
+                                    <input type="checkbox" autocomplete="off" value="FRI"> 금
+                                </label>
+                                <label class="btn btn-default">
+                                    <input type="checkbox" autocomplete="off" value="SAT"> 토
+                                </label>
+                                <label class="btn btn-default">
+                                    <input type="checkbox" autocomplete="off" value="SUN"> 일
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -40,9 +95,12 @@
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+{% load static %}
+<script src="{% static 'plugin/tag/lovely-tag.js' %}"></script>
 <script type="text/javascript">
 var MODAL = {
     view_list : $("#view_list"),
+    mat_data : null,
     modalInit: function() {
         MODAL.modalEventBind();
     },
@@ -51,6 +109,24 @@ var MODAL = {
             if(e.which == 13) {
                 var ps = new daum.maps.services.Places();
                 ps.keywordSearch($(this).val(), placesSearchCB);
+            }
+        });
+
+        $("#ipt_name").focusout(function() {
+            var thisVal = $(this).val();
+            if(thisVal == "" || thisVal == null) {
+                MODAL.view_list.empty();
+                MODAL.view_list.css("display", "none");
+            }
+        });
+
+        $("#btn_plus").click(function() {
+            if($(this).children("i").hasClass("fa-plus-square")) {
+                $(this).children("i").removeClass("fa-plus-square").addClass("fa-minus-square");
+                $("#div_detail").show();
+            } else {
+                $(this).children("i").removeClass("fa-minus-square").addClass("fa-plus-square");
+                $("#div_detail").hide();
             }
         });
     },
@@ -64,7 +140,7 @@ function placesSearchCB (data, status, pagination) {
                 list += '<a role="menuitem" tabindex="-1">'
                 list += ((i*1)+1) + " / " + data[i].place_name + " / " + data[i].road_address_name
                 list += '</a>';
-                list += '<span hidden="true">' + data[i].phone + '</span>'
+                list += '<span hidden="true">' + JSON.stringify(data[i]) + '</span>'
                 list += '</li>';
 
             MODAL.view_list.append(list);
@@ -73,15 +149,17 @@ function placesSearchCB (data, status, pagination) {
         MODAL.view_list.css("display", "block");
 
         $(".menu_item").click(function() {
-            var addr = $(this).children("a").text().split("/")[2].trim();
-            var tel = $(this).children("span").text().trim();
-            $("#p_addr").text(addr);
+            MODAL.mat_data = JSON.parse($(this).children("span").text());
+            console.log(MODAL.mat_data);
+            $("#ipt_name").val(MODAL.mat_data.place_name);
+            $("#p_addr").text(MODAL.mat_data.road_address_name);
 
-            if(tel == "" || tel == null) {
-                $("#ipt_tel").attr("type", "tel");
-                $("#p_tel").attr("hidden", true);
+            if(MODAL.mat_data.phone == "" || MODAL.mat_data.phone == null) {
+                $("#p_tel").text("").attr("hidden", "true");
+                $("#ipt_tel").prop("type", "number");
             } else {
-                $("#p_tel").text(tel);
+                $("#ipt_tel").prop("type", "hidden");
+                $("#p_tel").removeAttr("hidden").text(MODAL.mat_data.phone);
             }
             MODAL.view_list.empty();
             MODAL.view_list.css("display", "none");

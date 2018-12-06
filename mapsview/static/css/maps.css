@@ -67,12 +67,11 @@ body > * {
 }
 
 .btn-bebeemap {
+    color: #ffffff;
     background-color: rgb(104, 41, 130);
-    width: 100%;
 }
 
 #pls_regi {
-    color: #ffffff;
     font-family: 'Jeju Gothic', sans-serif;
 }
 
@@ -86,4 +85,10 @@ select option {
 
 #lab_name {
     color: #959595;
+}
+
+.btn-bebeemap.active, .btn-bebeemap.focus, .btn-bebeemap:active, .btn-bebeemap:focus, .btn-bebeemap:hover, .open>.dropdown-toggle.btn-bebeemap {
+    color: #fff;
+    background-color: rgb(89, 34, 112);
+    border-color: rgb(65, 26, 83);
 }

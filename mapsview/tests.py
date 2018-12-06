@@ -100,7 +100,7 @@ def es_update(lists):
                     'FROM-TO': one['_source']['FROM-TO'], 
                     'SUB_TYPE': one['_source']['SUB_TYPE'], 
                     'LB_ADDR': one['_source']['LB_ADDR'], 
-                    'OFF_DAY': one['_source']['OFF_DAY'], 
+                    'OFF_DAY': ['SUN', 'MON(2,4)'], 
                     'TRY': one['_source']['TRY'], 
                     'lng': one['_source']['lng'], 
                     'lat': one['_source']['lat'],
@@ -177,7 +177,5 @@ def es_last_index():
     return ids[len(ids)-1]
     
 if __name__ == '__main__':    # 프로그램의 시작점일 때만 아래 코드 실행
-    # searchById("TM7RD2cBZ4ljROrfRJ0b")
-    es_update(list())
-    # 특정필드 지우기
-    # http://kyungseop.tistory.com/6 
+    # print(searchById(""OM7RD2cBZ4ljROrfRJ0L""))
+    es_update(searchById("Us7RD2cBZ4ljROrfRJ0b"))

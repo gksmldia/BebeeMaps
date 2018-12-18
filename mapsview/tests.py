@@ -20,7 +20,7 @@ def list():
     
     matList = data['hits']['hits']
 
-    return matList
+    return data
 
 def searchById(search_id):
     # print(field)
@@ -175,7 +175,26 @@ def es_last_index():
 
     
     return ids[len(ids)-1]
-    
+
+def bulk_to_json_file() :
+    es_client = elasticsearch.Elasticsearch("http://127.0.0.1:9200")
+    MyFile= open("C:\\Users\\Hanui\\Programing\\elasticsearch-6.4.3\\sub_type.json", 'r', encoding='UTF8').read()
+    ClearData = MyFile.splitlines(True)
+    i=0
+    json_str=""
+    docs ={}
+    for line in ClearData:
+        line = ''.join(line.split())
+        if line != "},":
+            json_str = json_str+line
+        else:
+            docs[i]=json_str+"}"
+            json_str=""
+            print(docs[i])
+            es_client.index(index='sub_type', doc_type='doc', id=i+1, body=docs[i])
+            i=i+1
+
 if __name__ == '__main__':    # 프로그램의 시작점일 때만 아래 코드 실행
-    # print(searchById(""OM7RD2cBZ4ljROrfRJ0L""))
-    es_update(searchById("Us7RD2cBZ4ljROrfRJ0b"))
+    # print(list())
+    bulk_to_json_file()
+    # es_update(searchById("Us7RD2cBZ4ljROrfRJ0b"))

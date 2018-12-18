@@ -15,10 +15,18 @@ def post_list(request):
     for mat in m.list(query, field):
         mat['_source']['_id'] = mat['_id']
         mat_list.append(mat['_source'])
-        
+
     json_list = json.dumps(mat_list)
 
     if request.is_ajax():
         return HttpResponse(json_list, content_type='application/json; charset=utf-8')
     else:
         return render(request, 'post_list.html', {'list': json_list})
+
+def sub_type_list(request):
+    subTypeList = []
+
+    for _type in m.sub_type_list() :
+        subTypeList.append(_type['_source'])
+        
+    return HttpResponse(json.dumps(subTypeList), content_type='application/json; charset=utf-8')

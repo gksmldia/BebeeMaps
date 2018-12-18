@@ -42,7 +42,7 @@
                         <i class="fas fa-plus-square"></i> 상세
                     </button>
                 </div>
-                <div class="panel-body" id="div_detail" style="display: none;">
+                <div class="form-group" id="div_detail" style="display: none;">
                     <div class="form-group">
                         <label for="chk_off_day" id="lab_off_day" class="col-md-3 pad-0">휴무일</label>
                         <div class="col-md-9 mar-bot-10">
@@ -87,7 +87,7 @@
                     </div>
                     <div class="form-group">
                         <label for="ipt_sales_time" id="lab_sales_time" class="col-md-3 pad-0">영업시간</label>
-                        <div class="col-md-9 pad-0" id="ipt_sales_time">
+                        <div class="col-md-9 mar-bot-10" id="ipt_sales_time">
                             <div class="col-md-5">
                                 <div id="ipt_sales_time_from" class="form-control"></div>
                             </div>
@@ -95,6 +95,28 @@
                             <div class="col-md-5">
                                 <div id="ipt_sales_time_to" class="form-control col-md-5"></div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ipt_break_time" id="lab_break_time" class="col-md-3 pad-0">Break Time</label>
+                        <div class="col-md-9 mar-bot-10" id="ipt_break_time">
+                            <div class="col-md-5">
+                                <div id="ipt_break_time_from" class="form-control"></div>
+                            </div>
+                            <div class="col-md-2 text-center"><span>~</span></div>
+                            <div class="col-md-5">
+                                <div id="ipt_break_time_to" class="form-control col-md-5"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="sel_type" id="lab_type" class="col-md-2 pad-0">음식 유형</label>
+                        <div class="col-md-4" id="sel_type_div">
+                            <div id="sel_type"></div>
+                        </div>
+                        <label for="sel_sub_type" id="lab_sub_type" class="col-md-2 pad-0">대표 나라</label>
+                        <div class="col-md-4" id="sel_sub_type_div">
+                            <div id="sel_sub_type"></div>
                         </div>
                     </div>
                 </div>
@@ -107,22 +129,32 @@
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-{% load static %}
-<script src="{% static 'plugin/tag/lovely-tag.js' %}"></script>
-<script src="{% static 'plugin/jqwidgets/demos.js' %}"></script>
-<script src="{% static 'plugin/jqwidgets/jqxcore.js' %}"></script>
-<script src="{% static 'plugin/jqwidgets/jqxdatetimeinput.js' %}"></script>
-<script src="{% static 'plugin/jqwidgets/jqxcalendar.js' %}"></script>
-<script src="{% static 'plugin/jqwidgets/jqxbuttons.js' %}"></script>
-<script src="{% static 'plugin/jqwidgets/jqxtooltip.js' %}"></script>
-<script src="{% static 'plugin/jqwidgets/globalize.js' %}"></script>
+{% include "mapviews/include/js.html" %}
 <script type="text/javascript">
 var MODAL = {
     view_list : $("#view_list"),
     mat_data : null,
+    sub_type_list : null,
     modalInit: function() {
+        getSubTypeList();
+        MODAL.dateTimeInit();
         MODAL.modalEventBind();
-        dateTimeInit();
+        MODAL.dropdownInit();
+    },
+    dateTimeInit: function() {
+        var elements = ["#ipt_sales_time_from", "#ipt_sales_time_to", "#ipt_break_time_from", "#ipt_break_time_to"];
+        for(var i in elements) {
+            creatDateTime(elements[i]);
+        }
+    },
+    dropdownInit: function() {
+        var typeSource = ["식사", "음주", "디저트"];
+        creatDropDown("#sel_type");
+        $("#sel_type").jqxDropDownList({source: typeSource});
+
+        var subTypeSource = MODAL.sub_type_list;
+        creatDropDown("#sel_sub_type");
+        $("#sel_sub_type").jqxDropDownList({ source: subTypeSource, displayMember: "KO_DESC", valueMember: "TYPE"});
     },
     modalEventBind: function() {
         $("#ipt_name").keypress(function(e) {
@@ -187,8 +219,8 @@ function placesSearchCB (data, status, pagination) {
     }
 }
 
-function dateTimeInit() {
-    $("#ipt_sales_time_from").jqxDateTimeInput({
+function creatDateTime(element) {
+    $(element).jqxDateTimeInput({
         dropDownVerticalAlignment: "top",
         formatString: "t", 
         showTimeButton: true, 
@@ -199,16 +231,27 @@ function dateTimeInit() {
         theme: 'material-purple',
         template: "default"
     });
-    $("#ipt_sales_time_to").jqxDateTimeInput({
-        dropDownVerticalAlignment: "top",
-        formatString: "t", 
-        showTimeButton: true, 
-        showCalendarButton: false,
+}
+
+function creatDropDown(element) {
+    $(element).jqxDropDownList({
         width: '100%', 
-        height: '32px',
-        animationType: 'slide',
+        height: '36px',
         theme: 'material-purple',
-        template: "default"
+        dropDownVerticalAlignment: 'top',
+        autoDropDownHeight: true
+    });
+}
+
+function getSubTypeList() {
+    $.ajax({
+        url:'/api/sub_type_list',
+        dataType:'json',
+        type:'GET',
+        async: false,
+        success:function(result){
+            MODAL.sub_type_list = result;
+        }
     });
 }
 </script>

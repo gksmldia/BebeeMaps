@@ -62,7 +62,7 @@
         $(document).ready(function(){
             MAP.mapInit();
             listEventBind();
-            MODAL.modalInit();
+            // MODAL.modalInit();
         });
 
         var MAP = {
@@ -300,7 +300,7 @@
             });
 
             $('#regist_modal').on('shown.bs.modal', function () {
-                $('#txt').val("??");
+                MODAL.modalInit();
             });
         }
     </script>

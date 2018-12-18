@@ -92,3 +92,7 @@ select option {
     background-color: rgb(89, 34, 112);
     border-color: rgb(65, 26, 83);
 }
+
+.modal-body {
+    overflow: auto;
+}

@@ -47,6 +47,16 @@ def list(queryString, field):
 
     return matList
 
+def sub_type_list() :
+    es_client = elasticsearch.Elasticsearch("http://127.0.0.1:9200")
+    data = es_client.search(index = 'sub_type',
+                                doc_type = 'doc',
+                                body = {
+                                    'size': 100,
+                                })
+    sub_type_list = data['hits']['hits']
+    return sub_type_list
+
 ''' 
 def get_coordinates(matList, from_sensor=False):
     # query = query.encode('utf-8')

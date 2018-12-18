@@ -3,4 +3,5 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.post_list, name='post_list'),
+    url(r'^api/sub_type_list/$', views.sub_type_list, name='sub_type_list'),
 ]

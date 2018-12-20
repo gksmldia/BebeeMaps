@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.utils import timezone
 from django.http import HttpResponseRedirect, HttpResponse
+from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.http import require_POST
+from django.views.generic import TemplateView
 import json
 from . import models as m
 
@@ -30,3 +33,12 @@ def sub_type_list(request):
         subTypeList.append(_type['_source'])
         
     return HttpResponse(json.dumps(subTypeList), content_type='application/json; charset=utf-8')
+
+@csrf_protect
+@require_POST
+def regist_zip(request):
+    if request.method == 'POST':
+        print(request.body)
+        body = json.loads(request.body)
+        print(body.get('RN_ADDR'))
+    

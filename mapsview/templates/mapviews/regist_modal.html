@@ -124,7 +124,7 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-bebeemap">Save changes</button>
+            <button type="button" class="btn btn-bebeemap" id="btn_save">Save</button>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -181,11 +181,30 @@ var MODAL = {
                 $("#div_detail").hide();
             }
         });
+
+        $("#btn_save").click(function() {
+            var data = {
+                "NAME" : $("#ipt_name").val(),
+                "RN_ADDR" : $("#p_addr").text(),
+                "csrfmiddlewaretoken": APP.csrftoken
+            }
+            $.ajax({
+                url:'/api/regist_zip/',
+                headers: { 'Content-Type':'text/plain; charset=utf-8' },
+                dataType:'text',
+                type:'POST',
+                data: JSON.stringify(data),
+                success:function(result){
+                    console.log(result)
+                }
+            });
+        });
     },
 }
 
 // 키워드 검색 완료 시 호출되는 콜백함수 입니다
 function placesSearchCB (data, status, pagination) {
+    MODAL.view_list.empty();
     if (status === daum.maps.services.Status.OK) {
         for(var i in data) {
             var list = '<li role="presentation" class="menu_item">'

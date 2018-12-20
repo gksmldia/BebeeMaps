@@ -113,23 +113,23 @@ def es_update(lists):
 
 def es_insert():
     es_client = elasticsearch.Elasticsearch("http://127.0.0.1:9200")
-    addr = '경남 진주시 촉석로 165'
+    addr = '서울 양천구 오목로 320-2'
     latLng = get_coordinates(addr)
     source = {
                 'ID': es_last_index()+1, 
-                'NAME': '원깐돌이', 
+                'NAME': '창평가마솥순대국', 
                 'RN_ADDR': addr, 
-                'LB_ADDR': '중안동 101', 
+                'LB_ADDR': '목동 405-148', 
                 'DETAIL_ADDR': None, 
-                'TEL': '055-742-3937', 
-                'PARKING': 'FALSE',
-                'OFF_DAY': ['SUN'], 
-                'FROM-TO': '10:00 ~ 17:00',
+                'TEL': '02-2643-3100', 
+                'PARKING': 'TRUE',
+                'OFF_DAY': ['holiday'], 
+                'FROM-TO': '06:00 ~ 23:00',
                 'BREAK': None,
                 'TYPE': 'M',
-                'SUB_TYPE': 'K', 
-                'TRY': 'TRUE',
-                'DESC': '사실은 국수맛집, 육회비빔밥도, 알쓸신잡 진주편 수다장소',
+                'SUB_TYPE': 'K',
+                'TRY': 'FALSE',
+                'DESC': '목동 SBS 피디님 추천',
                 'lat': latLng[0],
                 'lng': latLng[1]
             }
@@ -196,5 +196,5 @@ def bulk_to_json_file() :
 
 if __name__ == '__main__':    # 프로그램의 시작점일 때만 아래 코드 실행
     # print(list())
-    bulk_to_json_file()
+    es_insert()
     # es_update(searchById("Us7RD2cBZ4ljROrfRJ0b"))

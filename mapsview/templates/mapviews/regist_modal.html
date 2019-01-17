@@ -6,7 +6,7 @@
             <h4 class="modal-title">Regist Place</h4>
         </div>
         <div class="modal-body">
-            <div id="regi_form">
+            <form id="regi_form">
                 <div class="form-group">
                     <label for="ipt_name" id="lab_name">상호명</label>
                     <div class="dropdown">
@@ -14,7 +14,7 @@
                         <ul class="dropdown-menu" role="menu" id="view_list" style="width: 100%;"></ul>
                     </div>
                 </div>
-                <div class="form-inline">
+                <div class="form-inline form-group">
                     <div class="form-group" style="width: 50%;">
                         <label for="p_addr" class="lab_addr">주소</label>
                         <p class="form-control-static pad-left-10" id="p_addr"></p>
@@ -38,89 +38,80 @@
                     <textarea class="form-control" rows="3" id="ipt_memo"></textarea>
                 </div>
                 <div class="form-group">
-                    <button type="button" class="btn btn-default" id="btn_plus" data-toggle="button" aria-pressed="false" autocomplete="off">
-                        <i class="fas fa-plus-square"></i> 상세
-                    </button>
-                </div>
-                <div class="form-group" id="div_detail" style="display: none;">
-                    <div class="form-group">
-                        <label for="chk_off_day" id="lab_off_day" class="col-md-3 pad-0">휴무일</label>
-                        <div class="col-md-9 mar-bot-10">
-                            <div class="btn-group mar-bot-10 wid100" data-toggle="buttons" id="chk_off_week">
-                                <label class="btn btn-default wid25">
-                                    <input type="checkbox" autocomplete="off" value="1"> 첫째주
-                                </label>
-                                <label class="btn btn-default wid25">
-                                    <input type="checkbox" autocomplete="off" value="2"> 둘째주
-                                </label>
-                                <label class="btn btn-default wid25">
-                                    <input type="checkbox" autocomplete="off" value="3"> 셋째주
-                                </label>
-                                <label class="btn btn-default wid25">
-                                    <input type="checkbox" autocomplete="off" value="4"> 넷째주
-                                </label>
-                            </div>
-                            <div class="btn-group wid100" data-toggle="buttons" id="chk_off_day">
-                                <label class="btn btn-default wid15">
-                                    <input type="checkbox" autocomplete="off" value="MON"> 월
-                                </label>
-                                <label class="btn btn-default wid15">
-                                    <input type="checkbox" autocomplete="off" value="TUE"> 화
-                                </label>
-                                <label class="btn btn-default wid15">
-                                    <input type="checkbox" autocomplete="off" value="WED"> 수
-                                </label>
-                                <label class="btn btn-default wid15">
-                                    <input type="checkbox" autocomplete="off" value="THU"> 목
-                                </label>
-                                <label class="btn btn-default wid15">
-                                    <input type="checkbox" autocomplete="off" value="FRI"> 금
-                                </label>
-                                <label class="btn btn-default wid15">
-                                    <input type="checkbox" autocomplete="off" value="SAT"> 토
-                                </label>
-                                <label class="btn btn-default wid15">
-                                    <input type="checkbox" autocomplete="off" value="SUN"> 일
-                                </label>
-                            </div>
+                    <label for="chk_off" id="lab_off_day" >휴무일</label>
+                    <div class="mar-bot-10 form-group" id="chk_off">
+                        <div class="btn-group" data-toggle="buttons" id="chk_off_week">
+                            <label class="btn btn-default wid25">
+                                <input type="checkbox" autocomplete="off" value="1"> 첫째주
+                            </label>
+                            <label class="btn btn-default wid25">
+                                <input type="checkbox" autocomplete="off" value="2"> 둘째주
+                            </label>
+                            <label class="btn btn-default wid25">
+                                <input type="checkbox" autocomplete="off" value="3"> 셋째주
+                            </label>
+                            <label class="btn btn-default wid25">
+                                <input type="checkbox" autocomplete="off" value="4"> 넷째주
+                            </label>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="ipt_sales_time" id="lab_sales_time" class="col-md-3 pad-0">영업시간</label>
-                        <div class="col-md-9 mar-bot-10" id="ipt_sales_time">
-                            <div class="col-md-5">
-                                <div id="ipt_sales_time_from" class="form-control"></div>
-                            </div>
-                            <div class="col-md-2 text-center"><span>~</span></div>
-                            <div class="col-md-5">
-                                <div id="ipt_sales_time_to" class="form-control col-md-5"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="ipt_break_time" id="lab_break_time" class="col-md-3 pad-0">Break Time</label>
-                        <div class="col-md-9 mar-bot-10" id="ipt_break_time">
-                            <div class="col-md-5">
-                                <div id="ipt_break_time_from" class="form-control"></div>
-                            </div>
-                            <div class="col-md-2 text-center"><span>~</span></div>
-                            <div class="col-md-5">
-                                <div id="ipt_break_time_to" class="form-control col-md-5"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="sel_type" id="lab_type" class="col-md-2 pad-0">음식 유형</label>
-                        <div class="col-md-4" id="sel_type_div">
-                            <div id="sel_type"></div>
-                        </div>
-                        <label for="sel_sub_type" id="lab_sub_type" class="col-md-2 pad-0">대표 나라</label>
-                        <div class="col-md-4" id="sel_sub_type_div">
-                            <div id="sel_sub_type"></div>
+                        <div class="btn-group" data-toggle="buttons" id="chk_off_day">
+                            <label class="btn btn-default wid15">
+                                <input type="checkbox" autocomplete="off" value="MON"> 월
+                            </label>
+                            <label class="btn btn-default wid15">
+                                <input type="checkbox" autocomplete="off" value="TUE"> 화
+                            </label>
+                            <label class="btn btn-default wid15">
+                                <input type="checkbox" autocomplete="off" value="WED"> 수
+                            </label>
+                            <label class="btn btn-default wid15">
+                                <input type="checkbox" autocomplete="off" value="THU"> 목
+                            </label>
+                            <label class="btn btn-default wid15">
+                                <input type="checkbox" autocomplete="off" value="FRI"> 금
+                            </label>
+                            <label class="btn btn-default wid15">
+                                <input type="checkbox" autocomplete="off" value="SAT"> 토
+                            </label>
+                            <label class="btn btn-default wid15">
+                                <input type="checkbox" autocomplete="off" value="SUN"> 일
+                            </label>
                         </div>
                     </div>
                 </div>
-            </div>
+                <label for="" id="lab_sales_time">영업시간</label>
+                <div class="form-inline form-group">
+                    <div class="form-group" style="width: 50%;">
+                        <label for="ipt_sales_time_from" id="lab_sales_time_from" style="width: 18%;">FROM</label>
+                        <div id="ipt_sales_time_from" class="form-control"></div>
+                    </div>
+                    <div class="form-group" style="width: 49%;">
+                        <label for="ipt_sales_time_to" class="lab_sales_time_to text-center" style="width: 18%;">TO</label>
+                        <div id="ipt_sales_time_to" class="form-control"></div>
+                    </div>
+                </div>
+                <label for="" id="lab_break_time">Break Time</label>
+                <div class="form-inline form-group">
+                    <div class="form-group" style="width: 50%;">
+                        <label for="ipt_break_time_from" id="lab_break_time_from" style="width: 18%;">FROM</label>
+                        <div id="ipt_break_time_from" class="form-control"></div>
+                    </div>
+                    <div class="form-group" style="width: 49%;">
+                        <label for="ipt_break_time_to" class="lab_break_time text-center" style="width: 18%;">TO</label>
+                        <div id="ipt_break_time_to" class="form-control"></div>
+                    </div>
+                </div>
+                <div class="form-inline form-group">
+                    <div class="form-group" style="width: 50%;">
+                        <label for="sel_type" id="lab_type" style="width: 25%;" >음식유형</label>
+                        <div id="sel_type" style="display: inline-block; vertical-align: middle;"></div>
+                    </div>
+                    <div class="form-group" style="width: 49%;">
+                        <label for="sel_sub_type" id="lab_sub_type" style="width: 25%;">대표나라</label>
+                        <div id="sel_sub_type" style="display: inline-block; vertical-align: middle;"></div>
+                    </div>
+                </div>
+            </form>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -157,6 +148,7 @@ var MODAL = {
         $("#sel_sub_type").jqxDropDownList({ source: subTypeSource, displayMember: "KO_DESC", valueMember: "TYPE"});
     },
     modalEventBind: function() {
+        // 상호명 쓰고 엔터 쳤을때 검색
         $("#ipt_name").keypress(function(e) {
             if(e.which == 13) {
                 var ps = new daum.maps.services.Places();
@@ -164,6 +156,7 @@ var MODAL = {
             }
         });
 
+        // 상호명에서 포커스아웃되었을때 리스트 없애기
         $("#ipt_name").focusout(function() {
             var thisVal = $(this).val();
             if(thisVal == "" || thisVal == null) {
@@ -172,7 +165,8 @@ var MODAL = {
             }
         });
 
-        $("#btn_plus").click(function() {
+        // 상세 버튼 클릭시 show and hide div
+        /* $("#btn_plus").click(function() {
             if($(this).children("i").hasClass("fa-plus-square")) {
                 $(this).children("i").removeClass("fa-plus-square").addClass("fa-minus-square");
                 $("#div_detail").show();
@@ -180,8 +174,9 @@ var MODAL = {
                 $(this).children("i").removeClass("fa-minus-square").addClass("fa-plus-square");
                 $("#div_detail").hide();
             }
-        });
+        }); */
 
+        // 저장
         $("#btn_save").click(function() {
             var data = {
                 "NAME" : $("#ipt_name").val(),
@@ -200,21 +195,56 @@ var MODAL = {
             });
         });
     },
+    formReset: function() {
+        $("#ipt_name").val("");
+        $("#p_addr").text("");
+        $("#p_tel").text("");
+        $("#ipt_tel").val("");
+
+        var tag = $(".tag.added");
+        for(var i = 0; i < tag.length; i++) {
+            $(tag[i]).remove();
+        }
+        $(".new-tag-input").val("");
+
+        $("#ipt_memo").val("");
+
+        var offWeek = $("#chk_off_week").children();
+        for(var i = 0; i < offWeek.length; i++) {
+            $(offWeek[i]).removeClass("active");
+        }
+
+        var offDay = $("#chk_off_day").children();
+        for(var i = 0; i < offDay.length; i++) {
+            $(offDay[i]).removeClass("active");
+        }
+
+        var dateTimeEle = ["#ipt_sales_time_from", "#ipt_sales_time_to", "#ipt_break_time_from", "#ipt_break_time_to"];
+        for(var i in dateTimeEle) {
+            clearDateTime(dateTimeEle[i]);
+        }
+        clearDropDown("#sel_type");
+        clearDropDown("#sel_sub_type");
+    }
 }
 
 // 키워드 검색 완료 시 호출되는 콜백함수 입니다
 function placesSearchCB (data, status, pagination) {
     MODAL.view_list.empty();
     if (status === daum.maps.services.Status.OK) {
+        var index = 1;
         for(var i in data) {
-            var list = '<li role="presentation" class="menu_item">'
-                list += '<a role="menuitem" tabindex="-1">'
-                list += ((i*1)+1) + " / " + data[i].place_name + " / " + data[i].road_address_name
-                list += '</a>';
-                list += '<span hidden="true">' + JSON.stringify(data[i]) + '</span>'
-                list += '</li>';
+            if(data[i].category_group_code == "FD6") {
+                var list = '<li role="presentation" class="menu_item">'
+                    list += '<a role="menuitem" tabindex="-1">'
+                    list += "( " + index + " ) " + data[i].place_name + " / " + data[i].road_address_name
+                    list += '</a>';
+                    list += '<span hidden="true">' + JSON.stringify(data[i]) + '</span>'
+                    list += '</li>';
 
-            MODAL.view_list.append(list);
+                MODAL.view_list.append(list);
+                index++;
+            }
         }
 
         MODAL.view_list.css("display", "block");
@@ -244,7 +274,7 @@ function creatDateTime(element) {
         formatString: "t", 
         showTimeButton: true, 
         showCalendarButton: false, 
-        width: '100%', 
+        width: '80%', 
         height: '32px',
         animationType: 'slide',
         theme: 'material-purple',
@@ -252,14 +282,25 @@ function creatDateTime(element) {
     });
 }
 
+function clearDateTime(element) {
+    var time = new Date();
+    time.setHours(0);
+    time.setMinutes(0);
+    $(element).jqxDateTimeInput("setDate", time); 
+}
+
 function creatDropDown(element) {
     $(element).jqxDropDownList({
-        width: '100%', 
+        width: '70%', 
         height: '36px',
         theme: 'material-purple',
         dropDownVerticalAlignment: 'top',
         autoDropDownHeight: true
     });
+}
+
+function clearDropDown(element) {
+    $(element).jqxDropDownList('clear');
 }
 
 function getSubTypeList() {
@@ -273,4 +314,5 @@ function getSubTypeList() {
         }
     });
 }
+
 </script>

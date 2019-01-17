@@ -20,7 +20,7 @@ def list():
     
     matList = data['hits']['hits']
 
-    return data
+    return matList
 
 def searchById(search_id):
     # print(field)
@@ -85,22 +85,22 @@ def es_update(lists):
         updata = es_client.update(
             index = 'matzip',
             doc_type = 'doc',
-            id = one['_id'],
+            id = int(one['_source']['ID']),
             body = {
                 'doc': {
                     'ID': int(one['_source']['ID']), 
-                    'TEL': one['_source']['TEL'], 
-                    'DETAIL_ADDR': one['_source']['DETAIL_ADDR'], 
+                    'NAME': one['_source']['NAME'], 
                     'RN_ADDR': one['_source']['RN_ADDR'], 
+                    'LB_ADDR': one['_source']['LB_ADDR'], 
+                    'DETAIL_ADDR': one['_source']['DETAIL_ADDR'], 
+                    'TEL': one['_source']['TEL'], 
+                    'OFF_DAY': ['SUN', 'MON(2,4)'], 
                     'PARKING': one['_source']['PARKING'],
                     'DESC': one['_source']['DESC'], 
-                    'NAME': one['_source']['NAME'], 
                     'BREAK': one['_source']['BREAK'], 
                     'TYPE': one['_source']['TYPE'], 
                     'FROM-TO': one['_source']['FROM-TO'], 
                     'SUB_TYPE': one['_source']['SUB_TYPE'], 
-                    'LB_ADDR': one['_source']['LB_ADDR'], 
-                    'OFF_DAY': ['SUN', 'MON(2,4)'], 
                     'TRY': one['_source']['TRY'], 
                     'lng': one['_source']['lng'], 
                     'lat': one['_source']['lat'],
@@ -122,14 +122,14 @@ def es_insert():
                 'LB_ADDR': '목동 405-148', 
                 'DETAIL_ADDR': None, 
                 'TEL': '02-2643-3100', 
-                'PARKING': 'TRUE',
                 'OFF_DAY': ['holiday'], 
                 'FROM-TO': '06:00 ~ 23:00',
                 'BREAK': None,
+                'PARKING': 'TRUE',
                 'TYPE': 'M',
                 'SUB_TYPE': 'K',
-                'TRY': 'FALSE',
                 'DESC': '목동 SBS 피디님 추천',
+                'TRY': 'FALSE',
                 'lat': latLng[0],
                 'lng': latLng[1]
             }
@@ -178,7 +178,8 @@ def es_last_index():
 
 def bulk_to_json_file() :
     es_client = elasticsearch.Elasticsearch("http://127.0.0.1:9200")
-    MyFile= open("C:\\Users\\Hanui\\Programing\\elasticsearch-6.4.3\\sub_type.json", 'r', encoding='UTF8').read()
+    
+    MyFile= open("C:\\Users\\gksml\\Programing\\git\BebeeMaps\\mapsview\\static\\json\sub_type_db.json", 'r', encoding='UTF8').read()
     ClearData = MyFile.splitlines(True)
     i=0
     json_str=""
@@ -191,10 +192,18 @@ def bulk_to_json_file() :
             docs[i]=json_str+"}"
             json_str=""
             print(docs[i])
-            es_client.index(index='sub_type', doc_type='doc', id=i+1, body=docs[i])
+            es_client.index(index='subtype', doc_type='doc', id=i+1, body=docs[i])
             i=i+1
 
 if __name__ == '__main__':    # 프로그램의 시작점일 때만 아래 코드 실행
     # print(list())
-    es_insert()
-    # es_update(searchById("Us7RD2cBZ4ljROrfRJ0b"))
+    
+    # 데이터 추가 
+    # es_insert()
+    
+    # json파일 엘라스틱서치에 밀어 넣기
+    bulk_to_json_file()
+    
+    # 데이터 완전 새로 올린 후 위경도 및 태그 프로퍼티 추가
+    # es_update(get_coordinates_list(list()))
+    

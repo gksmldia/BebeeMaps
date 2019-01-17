@@ -1,0 +1,70 @@
+  {
+    "TYPE": "A",
+    "EN_DESC": "American",
+    "KO_DESC": "미국"
+  },
+  {
+    "TYPE": "B",
+    "EN_DESC": "British",
+    "KO_DESC": "영국"
+  },
+  {
+    "TYPE": "C",
+    "EN_DESC": "Chinese",
+    "KO_DESC": "중국"
+  },
+  {
+    "TYPE": "F",
+    "EN_DESC": "French",
+    "KO_DESC": "프랑스"
+  },
+  {
+    "TYPE": "FC",
+    "EN_DESC": "Fusion Cuisine",
+    "KO_DESC": "퓨전"
+  },
+  {
+    "TYPE": "G",
+    "EN_DESC": "German",
+    "KO_DESC": "독일"
+  },
+  {
+    "TYPE": "I",
+    "EN_DESC": "Indian",
+    "KO_DESC": "인도"
+  },
+  {
+    "TYPE": "J",
+    "EN_DESC": "Japanese",
+    "KO_DESC": "일본"
+  },
+  {
+    "TYPE": "K",
+    "EN_DESC": "Korean",
+    "KO_DESC": "한국"
+  },
+  {
+    "TYPE": "M",
+    "EN_DESC": "Mexican",
+    "KO_DESC": "멕시코"
+  },
+  {
+    "TYPE": "R",
+    "EN_DESC": "Russian",
+    "KO_DESC": "러시아"
+  },
+  {
+    "TYPE": "S",
+    "EN_DESC": "Spainish",
+    "KO_DESC": "스페인"
+  },
+  {
+    "TYPE": "T",
+    "EN_DESC": "Turkish",
+    "KO_DESC": "터키"
+  },
+  {
+    "TYPE": "TH",
+    "EN_DESC": "Thailand",
+    "KO_DESC": "태국"
+  },

@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="col-md-8 col-sm-7 col-xs-12 mar-top-10">
+    <div id = "Progress_Loading" style="display: none">
+        {% load static %}
+        <img src="{% static 'img/progress.gif' %}"/>
+    </div>
+    <div class="col-md-8 col-sm-7 col-xs-12">
         <div class="row">
             <div class="dropdown col-md-3 col-sm-3 col-xs-5 pad-right-0">
                 <select class="form-control col-md-12" id="field">
@@ -11,8 +15,8 @@
             </div>
             <div class="input-group col-md-9 col-sm-9 col-xs-7 pad-right-15">
                 <input id="query_ipt" type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon2">
-                <span class="input-group-addon" id="basic-addon2">
-                    <i class="fas fa-search" id="list_search"></i>
+                <span class="input-group-addon" id="list_search">
+                    <i class="fas fa-search"></i>
                 </span>
             </div>
         </div>
@@ -22,12 +26,12 @@
             </div>
         </div>
         <div class="row mar-top-10">
-            <div class="col-md-5">
-                <button type="button" class="btn btn-bebeemap wid100" data-toggle="modal" data-target="#regist_modal">
+            <div class="col-md-6">
+                <button type="button" class="btn btn-bebeemap wid100" data-toggle="modal" data-target="#regist_modal" data-backdrop="static" data-keyboard="false">
                     <span id="pls_regi">플레이스 등록</span>
                 </button>
             </div>
-            <div class="dropdown col-md-5">
+            <div class="dropdown col-md-6">
                 <select class="form-control col-md-12" id="quration">
                     <option value="0">추천보기</option>
                     <option value="1">맛집 이상형 월드컵</option>
@@ -42,6 +46,23 @@
             
         </ul>
     </div>
+    <div class="modal fade bs-example-modal-sm" id="confirm_modal">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Confirm</h4>
+            </div>
+            <div class="modal-body">
+                <span>데이터가 없습니다. 등록하시겠습니까?</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancle</button>
+                <button type="button" class="btn btn-bebeemap" id="btn_ok">Ok</button>
+            </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
     {% include "mapviews/regist_modal.html" %}
     <script type="text/javascript">
         var APP = {
@@ -63,7 +84,6 @@
         $(document).ready(function(){
             MAP.mapInit();
             listEventBind();
-            // MODAL.modalInit();
             $.ajaxSetup({ 
                 beforeSend: function(xhr, settings) {
                     function getCookie(name) {
@@ -93,13 +113,12 @@
         var MAP = {
             mapInit: function() {
                 APP.mapList = JSON.parse("{{ list|escapejs }}");
-                console.log(APP.mapList)
                 var center = getCenter(APP.mapList);
 
                 var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
                 var options = { //지도를 생성할 때 필요한 기본 옵션
                     center: new daum.maps.LatLng(center.x, center.y), //지도의 중심좌표.
-                    level: 14 //지도의 레벨(확대, 축소 정도)
+                    level: 13 //지도의 레벨(확대, 축소 정도)
                 };
 
                 APP.map = new daum.maps.Map(container, options); //지도 생성 및 객체 리턴
@@ -162,7 +181,12 @@
                     APP.map.setCenter(new daum.maps.LatLng(center.x, center.y));
 
                     MAP.addMarker(relist);
-                    APP.map.setBounds(APP.bounds, 50);
+
+                    if(APP.query != null && APP.query != "") {
+                        APP.map.setBounds(APP.bounds);
+                    } else {
+                        APP.map.setLevel(14);
+                    }
                 } else {
                     APP.map.setCenter(new daum.maps.LatLng(36.682922, 127.95191690000001));
                     APP.map.setLevel(14);
@@ -190,7 +214,7 @@
                 };
             },
             makeCustomOveray: function(thisName) {
-                var content = '<span class="label label-info">'+thisName+'</span>';
+                var content = '<span class="dtl_label dtl_label_info">'+thisName+'</span>';
                 var position = null;
                 for(var i in APP.mapList) {
                     if(APP.mapList[i].NAME.trim() == thisName) {
@@ -218,6 +242,10 @@
                     success:function(result){
                         MAP.redrawMap(result);
                         INFO_D.add_info_detail(result);
+
+                        if(result.length == 0) {
+                            $("#confirm_modal").modal('show');
+                        }
                     },
                     done: function(result) {
                     }
@@ -254,8 +282,17 @@
                         card += '<input type="hidden" class="card__lng" value='+list[i].lng+'>';
                         card += '<div class="card__image card__image--fence"></div>';
                         card += '<div class="card__content">';
-                        card += '<div class="card__title">' + ((i*1)+1) + ". " + list[i].NAME + '</div>';
+                        card += '<div class="card__title">' + ((i*1)+1) + ". " + list[i].NAME;
+                        card += '<div class="card_span_div">';
+                        card += '<span class="card_i_span card_open">';
+                        //card += '<a href="#" onclick="cardOpen(' + list[i].ID + ');"><i class="fas fa-door-open"></i>' + '</a></span>';
+                        card += '<a href="map/' + list[i].ID + '/" ><i class="fas fa-door-open"></i>' + '</a></span>';
+                        card += '<span class="card_i_span pad-left-10 card_delete">';
+                        card += '<a href="#" onclick="cardDelete(' + Number(list[i].ID) + ');"><i class="fas fa-trash-alt"></i>' + '</a></span></div></div>';
                         card += '<p class="card__text">' + list[i].RN_ADDR + '</p>';
+                        if(list[i].TAG != null) {
+                            card += '<p class="card__text">' + list[i].TAG + '</p>';
+                        }
                         //card += '<button class="btn btn--block card__btn">Button</button>';
                         card += '</div>';
                         card += '</div>';
@@ -269,7 +306,7 @@
                 },
                 function() {
                     var name = $(this).children(".card__content").children(".card__title").text().split(".")[1].trim();
-                    $("span.label-info").filter(function(){
+                    $("span.dtl_label_info").filter(function(){
                         return $(this).text().trim() == name;
                     }).remove();
                 });
@@ -342,13 +379,21 @@
             });
 
             $('#regist_modal').on('shown.bs.modal', function () {
-                MODAL.modalInit();
+                var name = $("#query_ipt").val();
+                MODAL.modalInit(name);
             });
 
-            $('#regist_modal').on('hidden.bs.modal', function () {
+            $('#regist_modal').on('hide.bs.modal', function () {
                 MODAL.formReset();
+                setTimeout(function() {
+                    $("#Progress_Loading").css("display", "block");
+                    SEARCH.doSearch();
+                }, 2000);
+            });
+
+            $("#btn_ok").click(function() {
+                $("#regist_modal").modal('show');
             });
         }
     </script>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7e4adf0fdd68c765c5871e89dda5ba30&libraries=services"></script>
 {% endblock %}

@@ -1,3 +1,7 @@
+.mar-0 {
+    margin: 0;
+}
+
 .mar10 {
     margin: 10px;
 }
@@ -8,6 +12,10 @@
 
 .mar-bot-10 {
     margin-bottom: 10px;
+}
+
+.mar-left-10 {
+    margin-left: 10px;
 }
 
 .pad-right-0 {
@@ -30,6 +38,14 @@
     padding: 8px 0 0 0;
 }
 
+.pad-top-0 {
+    padding-top: 0 !important;
+}
+
+.pad-top-20 {
+    padding-top: 20px !important;
+}
+
 .pad-0 {
     padding: 0;
 }
@@ -44,4 +60,8 @@
 
 .wid15 {
     width: 14%;
+}
+
+.vertical_middle {
+    vertical-align: middle;
 }

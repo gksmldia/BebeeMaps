@@ -1,0 +1,253 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="row ">
+            <div id="detail_map"></div>
+        </div>
+        <div class="row">
+            <div id="recommend_card"></div>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <form action="/update_map/", method="POST" id="detail_box" class="form-horizontal">  
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="NAME" class="col-sm-3 control-label">NAME</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="NAME" value="{{info.NAME}}" disabled>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="RN_ADDR" class="col-sm-3 control-label">주소</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="RN_ADDR" value="{{info.RN_ADDR}}" disabled>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="TEL" class="col-sm-3 control-label pad-top-0">전화번호</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" id="TEL" value="{{info.TEL}}" disabled>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="TAG" class="col-sm-3 control-label pad-top-0">태그</label>
+                <div class="col-sm-9">
+                    {% for tag in info.TAG %}
+                    <span class="dtl_label dtl_label_info">{{tag}}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="DESC" class="col-sm-3 control-label">평가</label>
+                <div class="col-sm-9">
+                    <textarea class="form-control" id="DESC" rows="5" disabled>{{info.DESC}}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="OFF_DAY" class="col-sm-3 control-label pad-top-0">휴무일</label>
+                <div class="col-sm-9" id="OFF_DAY"></div>
+            </div>
+            <div class="form-group">
+                <label for="" class="col-sm-3 control-label">영업시간</label>
+                <div class="col-sm-9">
+                    <div class="form-group">
+                        <label for="SALES_FROM" class="col-sm-2 control-label">FROM</label>
+                        <div class="col-sm-10">
+                            <div id="SALES_FROM" class="form-control">{{info.SALES_FROM}}</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="SALES_TO" class="col-sm-2 control-label">TO</label>
+                        <div class="col-sm-10">
+                            <div id="SALES_TO" class="form-control">{{info.SALES_TO}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="BREAK" class="col-sm-3 control-label">Break Time</label>
+                <div class="col-sm-9" id="BREAK">
+                    {% if info.BREAK_FROM or info.BREAK_TO %}
+                    <div class="form-group">
+                        <label for="BREAK_FROM" class="col-sm-2 control-label">FROM</label>
+                        <div class="col-sm-10">
+                            <div id="BREAK_FROM" class="form-control">{{info.BREAK_FROM}}</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="BREAK_TO" class="col-sm-2 control-label">TO</label>
+                        <div class="col-sm-10">
+                            <div id="BREAK_TO" class="form-control">{{info.BREAK_TO}}</div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <input type="text" class="form-control" value="없음" disabled>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="TYPE" class="col-sm-4 control-label">음식유형</label>
+                <div class="col-sm-8" id="TYPE"></div>
+            </div>
+            <div class="form-group">
+                <label for="SUB_TYPE" class="col-sm-4 control-label">대표나라</label>
+                <div class="col-sm-8" id="SUB_TYPE"></div>
+            </div>
+            <div class="form-group">
+                <label for="PARKING" class="col-sm-4 control-label">주차가능여부</label>
+                <div class="col-sm-8">
+                    {% if info.PARKING is "TRUE" %}
+                    <input type="text" class="form-control" id="PARKING" value="가능" disabled>
+                    {% else %}
+                    <input type="text" class="form-control" id="PARKING" value="불가능" disabled>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="TRY" class="col-sm-4 control-label pad-top-0">가서 먹어본 적</label>
+                <div class="col-sm-8">
+                    {% if info.TRY is "TRUE" %}
+                    <input type="text" class="form-control" id="TRY" value="있음" disabled>
+                    {% else %}
+                    <input type="text" class="form-control" id="TRY" value="없음" disabled>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-bebeemap" value="수정" style="margin-left: 50%">
+            </div>
+        </form>  
+    </div>
+    <script type="text/javascript">
+        var DTL = {
+            info: null,
+        }
+        $(document).ready(function(){
+            DTL.info = JSON.parse("{{ info2|escapejs }}");
+            DTLMAP.mapInit();
+            DTLMAP.dropdownInit();
+            DTLMAP.setData();
+        });
+
+        var DTLMAP = {
+            mapInit: function(){
+                var position = new daum.maps.LatLng(DTL.info.lat, DTL.info.lng);
+                
+                var mapContainer = document.getElementById('detail_map'), // 지도를 표시할 div 
+                mapOption = { 
+                    center: position, // 지도의 중심좌표
+                    level: 4 // 지도의 확대 레벨
+                };
+
+                var map = new daum.maps.Map(mapContainer, mapOption);
+
+                var marker = new daum.maps.Marker({
+                    map: map,
+                    position: position
+                });
+
+                var content = '<span class="dtl_label dtl_label_info">';
+                    content += DTL.info.NAME;
+                    content += '</span>';
+
+                var customOverlay = new daum.maps.CustomOverlay({
+                    map: map,
+                    position: position,
+                    content: content,
+                    yAnchor: 5
+                });
+                //customOverlay.setMap(map);
+            },
+            dropdownInit: function() {
+                var typeSource = [
+                    {"KO_DESC": "식사", "TYPE": "M"}, 
+                    {"KO_DESC": "음주", "TYPE": "A"}, 
+                    {"KO_DESC": "디저트", "TYPE": "D"}
+                ];
+                creatDropDown("#TYPE");
+                $("#TYPE").jqxDropDownList({source: typeSource, displayMember: "KO_DESC", valueMember: "TYPE", disabled: true});
+
+                var subTypeSource = [];
+                $.ajax({
+                    url:'/api/sub_type_list/?q='+DTL.info.SUB_TYPE,
+                    dataType:'json',
+                    type:'GET',
+                    async: false,
+                    success:function(result){
+                        subTypeSource = result;
+                    }
+                });
+                creatDropDown("#SUB_TYPE");
+                $("#SUB_TYPE").jqxDropDownList({ source: subTypeSource, displayMember: "KO_DESC", valueMember: "TYPE", disabled: true});
+            },
+            setData: function(){
+                var off_str = "";
+                var off_day = "";
+                var off_week_list = [];
+                if(DTL.info.OFF_DAY != null && DTL.info.OFF_DAY.length != 0) {
+                    for(var i in DTL.info.OFF_DAY) {
+                        if(DTL.info.OFF_DAY[i].indexOf('(') != -1 && DTL.info.OFF_DAY[i].indexOf(')' != -1 )) {
+                            var temp_off = DTL.info.OFF_DAY[i].substr(0,DTL.info.OFF_DAY[i].length-1).split('(');
+                            console.log(off_str);
+                            off_week_list = temp_off[1].split(",");
+                            for(var j in off_week_list) {
+                                off_str += (returnWeekName(off_week_list[j]) + "주 ");
+                            }
+                            off_str += returnDayName(temp_off[0]);
+                        } else {
+                            off_str = returnDayName(DTL.info.OFF_DAY[i])
+                        }
+                        
+                        var off_day_contents = '<span class="dtl_label dtl_label_info">' + off_str + '</span>';
+                        $("#OFF_DAY").append(off_day_contents);
+                    }
+                } else {
+                    var off_day_contents = '<span class="dtl_label dtl_label_info">연중무휴</span>';
+                        $("#OFF_DAY").append(off_day_contents);
+                }
+
+                $("#TYPE").jqxDropDownList('selectItem', DTL.info.TYPE);
+                $("#SUB_TYPE").jqxDropDownList('selectItem', DTL.info.SUB_TYPE);
+            }
+        }
+
+        function returnDayName(day) {
+            var returnVal = "";
+            switch (day) {
+                case "MON" : returnVal = "월요일"; break;
+                case "TUE" : returnVal = "화요일"; break;
+                case "WED" : returnVal = "수요일"; break;
+                case "THU" : returnVal = "목요일"; break;
+                case "FRI" : returnVal = "금요일"; break;
+                case "SAT" : returnVal = "토요일"; break;
+                case "SUN" : returnVal = "일요일"; break;
+                default    : returnVal = "";      break;
+            }
+
+            return returnVal;
+        }
+
+        function returnWeekName(week) {
+            var returnVal = "";
+            switch (week) {
+                case "1" : returnVal = "첫번째";    break;
+                case "2" : returnVal = "두번째";    break;
+                case "3" : returnVal = "세번째";    break;
+                case "4" : returnVal = "네번째";    break;
+                case "5" : returnVal = "다섯번째";  break;
+                default  : returnVal = "";         break;
+            }
+
+            return returnVal;
+        }
+
+        function creatDropDown(element) {
+            $(element).jqxDropDownList({
+                height: '36px',
+                theme: 'material-purple',
+                dropDownVerticalAlignment: 'top',
+                autoDropDownHeight: true
+            });
+        }
+    </script>
+{% endblock %}

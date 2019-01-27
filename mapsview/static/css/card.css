@@ -126,5 +126,13 @@ img {
   flex: 1 1 auto;
   font-size: 0.875rem;
   line-height: 1.5;
-  margin-bottom: 1.25rem;
+  margin: 0;
+}
+
+.card_span_div {
+  float: right;
+}
+
+.card_i_span {
+  float: left;
 }

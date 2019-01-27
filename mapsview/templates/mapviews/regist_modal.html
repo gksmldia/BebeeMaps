@@ -1,16 +1,16 @@
 <div class="modal fade" id="regist_modal">
-    <div class="modal-dialog">
+    <div class="modal-dialog" style="top: 15%;">
       <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">Regist Place</h4>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" style="height: 350px;">
             <form id="regi_form">
-                <div class="form-group">
+                <div class="form-group" id="form-group1">
                     <label for="ipt_name" id="lab_name">상호명</label>
                     <div class="dropdown">
-                        <input type="text" class="form-control dropdown-toggle" id="ipt_name" placeholder="입력 후 엔터">
+                        <input type="text" class="form-control dropdown-toggle" id="ipt_name" placeholder="입력 후 엔터" data-trigger="manual" data-toggle="tooltip" data-placement=top title="해당 데이터가 존재하지 않습니다.">
                         <ul class="dropdown-menu" role="menu" id="view_list" style="width: 100%;"></ul>
                     </div>
                 </div>
@@ -37,8 +37,14 @@
                     <label for="ipt_memo" id="lab_memo">한줄평</label>
                     <textarea class="form-control" rows="3" id="ipt_memo"></textarea>
                 </div>
-                <div class="form-group">
-                    <label for="chk_off" id="lab_off_day" >휴무일</label>
+                <div class="form-inline form-group">
+                    <label for="chkbox_off" id="lab_off_day" >휴무일</label>
+                    <div class="checkbox mar-left-10">
+                        <label>
+                            <input type="checkbox" value="" id="chkbox_off" class="vertical_middle">
+                            연중무휴
+                        </label>
+                    </div>
                     <div class="mar-bot-10 form-group" id="chk_off">
                         <div class="btn-group" data-toggle="buttons" id="chk_off_week">
                             <label class="btn btn-default wid25">
@@ -90,8 +96,16 @@
                         <div id="ipt_sales_time_to" class="form-control"></div>
                     </div>
                 </div>
-                <label for="" id="lab_break_time">Break Time</label>
-                <div class="form-inline form-group">
+                <div class="form-inline form-group mar-0">
+                    <label for="chkbox_break" id="lab_break_time">Break Time</label>
+                    <div class="checkbox mar-left-10">
+                        <label>
+                            <input type="checkbox" value="" id="chkbox_break" class="vertical_middle">
+                            없음
+                        </label>
+                    </div>
+                </div>
+                <div class="form-inline form-group" id="div_break_time">
                     <div class="form-group" style="width: 50%;">
                         <label for="ipt_break_time_from" id="lab_break_time_from" style="width: 18%;">FROM</label>
                         <div id="ipt_break_time_from" class="form-control"></div>
@@ -111,6 +125,21 @@
                         <div id="sel_sub_type" style="display: inline-block; vertical-align: middle;"></div>
                     </div>
                 </div>
+                <div class="form-inline form-group mar-0">
+                    <label for="rdo_parking" id="lab_try">주차 가능 여부</label>
+                    <div class="checkbox mar-left-10">
+                        <label><input type="radio" name="rdo_parking" value="TRUE" />가능</label>
+                        <label><input type="radio" name="rdo_parking" value="FALSE" />불가능</label>
+                    </div>
+                </div>
+                <div class="form-inline form-group mar-0">
+                    <label for="chkbox_try" id="lab_try">가서 먹어본 적 있음</label>
+                    <div class="checkbox mar-left-10">
+                        <label>
+                            <input type="checkbox" value="" id="chkbox_try" class="vertical_middle" >
+                        </label>
+                    </div>
+                </div>
             </form>
         </div>
         <div class="modal-footer">
@@ -123,14 +152,26 @@
 {% include "mapviews/include/js.html" %}
 <script type="text/javascript">
 var MODAL = {
+    param_name: "",
     view_list : $("#view_list"),
     mat_data : null,
     sub_type_list : null,
-    modalInit: function() {
+    serch_zip : null,
+    name_ipt_tooltip: false,
+    modalInit: function(name) {
+        param_name = name;
         getSubTypeList();
+        MODAL.inputInit();
         MODAL.dateTimeInit();
         MODAL.modalEventBind();
         MODAL.dropdownInit();
+    },
+    inputInit: function() {
+        if(param_name != "") {
+            $("#ipt_name").val(param_name);
+            var ps = new daum.maps.services.Places();
+            ps.keywordSearch(param_name, placesSearchCB);
+        }
     },
     dateTimeInit: function() {
         var elements = ["#ipt_sales_time_from", "#ipt_sales_time_to", "#ipt_break_time_from", "#ipt_break_time_to"];
@@ -139,9 +180,13 @@ var MODAL = {
         }
     },
     dropdownInit: function() {
-        var typeSource = ["식사", "음주", "디저트"];
+        var typeSource = [
+            {"KO_DESC": "식사", "TYPE": "M"}, 
+            {"KO_DESC": "음주", "TYPE": "A"}, 
+            {"KO_DESC": "디저트", "TYPE": "D"}
+        ];
         creatDropDown("#sel_type");
-        $("#sel_type").jqxDropDownList({source: typeSource});
+        $("#sel_type").jqxDropDownList({source: typeSource, displayMember: "KO_DESC", valueMember: "TYPE"});
 
         var subTypeSource = MODAL.sub_type_list;
         creatDropDown("#sel_sub_type");
@@ -151,8 +196,12 @@ var MODAL = {
         // 상호명 쓰고 엔터 쳤을때 검색
         $("#ipt_name").keypress(function(e) {
             if(e.which == 13) {
-                var ps = new daum.maps.services.Places();
-                ps.keywordSearch($(this).val(), placesSearchCB);
+                if($(this).val() != null && $(this).val() != "") {
+                    var ps = new daum.maps.services.Places();
+                    ps.keywordSearch($(this).val(), placesSearchCB);
+                } else {
+                    alert("조회할 상호명을 입력 후 엔터");
+                }
             }
         });
 
@@ -162,37 +211,55 @@ var MODAL = {
             if(thisVal == "" || thisVal == null) {
                 MODAL.view_list.empty();
                 MODAL.view_list.css("display", "none");
-            }
-        });
+            } 
 
-        // 상세 버튼 클릭시 show and hide div
-        /* $("#btn_plus").click(function() {
-            if($(this).children("i").hasClass("fa-plus-square")) {
-                $(this).children("i").removeClass("fa-plus-square").addClass("fa-minus-square");
-                $("#div_detail").show();
-            } else {
-                $(this).children("i").removeClass("fa-minus-square").addClass("fa-plus-square");
-                $("#div_detail").hide();
-            }
-        }); */
+            if($("#view_list").css("display") == "none" && thisVal != "") {
+                var ps = new daum.maps.services.Places();
+                ps.keywordSearch(thisVal, placesSearchCB);
+            } 
+        });
 
         // 저장
         $("#btn_save").click(function() {
-            var data = {
-                "NAME" : $("#ipt_name").val(),
-                "RN_ADDR" : $("#p_addr").text(),
-                "csrfmiddlewaretoken": APP.csrftoken
-            }
+            
             $.ajax({
-                url:'/api/regist_zip/',
+                url:'/api/enroll_map/',
                 headers: { 'Content-Type':'text/plain; charset=utf-8' },
                 dataType:'text',
                 type:'POST',
-                data: JSON.stringify(data),
+                data: JSON.stringify(MODAL.getModalSaveData()),
                 success:function(result){
-                    console.log(result)
+                    if(result) {
+                        $("#regist_modal").modal('hide');
+                    }
                 }
             });
+        });
+
+        $('#ipt_name').on('show.bs.tooltip', function () {
+            MODAL.name_ipt_tooltip = true;
+        });
+
+        $('#ipt_name').on('hide.bs.tooltip', function () {
+            MODAL.name_ipt_tooltip = false;
+        });
+
+        $('#chkbox_off').change(function() {
+            if($(this).is(":checked")) {
+                $("#chk_off").hide();
+            } else {
+                $("#chk_off").show();
+            }
+                
+        });
+
+        $('#chkbox_break').change(function() {
+            if($(this).is(":checked")) {
+                $("#div_break_time").hide();
+            } else {
+                $("#div_break_time").show();
+            }
+                
         });
     },
     formReset: function() {
@@ -225,29 +292,138 @@ var MODAL = {
         }
         clearDropDown("#sel_type");
         clearDropDown("#sel_sub_type");
+
+        if($("#view_list").css("display") != "none") {
+            $("#view_list").css("display", "none")
+        }
+    },
+    getModalSaveData: function() {
+        var returnObj = new Object();
+        returnObj.NAME = $("#ipt_name").val();
+        returnObj.RN_ADDR = $("#p_addr").text();
+
+        var lbAddrArr = MODAL.mat_data.address_name.split(" ");
+        lbAddrArr.splice(0, 2);
+        returnObj.LB_ADDR = lbAddrArr.join(" ");
+
+        returnObj.TEL = $("#p_tel").text();
+
+        returnObj.lat = MODAL.mat_data.y;
+        returnObj.lng = MODAL.mat_data.x;
+        
+        var tagAdded = $(".tag.added");
+        returnObj.TAG = new Array();
+        for(var i in tagAdded) {
+            if(!isNaN(i*1)) {
+                returnObj.TAG.push($(tagAdded[i]).text());
+            }
+        }
+        
+        returnObj.DESC = $("#ipt_memo").val();
+
+        if(!$("#chkbox_off").is(":checked")) {
+            var offWeekList = $("#chk_off_week").children();
+            var offWeeks = [];
+            for(var i in offWeekList) {
+                if(!isNaN(i*1) && $(offWeekList[i]).hasClass("active")) {
+                    offWeeks.push($($(offWeekList[i]).children()[0]).val());
+                }
+            }
+
+            var offDayList = $("#chk_off_day").children();
+            var offDays = [];
+            for(var i in offDayList) {
+                if(!isNaN(i*1) && $(offDayList[i]).hasClass("active")) {
+                    offDays.push($($(offDayList[i]).children()[0]).val());
+                }
+            }
+
+            if(offWeeks.length != 0) {
+                for(var i in offDays) {
+                    offDays[i] = offDays[i] + "(" + offWeeks.join(",") + ")";
+                }
+            }
+
+            returnObj.OFF_DAY = offDays;
+        }
+        returnObj.SALES_FROM = $("#ipt_sales_time_from").val();
+        returnObj.SALES_TO = $("#ipt_sales_time_to").val();
+        
+        if(!$("#chkbox_break").is(":checked")) {
+            returnObj.BREAK_FROM = $("#ipt_break_time_from").val();
+            returnObj.BREAK_TO = $("#ipt_break_time_to").val();
+        }
+
+        returnObj.TYPE = $("#sel_type").val();
+        returnObj.SUB_TYPE = $("#sel_sub_type").val();
+        returnObj.TRY = $("#chkbox_try").is(":checked").toString().toUpperCase();
+        returnObj.PARKING = $(":input:radio[name=rdo_parking]:checked").val();
+        // returnObj.csrfmiddlewaretoken = MODAL.csrftoken
+
+        return returnObj;
+
+    },
+    modalValidation: function() {
+        if($("#ipt_name").val() == null || $("#ipt_name").val() == "") {
+            alert("상호명을 입력하세요.");
+            return false;
+        }
+
+        if($("#p_addr").text() == "" && $("#p_tel").text() == "") {
+            alert("상호명을 입력 후 선택해주세요.");
+            return false;
+        }
+    },
+    modalSave: function() {
     }
 }
 
-// 키워드 검색 완료 시 호출되는 콜백함수 입니다
+// 키워드 검색 완료 시 호출되는 콜백함수
 function placesSearchCB (data, status, pagination) {
     MODAL.view_list.empty();
     if (status === daum.maps.services.Status.OK) {
-        var index = 1;
+        if(MODAL.name_ipt_tooltip) {
+            $("#ipt_name").tooltip('hide');
+        }
+
+        if($("#form-group1").hasClass("has-error")) {
+            $("#form-group1").removeClass("has-error");
+        }
+        
+        MODAL.serch_zip = [];
         for(var i in data) {
-            if(data[i].category_group_code == "FD6") {
+            var cate = data[i].category_name.split("> ");
+            if(data[i].category_group_code == "FD6" || cate[cate.length-1] == "식품판매") {
+                MODAL.serch_zip.push(data[i]);
+            }
+        }
+        
+        if(MODAL.serch_zip.length != 0 && data.length != 0 ) {
+            for(var i in MODAL.serch_zip) {
                 var list = '<li role="presentation" class="menu_item">'
                     list += '<a role="menuitem" tabindex="-1">'
-                    list += "( " + index + " ) " + data[i].place_name + " / " + data[i].road_address_name
+                    list += "( " + (Number(i)+1) + " ) " + MODAL.serch_zip[i].place_name + " / " + MODAL.serch_zip[i].road_address_name
                     list += '</a>';
-                    list += '<span hidden="true">' + JSON.stringify(data[i]) + '</span>'
+                    list += '<span hidden="true">' + JSON.stringify(MODAL.serch_zip[i]) + '</span>'
                     list += '</li>';
 
                 MODAL.view_list.append(list);
-                index++;
+                MODAL.view_list.css("display", "block");
+            }
+        } else {
+            if(!$("#form-group1").hasClass("has-error")) {
+                $("#form-group1").addClass("has-error");
+            }
+
+            if(!MODAL.name_ipt_tooltip) {
+                $("#ipt_name").tooltip('show');
+            }
+
+            if(MODAL.view_list.css("display") == "block") {
+                MODAL.view_list.css("display", "none");
             }
         }
 
-        MODAL.view_list.css("display", "block");
 
         $(".menu_item").click(function() {
             MODAL.mat_data = JSON.parse($(this).children("span").text());
@@ -265,13 +441,25 @@ function placesSearchCB (data, status, pagination) {
             MODAL.view_list.empty();
             MODAL.view_list.css("display", "none");
         });
+    } else {
+        if(!$("#form-group1").hasClass("has-error")) {
+            $("#form-group1").addClass("has-error");
+        }
+
+        if(!MODAL.name_ipt_tooltip) {
+            $("#ipt_name").tooltip('show');
+        }
+
+        if(MODAL.view_list.css("display") == "block") {
+            MODAL.view_list.css("display", "none");
+        }
     }
 }
 
 function creatDateTime(element) {
     $(element).jqxDateTimeInput({
         dropDownVerticalAlignment: "top",
-        formatString: "t", 
+        formatString: "HH:mm", 
         showTimeButton: true, 
         showCalendarButton: false, 
         width: '80%', 

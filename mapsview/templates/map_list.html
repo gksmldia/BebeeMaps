@@ -1,10 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div id = "Progress_Loading" style="display: none">
-        {% load static %}
-        <img src="{% static 'img/progress.gif' %}"/>
-    </div>
-    <div class="col-md-8 col-sm-7 col-xs-12">
+    <div class="col-md-8 col-sm-7 col-xs-12" style="height: auto;">
         <div class="row">
             <div class="dropdown col-md-3 col-sm-3 col-xs-5 pad-right-0">
                 <select class="form-control col-md-12" id="field">
@@ -64,6 +60,7 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
     {% include "mapviews/regist_modal.html" %}
+    {% include "mapviews/include/js.html" %}
     <script type="text/javascript">
         var APP = {
             map: null,
@@ -311,9 +308,9 @@
                     }).remove();
                 });
 
-                $(".card").click(function() {
-                    var lat = $(this).children(".card__lat").val();
-                    var lng = $(this).children(".card__lng").val();
+                $(".card .card__image").click(function() {
+                    var lat = $(this).parent().children(".card__lat").val();
+                    var lng = $(this).parent().children(".card__lng").val();
                     var center = new daum.maps.LatLng(lat, lng);
 
                     var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스

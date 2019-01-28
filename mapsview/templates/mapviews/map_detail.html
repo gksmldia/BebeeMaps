@@ -8,7 +8,7 @@
             <div id="recommend_card"></div>
         </div>
     </div>
-    <div class="col-md-6 col-sm-6 col-xs-12">
+    <div class="col-md-6 col-sm-6 col-xs-12" style="height: 100%; overflow: auto;">
         <form action="/update_map/", method="POST" id="detail_box" class="form-horizontal">  
             {% csrf_token %}
             <div class="form-group">
@@ -114,9 +114,14 @@
                 </div>
             </div>
             <div class="form-group">
-                <input type="submit" class="btn btn-bebeemap" value="수정" style="margin-left: 50%">
+                <!-- <input type="submit" class="btn btn-bebeemap" value="수정" style="margin-left: 50%"> -->
+                <button type="button" class="btn btn-bebeemap wid100" data-toggle="modal" data-target="#regist_modal" data-backdrop="static" data-keyboard="false">
+                    수정
+                </button>
             </div>
         </form>  
+        {% include "mapviews/regist_modal.html" %}
+        {% include "mapviews/include/js.html" %}
     </div>
     <script type="text/javascript">
         var DTL = {
@@ -127,6 +132,7 @@
             DTLMAP.mapInit();
             DTLMAP.dropdownInit();
             DTLMAP.setData();
+            DTLMAP.dtlEventBind();
         });
 
         var DTLMAP = {
@@ -188,7 +194,6 @@
                     for(var i in DTL.info.OFF_DAY) {
                         if(DTL.info.OFF_DAY[i].indexOf('(') != -1 && DTL.info.OFF_DAY[i].indexOf(')' != -1 )) {
                             var temp_off = DTL.info.OFF_DAY[i].substr(0,DTL.info.OFF_DAY[i].length-1).split('(');
-                            console.log(off_str);
                             off_week_list = temp_off[1].split(",");
                             for(var j in off_week_list) {
                                 off_str += (returnWeekName(off_week_list[j]) + "주 ");
@@ -203,11 +208,20 @@
                     }
                 } else {
                     var off_day_contents = '<span class="dtl_label dtl_label_info">연중무휴</span>';
-                        $("#OFF_DAY").append(off_day_contents);
+                    $("#OFF_DAY").append(off_day_contents);
                 }
 
                 $("#TYPE").jqxDropDownList('selectItem', DTL.info.TYPE);
                 $("#SUB_TYPE").jqxDropDownList('selectItem', DTL.info.SUB_TYPE);
+            }, 
+            dtlEventBind: function() {
+                $('#regist_modal').on('shown.bs.modal', function () {
+                    MODAL.modalInit(name);
+                });
+
+                $('#regist_modal').on('hide.bs.modal', function () {
+                    MODAL.formReset();
+                });
             }
         }
 

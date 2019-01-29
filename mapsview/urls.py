@@ -6,4 +6,5 @@ urlpatterns = [
     url(r'^map/(\d+)/$', views.map_detail, name='map_detail'),
     url(r'^api/sub_type_list/$', views.sub_type_list, name='sub_type_list'),
     url(r'^api/enroll_map/$', views.enroll_map, name='enroll_map'),
+    url(r'^api/modify_map/$', views.modify_map, name='modify_map'),
 ]

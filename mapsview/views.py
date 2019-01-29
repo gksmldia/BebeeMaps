@@ -41,11 +41,18 @@ def enroll_map(request):
     if request.method == 'POST':
         body = json.loads(request.body)
         result = m.es_request_insert(body)
-        print(result)
         return HttpResponse(json.dumps(result), content_type='application/json; charset=utf-8')
 
 def map_detail(request, id):
     
     result = m.es_search_by_id(id)
     return render(request, 'mapviews/map_detail.html', {'info': result, 'info2': json.dumps(result)})
+
+@csrf_exempt
+@require_POST
+def modify_map(request):
+    if request.method == 'POST':
+        body = json.loads(request.body)
+        result = m.es_update(body)
+        return HttpResponse(json.dumps(result), content_type='application/json; charset=utf-8')
     

@@ -178,3 +178,38 @@ def es_search_by_id(search_id):
                         id = search_id)
 
     return data['_source']
+
+def es_update(matzip):
+    es_client = elasticsearch.Elasticsearch("http://127.0.0.1:9200")
+    
+    up_data = es_client.update(
+        index = 'matzip',
+        doc_type = 'doc',
+        id = int(matzip.get('ID')),
+        body = {
+            'doc': {
+                'ID': int(matzip.get('ID')), 
+                'NAME': matzip.get('NAME'), 
+                'RN_ADDR': matzip.get('RN_ADDR'), 
+                'LB_ADDR': matzip.get('LB_ADDR'), 
+                'DETAIL_ADDR': matzip.get('DETAIL_ADDR'),
+                'TEL': matzip.get('TEL'), 
+                'OFF_DAY': matzip.get('OFF_DAY'), 
+                'PARKING': matzip.get('PARKING'),
+                'DESC': matzip.get('DESC'), 
+                'TYPE': matzip.get('TYPE'), 
+                'BREAK_FROM': matzip.get('BREAK_FROM'), 
+                'BREAK_TO': matzip.get('BREAK_TO'), 
+                'SALES_FROM': matzip.get('SALES_FROM'), 
+                'SALES_TO': matzip.get('SALES_TO'), 
+                'SUB_TYPE': matzip.get('SUB_TYPE'), 
+                'TRY': matzip.get('TRY'),
+                'TAG': matzip.get('TAG'),
+                'lat': matzip.get('lat'),
+                'lng': matzip.get('lng')
+            }
+        }
+    )
+    print(up_data)
+
+    return up_data

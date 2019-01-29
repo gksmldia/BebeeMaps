@@ -214,25 +214,27 @@ def elastic_to_csv() :
                     "match_all" : {
                     }
                 },
-                'size': 100
+                'size': 100,
+                'sort': {'ID': 'asc'}
             }
         )
 
     csv_columns = [
-        "ID","NAME","RN_ADDR",
-        "LB_ADDR","DETAIL_ADDR",
+        "ID", "NAME",
+        "RN_ADDR", "LB_ADDR","DETAIL_ADDR",
         "TEL","OFF_DAY",
         "SALES_FROM","SALES_TO",
         "BREAK_FROM","BREAK_TO",
-        "PARKING", 
+        "PARKING", "DESC", 
         "TYPE", "SUB_TYPE", 
-        "DESC", "TRY", 
-        'path', 'tag', '@version', 'message', 'lng', 'host', 'lat', '@timestamp'
+        "TRY", "TAG",
+        'lng', 'lat',
+        'path', '@version', 'message', 'host', '@timestamp'
     ]
     
     csv_file = '/Users/gksml/Programing/git/BebeeMaps/mapsview/static/csv/log_matzip_'+str(datetime.today().strftime("%Y%m%d_%H%M%S"))+'.csv'
 
-    with open(csv_file, 'w', newline='') as csvfile:
+    with open(csv_file, 'w', newline='', encoding='UTF8') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=csv_columns)
         writer.writeheader()
         for document in [x['_source'] for x in data['hits']['hits']]:
@@ -248,7 +250,7 @@ if __name__ == '__main__':    # 프로그램의 시작점일 때만 아래 코�
     # bulk_to_json_file()
     
     # 데이터 완전 새로 올린 후 위경도 및 태그 프로퍼티 추가
-    es_update(list())
+    # es_update(list())
 
-    # elastic_to_csv()
+    elastic_to_csv()
     

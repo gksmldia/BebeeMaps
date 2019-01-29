@@ -14,22 +14,18 @@
                 <div class="form-group" id="form-group1">
                     <label for="ipt_name" id="lab_name">상호명</label>
                     <div class="dropdown">
-                        {% if info.NAME %}
-                        <input type="text" class="form-control dropdown-toggle" id="ipt_name" value="{{info.NAME}}" disabled>
-                        {% else %}
                         <input type="text" class="form-control dropdown-toggle" id="ipt_name" value="" placeholder="입력 후 엔터" data-trigger="manual" data-toggle="tooltip" data-placement=top title="해당 데이터가 존재하지 않습니다.">
-                        {% endif %}
                         <ul class="dropdown-menu" role="menu" id="view_list" style="width: 100%;"></ul>
                     </div>
                 </div>
                 <div class="form-inline form-group">
                     <div class="form-group" style="width: 50%;">
                         <label for="p_addr" class="lab_addr">주소</label>
-                        <p class="form-control-static pad-left-10" id="p_addr">{{info.RN_ADDR}}</p>
+                        <p class="form-control-static pad-left-10" id="p_addr"></p>
                     </div>
                     <div class="form-group" style="width: 49%;">
                         <label for="p_tel" class="lab_tel">전화번호</label>
-                        <p class="form-control-static pad-left-10" id="p_tel">{{info.TEL}}</p>
+                        <p class="form-control-static pad-left-10" id="p_tel"></p>
                         <input type="hidden" id="ipt_tel" class="pad-left-10 form-control">
                     </div>
                 </div>
@@ -43,7 +39,7 @@
                 </div>
                 <div class="form-group">
                     <label for="ipt_memo" id="lab_memo">한줄평</label>
-                    <textarea class="form-control" rows="3" id="ipt_memo">{{info.DESC}}</textarea>
+                    <textarea class="form-control" rows="3" id="ipt_memo"></textarea>
                 </div>
                 <div class="form-inline form-group">
                     <label for="chkbox_off" id="lab_off_day" >휴무일</label>
@@ -96,11 +92,6 @@
                 </div>
                 <div class="form-inline form-group">
                     <div id="div_off_list">
-                        {% if info.OFF_DAY %}
-                            {% for off in info.OFF_DAY %}
-                            <span class="dtl_label dtl_label_info">{{off}}</span>
-                            {% endfor %}
-                        {% endif %}
                     </div>
                 </div>
                 <label for="" id="lab_sales_time">영업시간</label>
@@ -209,7 +200,12 @@ var MODAL = {
         modal_creatDropDown("#sel_sub_type", subTypeSource);
     },
     ifModifyInit: function() {
-        if("{{ info2|escapejs }}" != "") {
+        if(DTL.info != null) {
+            $("#ipt_name").val(DTL.info.NAME).attr("disabled", true);
+            $("#p_addr").text(DTL.info.RN_ADDR);
+            $("#p_tel").text(DTL.info.TEL);
+            $("#ipt_memo").val(DTL.info.DESC);
+
             for(var i in DTL.info.TAG) {
                 var tagStr = DTL.info.TAG[i].substring(1);
                 var html = '<div class="tag added">';
@@ -231,9 +227,15 @@ var MODAL = {
                 $("#chkbox_off").prop("checked", true);
                 $("#chk_off").hide();
             } else {
-                var off_day_contents = '<span class="dtl_label dtl_label_info">연중무휴</span>';
-                $("#OFF_DAY").append(off_day_contents);
+                for(var i in DTL.info.OFF_DAY) {
+                    var html = '<span class="dtl_label dtl_label_info">' + DTL.info.OFF_DAY[i] + '<i class="fas fa-times mar-left-10"></i></span>';
+                    $("#div_off_list").append(html);
+                }
             }
+
+            $("#div_off_list .dtl_label .fa-times").click(function() {
+                $($(this).parent()).remove();
+            });
 
             if(DTL.info.SALES_FROM != null && DTL.info.SALES_FROM != "") {
                 $("#ipt_sales_time_from").val(DTL.info.SALES_FROM);
@@ -350,7 +352,7 @@ var MODAL = {
                     value = day;
                 }
 
-                var html = '<span class="dtl_label dtl_label_info">' + value + '</span>';
+                var html = '<span class="dtl_label dtl_label_info">' + value + '<i class="fas fa-times mar-left-10"></i></span>';
 
                 var lab_off_list = $("#div_off_list .dtl_label");
                 if(lab_off_list.length != 0) {
@@ -376,7 +378,11 @@ var MODAL = {
                 flag = false;
                 return;
             }
+            $("#div_off_list .dtl_label .fa-times").click(function() {
+                $($(this).parent()).remove();
+            });
         });
+
     },
     formReset: function() {
         $("#ipt_name").val("");
@@ -430,14 +436,23 @@ var MODAL = {
         returnObj.NAME = $("#ipt_name").val();
         returnObj.RN_ADDR = $("#p_addr").text();
 
-        var lbAddrArr = MODAL.mat_data.address_name.split(" ");
-        lbAddrArr.splice(0, 2);
-        returnObj.LB_ADDR = lbAddrArr.join(" ");
+        if(MODAL.mat_data != null) {
+            var lbAddrArr = MODAL.mat_data.address_name.split(" ");
+            lbAddrArr.splice(0, 2);
+            returnObj.LB_ADDR = lbAddrArr.join(" ");
+        } else if(DTL.info != null) {
+            returnObj.LB_ADDR = DTL.info.LB_ADDR;
+        }
 
         returnObj.TEL = $("#p_tel").text();
 
-        returnObj.lat = MODAL.mat_data.y;
-        returnObj.lng = MODAL.mat_data.x;
+        if(MODAL.mat_data != null) {
+            returnObj.lat = MODAL.mat_data.y;
+            returnObj.lng = MODAL.mat_data.x;
+        } else if(DTL.info != null) {
+            returnObj.lat = DTL.info.lat;
+            returnObj.lng = DTL.info.lng;
+        }
         
         var tagAdded = $(".tag.added");
         returnObj.TAG = new Array();
@@ -484,36 +499,65 @@ var MODAL = {
             alert("상호명을 입력 후 선택해주세요.");
             return false;
         }
-
-        if("{{ info2|escapejs }}" != "") {
-            var newData = MODAL.getModalSaveData();
-            $.each(DTL.info, function(k, v) {
-                console.log(value);
-            }); 
-        }
         
-        return false;
-    },
-    modalSave: function() {
-        if(modalValidation) {
-            var paramUrl = '/api/enroll_map/';
+        var flag = true;
+        if(DTL.info != null) {
+            var oriData = new Object;
+            var newData = MODAL.getModalSaveData();
+            $.each(newData, function(k, v) {
+                $.each(DTL.info, function(k2, v2) {
+                    if(k == k2) {
+                        if(k == 'SALES_FROM' || k == 'SALES_TO' || k == 'BREAK_FROM' || k == 'BREAK_TO' ) {
+                            oriData[k] = toHHMM(v2);
+                        } else {
+                            oriData[k] = v2;
+                        }
+                    }
+                });
+            });
             
-            if("{{ info2|escapejs }}" != "") {
-                paramUrl = '/api/modify_map/';
+            if(newData.hasOwnProperty('OFF_DAY')) {
+                oriData.OFF_DAY = oriData.OFF_DAY.sort();
+                newData.OFF_DAY = newData.OFF_DAY.sort();
+            }
+            if(newData.hasOwnProperty('TAG')) {
+                oriData.TAG = oriData.TAG.sort();
+                newData.TAG = newData.TAG.sort();
             }
 
-            $.ajax({
-                url: paramUrl,
-                headers: { 'Content-Type':'text/plain; charset=utf-8' },
-                dataType:'text',
-                type:'POST',
-                data: JSON.stringify(MODAL.getModalSaveData()),
-                success:function(result){
-                    if(result) {
-                        $("#regist_modal").modal('hide');
-                    }
+            if(Object.equals(newData, oriData)) {
+                alert("수정된 데이터가 없습니다.");
+                return false;
+            }
+        }
+        
+        return true;
+    },
+    modalSave: function() {
+        //MODAL.modalValidation();
+        if (MODAL.modalValidation()) {
+            if(confirm("수정하시겠습니까?")) {
+                var paramUrl = '/api/enroll_map/';
+                var paramData = MODAL.getModalSaveData();
+                
+                if(DTL.info != null) {
+                    paramUrl = '/api/modify_map/';
+                    paramData.ID = DTL.info.ID;
                 }
-            });
+
+                $.ajax({
+                    url: paramUrl,
+                    headers: { 'Content-Type':'text/plain; charset=utf-8' },
+                    dataType:'text',
+                    type:'POST',
+                    data: JSON.stringify(paramData),
+                    success:function(result){
+                        if(result) {
+                            $("#regist_modal").modal('hide');
+                        }
+                    }
+                });
+            }
         }
     }
 }
@@ -646,4 +690,52 @@ function modal_getSubTypeList() {
     });
 }
 
+Object.equals = function( x, y ) {
+  if ( x === y ) return true;
+    // if both x and y are null or undefined and exactly the same
+
+  if ( ! ( x instanceof Object ) || ! ( y instanceof Object ) ) return false;
+    // if they are not strictly equal, they both need to be Objects
+
+  if ( x.constructor !== y.constructor ) return false;
+    // they must have the exact same prototype chain, the closest we can do is
+    // test there constructor.
+
+  for ( var p in x ) {
+    if ( ! x.hasOwnProperty( p ) ) continue;
+      // other properties were tested using x.constructor === y.constructor
+
+    if ( ! y.hasOwnProperty( p ) ) return false;
+      // allows to compare x[ p ] and y[ p ] when set to undefined
+
+    if ( x[ p ] === y[ p ] ) continue;
+      // if they have the same strict value or identity then they are equal
+
+    if ( typeof( x[ p ] ) !== "object" ) return false;
+      // Numbers, Strings, Functions, Booleans must be strictly equal
+
+    if ( ! Object.equals( x[ p ],  y[ p ] ) ) return false;
+      // Objects and Arrays must be tested recursively
+  }
+
+  for ( p in y ) {
+    if ( y.hasOwnProperty( p ) && ! x.hasOwnProperty( p ) ) return false;
+      // allows x[ p ] to be set to undefined
+  }
+  return true;
+}
+
+function toHHMM(time) {
+    var times = time.split(":");
+
+    return twoNum(times[0]) + ":" + twoNum(times[1]);
+}
+
+function twoNum(numStr) {
+    if(numStr.length == 1) {
+        numStr = "0" + numStr;
+    }
+
+    return numStr;
+}
 </script>

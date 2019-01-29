@@ -221,6 +221,9 @@
 
                 $('#regist_modal').on('hide.bs.modal', function () {
                     MODAL.formReset();
+                    setTimeout(function() {
+                        location.reload();
+                    }, 1000);
                 });
             }
         }

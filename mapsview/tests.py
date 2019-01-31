@@ -251,13 +251,13 @@ def csv_to_elasticsearch() :
     # awsauth = AWS4Auth(credentials.access_key, credentials.secret_key, region, service)
     
     es = elasticsearch.Elasticsearch(
-        host,
+        hosts = [{'host': host, 'port': 443}],
         http_auth = auth,
         use_ssl = True,
         verify_certs = True,
         connection_class = RequestsHttpConnection
     )
-    with open('/Users/gksml/Programing/git/BebeeMaps/mapsview/static/csv/matzip_db.csv', 'r', encoding='UTF8') as f:
+    with open('/Users/gksml/Programing/git/BebeeMaps/mapsview/static/csv/matzip_db.csv', encoding='UTF8') as f:
         reader = csv.DictReader(f)
         helpers.bulk(es, reader, index='matzip', doc_type='doc')
 

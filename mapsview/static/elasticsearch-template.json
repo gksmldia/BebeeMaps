@@ -1,0 +1,40 @@
+{
+    "template" : "logstash-*",
+    "version" : 1,
+    "settings" : {
+        "index": {
+            "analysis": {
+                "analyzer": {
+                    "korean": {
+                        "type":"custom",
+                        "tokenizer":"seunjeon_default_tokenizer"
+                    }
+                },
+                "tokenizer": {
+                    "seunjeon_default_tokenizer": {
+                        "type": "seunjeon_tokenizer",
+                        "index_eojeol": false,
+                        "user_words": ["aws", "awskorea", "아마존웹서비스", "정보보호관리체계", "k-isms,10", "kisa,10"]
+                    }
+                }
+            }
+        }
+    },
+    "mappings": {
+        "tweets": {
+            "properties": {
+                "status": { "type": "text", "analyzer": "korean" },
+                "author": {
+                    "type": "nested",
+                    "properties": {
+                        "NAME": { "type": "text" },
+                        "RN_ADDR": { "type": "text" },
+                        "LB_ADDR": { "type": "text" },
+                        "DESC": { "type": "text" },
+                        "TAG": { "type": "Array" }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -2,11 +2,13 @@ from django.test import TestCase
 from django.db import models
 from django.utils import timezone
 import elasticsearch
-from elasticsearch import helpers
+from elasticsearch import helpers, RequestsHttpConnection
 import urllib
 import json as simplejson
 import csv
 from datetime import datetime
+from requests_aws4auth import AWS4Auth
+import boto3
 
 googleGeocodeUrl = 'https://maps.googleapis.com/maps/api/geocode/json?'
 es_client = elasticsearch.Elasticsearch("http://127.0.0.1:9200")
@@ -240,6 +242,37 @@ def elastic_to_csv() :
         for document in [x['_source'] for x in data['hits']['hits']]:
             writer.writerow(document)
 
+def csv_to_elasticsearch() :
+    host = 'https://search-bebeemaps-jnd234b6kog3wdbof6oinn6ifi.us-east-2.es.amazonaws.com' # For example, my-test-domain.us-east-1.es.amazonaws.com
+    region = 'us-east-2' # e.g. us-west-1
+    service = 'es'
+    auth = AWS4Auth('AKIAIG4PVNWTTO4FD7YQ', 'Sf5IVpOTz6+yiRnlxF5dci7QAi8NTP0dgdTLOK8q', 'us-east-2', 'es')
+    credentials = boto3.Session().get_credentials()
+    # awsauth = AWS4Auth(credentials.access_key, credentials.secret_key, region, service)
+    
+    es = elasticsearch.Elasticsearch(
+        host,
+        http_auth = auth,
+        use_ssl = True,
+        verify_certs = True,
+        connection_class = RequestsHttpConnection
+    )
+    with open('/Users/gksml/Programing/git/BebeeMaps/mapsview/static/csv/matzip_db.csv', 'r', encoding='UTF8') as f:
+        reader = csv.DictReader(f)
+        helpers.bulk(es, reader, index='matzip', doc_type='doc')
+
+def es_delete(id):
+    es_client = elasticsearch.Elasticsearch("http://127.0.0.1:9200")
+    
+    # result = es_client.delete(index = 'matzip', doc_type = 'doc', id=id, ignore=[400, 404])
+    result = {}
+    try:
+        result = es_client.delete(index = 'matzip', doc_type = 'doc', id=id)
+    except Exception as e:
+        result['result'] = e.args[1]
+
+    return result['result']
+
 if __name__ == '__main__':    # 프로그램의 시작점일 때만 아래 코드 실행
     # print(list())
     
@@ -252,5 +285,7 @@ if __name__ == '__main__':    # 프로그램의 시작점일 때만 아래 코�
     # 데이터 완전 새로 올린 후 위경도 및 태그 프로퍼티 추가
     # es_update(list())
 
-    elastic_to_csv()
+    # elastic_to_csv()
+    # print(es_delete(65))
+    csv_to_elasticsearch()
     

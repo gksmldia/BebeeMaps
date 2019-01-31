@@ -200,7 +200,7 @@ var MODAL = {
         modal_creatDropDown("#sel_sub_type", subTypeSource);
     },
     ifModifyInit: function() {
-        if(DTL.info != null) {
+        if("{{ info2|escapejs }}" != "") {
             $("#ipt_name").val(DTL.info.NAME).attr("disabled", true);
             $("#p_addr").text(DTL.info.RN_ADDR);
             $("#p_tel").text(DTL.info.TEL);
@@ -440,7 +440,7 @@ var MODAL = {
             var lbAddrArr = MODAL.mat_data.address_name.split(" ");
             lbAddrArr.splice(0, 2);
             returnObj.LB_ADDR = lbAddrArr.join(" ");
-        } else if(DTL.info != null) {
+        } else if("{{ info2|escapejs }}" != "") {
             returnObj.LB_ADDR = DTL.info.LB_ADDR;
         }
 
@@ -449,7 +449,7 @@ var MODAL = {
         if(MODAL.mat_data != null) {
             returnObj.lat = MODAL.mat_data.y;
             returnObj.lng = MODAL.mat_data.x;
-        } else if(DTL.info != null) {
+        } else if("{{ info2|escapejs }}" != "") {
             returnObj.lat = DTL.info.lat;
             returnObj.lng = DTL.info.lng;
         }
@@ -501,7 +501,7 @@ var MODAL = {
         }
         
         var flag = true;
-        if(DTL.info != null) {
+        if("{{ info2|escapejs }}" != "") {
             var oriData = new Object;
             var newData = MODAL.getModalSaveData();
             $.each(newData, function(k, v) {
@@ -536,14 +536,16 @@ var MODAL = {
     modalSave: function() {
         //MODAL.modalValidation();
         if (MODAL.modalValidation()) {
-            if(confirm("수정하시겠습니까?")) {
-                var paramUrl = '/api/enroll_map/';
-                var paramData = MODAL.getModalSaveData();
-                
-                if(DTL.info != null) {
-                    paramUrl = '/api/modify_map/';
-                    paramData.ID = DTL.info.ID;
-                }
+            var paramUrl = '/api/enroll_map/';
+            var paramData = MODAL.getModalSaveData();
+            var confirmMsg = "등록하시겠습니까?";
+
+            if("{{ info2|escapejs }}" != "") {
+                paramUrl = '/api/modify_map/';
+                paramData.ID = DTL.info.ID;
+                confirmMsg = "수정하시겠습니까?";
+            }
+            if(confirm(confirmMsg)) {
 
                 $.ajax({
                     url: paramUrl,

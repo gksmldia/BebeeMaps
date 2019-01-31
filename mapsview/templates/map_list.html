@@ -81,30 +81,30 @@
         $(document).ready(function(){
             MAP.mapInit();
             listEventBind();
-            $.ajaxSetup({ 
-                beforeSend: function(xhr, settings) {
-                    function getCookie(name) {
-                        var cookieValue = null;
-                        if (document.cookie && document.cookie != '') {
-                            var cookies = document.cookie.split(';');
-                            for (var i = 0; i < cookies.length; i++) {
-                                var cookie = jQuery.trim(cookies[i]);
-                                // Does this cookie string begin with the name we want?
-                            if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                                break;
-                            }
-                        }
-                    }
-                    return cookieValue;
-                    }
-                    if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
-                        // Only send the token to relative URLs i.e. locally.
-                        APP.csrftoken = getCookie('csrftoken');
-                        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-                    }
-                } 
-            });
+            // $.ajaxSetup({ 
+            //     beforeSend: function(xhr, settings) {
+            //         function getCookie(name) {
+            //             var cookieValue = null;
+            //             if (document.cookie && document.cookie != '') {
+            //                 var cookies = document.cookie.split(';');
+            //                 for (var i = 0; i < cookies.length; i++) {
+            //                     var cookie = jQuery.trim(cookies[i]);
+            //                     // Does this cookie string begin with the name we want?
+            //                 if (cookie.substring(0, name.length + 1) == (name + '=')) {
+            //                     cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            //                     break;
+            //                 }
+            //             }
+            //         }
+            //         return cookieValue;
+            //         }
+            //         if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+            //             // Only send the token to relative URLs i.e. locally.
+            //             APP.csrftoken = getCookie('csrftoken');
+            //             xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+            //         }
+            //     } 
+            // });
         });
 
         var MAP = {
@@ -277,20 +277,18 @@
                         card += '<div class="card">';
                         card += '<input type="hidden" class="card__lat" value='+list[i].lat+'>';
                         card += '<input type="hidden" class="card__lng" value='+list[i].lng+'>';
-                        card += '<div class="card__image card__image--fence"></div>';
+                        card += '<div class="card__image card__image--food"></div>';
                         card += '<div class="card__content">';
                         card += '<div class="card__title">' + ((i*1)+1) + ". " + list[i].NAME;
                         card += '<div class="card_span_div">';
                         card += '<span class="card_i_span card_open">';
-                        //card += '<a href="#" onclick="cardOpen(' + list[i].ID + ');"><i class="fas fa-door-open"></i>' + '</a></span>';
-                        card += '<a href="map/' + list[i].ID + '/" ><i class="fas fa-door-open"></i>' + '</a></span>';
+                        card += '<a href="detail/' + list[i].ID + '/" ><i class="fas fa-door-open"></i>' + '</a></span>';
                         card += '<span class="card_i_span pad-left-10 card_delete">';
-                        card += '<a href="#" onclick="cardDelete(' + Number(list[i].ID) + ');"><i class="fas fa-trash-alt"></i>' + '</a></span></div></div>';
+                        card += '<a href="#" class="delete" data="' + list[i].ID + '"><i class="fas fa-trash-alt"></i>' + '</a></span></div></div>';
                         card += '<p class="card__text">' + list[i].RN_ADDR + '</p>';
                         if(list[i].TAG != null) {
                             card += '<p class="card__text">' + list[i].TAG + '</p>';
                         }
-                        //card += '<button class="btn btn--block card__btn">Button</button>';
                         card += '</div>';
                         card += '</div>';
                         card += '</li>';
@@ -330,6 +328,30 @@
 
                     var name = $(this).children(".card__content").children(".card__title").text().split(".")[1].trim()
                     MAP.makeCustomOveray(name);
+                });
+
+                $(".card_delete .delete").click(function() {
+                    if(confirm("정말 삭제 하시나요?")) {
+                        $($(this).parents('div.card')).hide();
+                        $.ajax({
+                            url:'api/delete_map/'+$(this).attr("data"),
+                            dataType:'json',
+                            type:'GET',
+                            success:function(result){
+                                //var resultMap = result.result;
+                                if(result.result == "deleted") {
+                                    alert("삭제 되었습니다.");
+                                    setTimeout(function() {
+                                        location.reload();
+                                    }, 1000);
+                                } else {
+                                    alert(result.result);
+                                }
+                            },
+                            done: function(result) {
+                            }
+                        });
+                    }
                 });
             }
         }
@@ -386,10 +408,12 @@
                     $("#Progress_Loading").css("display", "block");
                     SEARCH.doSearch();
                 }, 2000);
+                $("#query_ipt").val("");
             });
 
             $("#btn_ok").click(function() {
                 $("#regist_modal").modal('show');
+                $("#confirm_modal").modal('hide');
             });
         }
     </script>

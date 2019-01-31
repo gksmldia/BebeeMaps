@@ -9,7 +9,7 @@ from . import models as m
 
 # Create your views here.
 
-def map_list(request):
+def list_map(request):
     query = request.GET.get('q')
     field = request.GET.get('field')
     # print(request.is_ajax())
@@ -43,10 +43,11 @@ def enroll_map(request):
         result = m.es_request_insert(body)
         return HttpResponse(json.dumps(result), content_type='application/json; charset=utf-8')
 
-def map_detail(request, id):
+def detail_map(request, id):
     
     result = m.es_search_by_id(id)
     return render(request, 'mapviews/map_detail.html', {'info': result, 'info2': json.dumps(result)})
+
 
 @csrf_exempt
 @require_POST
@@ -55,4 +56,8 @@ def modify_map(request):
         body = json.loads(request.body)
         result = m.es_update(body)
         return HttpResponse(json.dumps(result), content_type='application/json; charset=utf-8')
+
+def delete_map(request, id):
     
+    result = m.es_delete(id)
+    return HttpResponse(json.dumps(result), content_type='application/json; charset=utf-8')

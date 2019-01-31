@@ -2,14 +2,12 @@ from django.db import models
 from django.utils import timezone
 import elasticsearch
 from elasticsearch import helpers
-# import urllib
+import json
 import json as simplejson
 
-googleGeocodeUrl = 'https://maps.googleapis.com/maps/api/geocode/json?'
-
 def list(queryString, field):
-    es_client = elasticsearch.Elasticsearch("http://127.0.0.1:9200")
-    # print(field)
+    es_client = elasticsearch.Elasticsearch("http://3.17.187.92:9201")
+    print('list')
     if queryString is None or queryString is "":
         print("queryString is None")
         data = es_client.search(index = 'matzip',
@@ -50,7 +48,8 @@ def list(queryString, field):
     return matList
 
 def sub_type_list(queryString) :
-    es_client = elasticsearch.Elasticsearch("http://127.0.0.1:9200")
+    print('sub_type_list')
+    es_client = elasticsearch.Elasticsearch("http://3.17.187.92:9201")
     if queryString is None or queryString is "":
         data = es_client.search(index = 'subtype',
                                     doc_type = 'doc',
@@ -72,8 +71,8 @@ def sub_type_list(queryString) :
     return sub_type_list
 
 def es_insert(matzip):
-    
-    es_client = elasticsearch.Elasticsearch("http://127.0.0.1:9200")
+    print('es_insert')
+    es_client = elasticsearch.Elasticsearch("http://3.17.187.92:9201")
     source = {
                 'ID': es_last_index()+1, 
                 'NAME': matzip.get('NAME'), 
@@ -107,10 +106,11 @@ def es_insert(matzip):
     elasticsearch.helpers.bulk(es_client, docs)
 
 def es_request_insert(matzip):
-    
-    es_client = elasticsearch.Elasticsearch("http://127.0.0.1:9200")
+    print('es_request_insert')
+    es_client = elasticsearch.Elasticsearch("http://3.17.187.92:9201")
+    last_index = es_last_index()+1
     source = {
-                'ID': es_last_index()+1, 
+                'ID': last_index, 
                 'NAME': matzip.get('NAME'), 
                 'RN_ADDR': matzip.get('RN_ADDR'), 
                 'LB_ADDR': matzip.get('LB_ADDR'), 
@@ -126,22 +126,22 @@ def es_request_insert(matzip):
                 'SUB_TYPE': matzip.get('SUB_TYPE') if 'SUB_TYPE' in matzip else None,
                 'DESC': matzip.get('DESC') if 'DESC' in matzip else None,
                 'TRY': matzip.get('TRY') if 'TRY' in matzip else None,
-                'TAG': matzip.get('TRY') if 'TAG' in matzip else None,
+                'TAG': matzip.get('TAG') if 'TAG' in matzip else None,
                 'lat': matzip.get('lat') if 'lat' in matzip else None,
                 'lng': matzip.get('lng') if 'lng' in matzip else None
             }
     
     result = es_client.transport.perform_request(
                 method = 'PUT',
-                url = '/matzip/doc/'+ str(es_last_index()+1),
+                url = '/matzip/doc/'+ str(last_index),
                 body = source
             )
     
     return result
 
 def es_last_index():
-    es_client = elasticsearch.Elasticsearch("http://127.0.0.1:9200")
-    
+    es_client = elasticsearch.Elasticsearch("http://3.17.187.92:9201")
+    print('es_last_index')
     count = es_client.count(index = 'matzip', 
                             doc_type = 'doc', 
                             body = { "query": {"match_all" : { }}})
@@ -172,7 +172,8 @@ def es_last_index():
     return ids[len(ids)-1]
 
 def es_search_by_id(search_id):
-    es_client = elasticsearch.Elasticsearch("http://127.0.0.1:9200")
+    print('es_search_by_id')
+    es_client = elasticsearch.Elasticsearch("http://3.17.187.92:9201")
     data = es_client.get(index = 'matzip',
                         doc_type = 'doc',
                         id = search_id)
@@ -180,8 +181,8 @@ def es_search_by_id(search_id):
     return data['_source']
 
 def es_update(matzip):
-    es_client = elasticsearch.Elasticsearch("http://127.0.0.1:9200")
-    
+    es_client = elasticsearch.Elasticsearch("http://3.17.187.92:9201")
+    print('es_update')
     up_data = es_client.update(
         index = 'matzip',
         doc_type = 'doc',
@@ -211,5 +212,15 @@ def es_update(matzip):
         }
     )
     print(up_data)
-
     return up_data
+
+def es_delete(id):
+    es_client = elasticsearch.Elasticsearch("http://3.17.187.92:9201")
+    
+    result = {}
+    try:
+        result = es_client.delete(index = 'matzip', doc_type = 'doc', id=id)
+    except Exception as e:
+        result['result'] = e.args[1]
+    return result
+        

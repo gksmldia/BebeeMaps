@@ -13,17 +13,34 @@ import boto3
 googleGeocodeUrl = 'https://maps.googleapis.com/maps/api/geocode/json?'
 es_client = elasticsearch.Elasticsearch("http://127.0.0.1:9200")
 
-def list():
+def es_list():
     # print(field)
-    es_client = elasticsearch.Elasticsearch("http://127.0.0.1:9200")
-    data = es_client.search(index = 'matzip',
+    # es_client = elasticsearch.Elasticsearch("http://127.0.0.1:9200")
+    field = 'RN_ADDR'
+    queryString = '김치'
+    data = es_client.search(index = 'place',
                             doc_type = 'doc',
                             body = {
                                 'size': 100,
-                                'sort': {'ID': 'asc'}
+                                "query" : {
+                                    "bool": {
+                                        "must": {
+                                            "match_all" : {}
+                                        },
+                                        "filter": {
+                                            "geo_distance" : {
+                                                "distance" : "1km",
+                                                "location" : {
+                                                    "lat" : 37.48986879,
+                                                    "lon" : 126.9211136
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             })
     
-    matList = data['hits']['hits']
+    matList = data['hits']
 
     return matList
 
@@ -37,6 +54,78 @@ def searchById(search_id):
     # matList = data['_source']
 
     return [data]
+
+def searchByPersonal(user_id):
+    es_client = elasticsearch.Elasticsearch("http://127.0.0.1:9200")
+    personal_data = es_client.search(index = 'personal',
+                                    doc_type = 'doc',
+                                    body = {
+                                        'size': 100,
+                                        "query" : {
+                                            "term" : {"U_ID" : user_id}
+                                        }
+                                    })['hits']['hits']
+            
+    personal_mat_ids = [x['_source']['M_ID'] for x in personal_data]
+    personal_mat_ids.sort()
+
+    return list(set(personal_mat_ids))
+
+def searchByConnetLoc(user_id, query):
+
+    mat_data = es_client.search(index = 'place',
+                                doc_type = 'doc',
+                                body = {
+                                    "query" : {
+                                        "ids" : {
+                                            "type" : "doc",
+                                            "values" : searchByPersonal(user_id)
+                                        },
+                                        "bool": {
+                                            "must": [
+                                                {
+                                                    # "terms": { "ID": searchByPersonal(user_id) },
+                                                    "multi_match" : {
+                                                        "query" : query,
+                                                        "fields" : [ "NAME", "RN_ADDR", "LB_ADDR", "DETAIL_ADDR", "DESC", "TAG" ] 
+                                                    }
+                                                }
+                                            ],
+                                            "filter": {
+                                                "geo_distance" : {
+                                                    "distance" : "1km",
+                                                    "location" : {
+                                                        "lat" : 37.5505802,
+                                                        "lon" : 126.9109228
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                })['hits']['total']
+    print(mat_data)
+    # "ID":    list(set(personal_mat_ids))
+    # "LB_ADDR": '*상수동*'
+
+def es_multi_search(user_id, query):
+    mat_data = es_client.msearch(body=[
+        {"index": "place", "type": "doc"},
+        {"query": {
+            "bool": {
+                "must": [{
+                    "multi_match" : {
+                        "query"     : "김피 ",
+                        "type"      : "cross_fields",
+                        "fields"    : [ "NAME", "RN_ADDR", "LB_ADDR", "DETAIL_ADDR", "DESC", "TAG" ],
+                        "operator"  : "or"
+                    }
+                }]
+            }
+        }, "from": 0, "size": 100},
+        # {"index": "place", "type": "doc"},
+        # {"query": {"terms": { "ID": searchByPersonal(user_id) }}},
+    ])
+    print(mat_data)
    
 def get_coordinates_list(matList, from_sensor=False):
     # query = query.encode('utf-8')
@@ -122,26 +211,26 @@ def es_update(lists):
 
 def es_insert():
     es_client = elasticsearch.Elasticsearch("http://127.0.0.1:9200")
-    addr = '서울 강동구 구천면로 221'
+    addr = '서울 마포구 양화로 46'
     latLng = get_coordinates(addr)
     source = {
-                'ID': 56, 
-                'NAME': '광주횟집', 
-                'RN_ADDR': addr, 
-                'LB_ADDR': '천호동 402-8', 
-                'DETAIL_ADDR': None, 
-                'TEL': '02-476-5007', 
-                'OFF_DAY': None, 
-                'SALES_FROM': None,
-                'SALES_TO': None,
+                'ID': 1,
+                'NAME': '신김치생삼겹살',
+                'RN_ADDR': addr,
+                'LB_ADDR': '합정동 414-5',
+                'DETAIL_ADDR': None,
+                'TEL': '02-325-8690',
+                'OFF_DAY': None,
+                'SALES_FROM': '17:00',
+                'SALES_TO': '00:30',
                 'BREAK_FROM': None,
                 'BREAK_TO': None,
                 'PARKING': 'TRUE',
                 'TYPE': 'M',
                 'SUB_TYPE': 'K',
-                'DESC': '이렇게 두꺼운 회는 처음봄',
+                'DESC': '약간 이른시간이나 저녁시간 피해가야함',
                 'TRY': 'TRUE',
-                'TAG': ['회', '두꺼움'],
+                'TAG': ['삼겹살'],
                 'lat': latLng[0],
                 'lng': latLng[1]
             }
@@ -151,48 +240,56 @@ def es_insert():
         docs.append({
             '_index': 'matzip',
             '_type': 'doc',
+            '_id': 1,
             '_source': source
         })
 
     elasticsearch.helpers.bulk(es_client, docs)
 
+def es_insert2():
+    es_client = elasticsearch.Elasticsearch("http://127.0.0.1:9200")
+
+    source = {
+                'M_ID': 65,
+                'U_ID': 1,
+            }
+    
+    docs = []
+    for cnt in range(1, 66):
+        docs.append({
+            '_index': 'personal',
+            '_type': 'doc',
+            '_id': cnt,
+            '_source': {
+                'M_ID': cnt,
+                'U_ID': 1,
+            }
+        })
+        elasticsearch.helpers.bulk(es_client, docs)
+
 def es_last_index():
     es_client = elasticsearch.Elasticsearch("http://127.0.0.1:9200")
-    
-    count = es_client.count(index = 'matzip', 
-                            doc_type = 'doc', 
-                            body = { "query": {"match_all" : { }}})
-    
-    total = es_client.search(index = 'matzip',
+    total = es_client.search(index = 'place',
                             doc_type = 'doc',
                             body = {
-                                "query" : {
-                                    "match_all": {}
-                                },
-                                "size": count['count'],
-                                "script_fields" : {
-                                    "ID" : {
-                                        "script" : {
-                                            "source": "params['_source']['ID']"
-                                        }
-                                    }
-                                }
+                                "sort": {'ID': 'desc'},
+                                "size": 1
                             })
     
-    ids = []
+    print(total['hits']['hits'])
+    id = 0
     for one in total['hits']['hits']:
-       ids.extend(one['fields']['ID'])
+       id = one['_id']
     
-    ids.sort()
-
     
-    return ids[len(ids)-1]
+    return id
 
 def bulk_to_json_file() :
     es_client = elasticsearch.Elasticsearch("http://127.0.0.1:9200")
     
-    MyFile= open("C:\\Users\\gksml\\Programing\\git\BebeeMaps\\mapsview\\static\\json\sub_type_db.json", 'r', encoding='UTF8').read()
+    MyFile= open("C:\\Users\\gksml\\Programing\\git\BebeeMaps\\mapsview\\static\\json\\personal.json", 'r', encoding='UTF8').read()
     ClearData = MyFile.splitlines(True)
+    
     i=0
     json_str=""
     docs ={}
@@ -204,8 +301,10 @@ def bulk_to_json_file() :
             docs[i]=json_str+"}"
             json_str=""
             print(docs[i])
-            es_client.index(index='subtype', doc_type='doc', id=i+1, body=docs[i])
+            es_client.index(index='personal', doc_type='doc', id=i+1, body=docs[i])
             i=i+1
+    
+    # print(ClearData)
 
 def elastic_to_csv() :
     es = elasticsearch.Elasticsearch("http://127.0.0.1:9200")
@@ -274,18 +373,21 @@ def es_delete(id):
     return result['result']
 
 if __name__ == '__main__':    # 프로그램의 시작점일 때만 아래 코드 실행
-    # print(list())
+    # print(es_list())
+    # print(es_last_index())
     
     # 데이터 추가 
-    # es_insert()
+    # es_insert2()
     
     # json파일 엘라스틱서치에 밀어 넣기
     # bulk_to_json_file()
     
     # 데이터 완전 새로 올린 후 위경도 및 태그 프로퍼티 추가
-    # es_update(list())
+    # es_update(es_list())
 
     # elastic_to_csv()
     # print(es_delete(65))
-    csv_to_elasticsearch()
+    # csv_to_elasticsearch()
+    # searchByConnetLoc(1, '태국')
+    es_multi_search(1, '마포')
     

@@ -1,0 +1,30 @@
+AKIAJVBHHEUSJ45IK4FA
+q0hwEBmtc0gSwvoiut6242oH9NQcPP159vuTheI7
+
+AKIAIG4PVNWTTO4FD7YQ
+Sf5IVpOTz6+yiRnlxF5dci7QAi8NTP0dgdTLOK8q
+
+arn:aws:iam::439834704757:user/es-master
+
+{ "index" : { "_index": "matzip", "_type" : "doc", "_id" : 1 } }
+
+curl -X GET "52.14.88.227:9200/"
+
+JAVA_HOEM=usr/bin/java
+/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.191.b12-0.amzn2.x86_64
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.191.b12-0.amzn2.x86_64
+
+ Loaded: loaded (/usr/lib/systemd/system/elasticsearch.service; disabled; vendor preset: disabled)
+
+curl -XPOST http://172.31.15.224:9201/_bulk --data-binary @bebeemap_db.json
+
+curl -X POST "172.31.15.224:9201/_bulk" -H 'Content-Type: application/json' --data-binary @bebeemap_db.json
+
+heroku config:set DEBUG_COLLECTSTATIC=1
+
+이런데 식당이 있을까 하는곳에 식당이 있음, 여름에 가면 넓은 평원에서 고기를 구울 수 있다.
+
+React.js 와 Django Rest API를 이용한 Native App개발
+
+
+

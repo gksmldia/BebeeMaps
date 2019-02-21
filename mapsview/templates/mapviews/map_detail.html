@@ -8,118 +8,127 @@
             <div id="recommend_card"></div>
         </div>
     </div>
-    <div class="col-md-6 col-sm-6 col-xs-12" style="height: 100%; overflow: auto;">
-        <form action="/update_map/", method="POST" id="detail_box" class="form-horizontal">  
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="NAME" class="col-sm-3 control-label">NAME</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" id="NAME" value="{{info.NAME}}" disabled>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="RN_ADDR" class="col-sm-3 control-label">주소</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" id="RN_ADDR" value="{{info.RN_ADDR}}" disabled>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="TEL" class="col-sm-3 control-label pad-top-0">전화번호</label>
-                <div class="col-sm-9">
-                    <input type="text" class="form-control" id="TEL" value="{{info.TEL}}" disabled>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="TAG" class="col-sm-3 control-label pad-top-0">태그</label>
-                <div class="col-sm-9">
-                    {% for tag in info.TAG %}
-                    <span class="dtl_label dtl_label_info">{{tag}}</span>
-                    {% endfor %}
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="DESC" class="col-sm-3 control-label">평가</label>
-                <div class="col-sm-9">
-                    <textarea class="form-control" id="DESC" rows="5" disabled>{{info.DESC}}</textarea>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="OFF_DAY" class="col-sm-3 control-label pad-top-0">휴무일</label>
-                <div class="col-sm-9" id="OFF_DAY"></div>
-            </div>
-            <div class="form-group">
-                <label for="" class="col-sm-3 control-label">영업시간</label>
-                <div class="col-sm-9">
-                    <div class="form-group">
-                        <label for="SALES_FROM" class="col-sm-2 control-label">FROM</label>
-                        <div class="col-sm-10">
-                            <div id="SALES_FROM" class="form-control">{{info.SALES_FROM}}</div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="SALES_TO" class="col-sm-2 control-label">TO</label>
-                        <div class="col-sm-10">
-                            <div id="SALES_TO" class="form-control">{{info.SALES_TO}}</div>
-                        </div>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="row" style="height: 95%; overflow-y: auto; overflow-x: hidden;">
+            <form action="", method="POST" id="detail_box" class="form-horizontal">  
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="NAME" class="col-sm-3 control-label">NAME</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="NAME" value="{{info.NAME}}" disabled>
                     </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="BREAK" class="col-sm-3 control-label">Break Time</label>
-                <div class="col-sm-9" id="BREAK">
-                    {% if info.BREAK_FROM or info.BREAK_TO %}
-                    <div class="form-group">
-                        <label for="BREAK_FROM" class="col-sm-2 control-label">FROM</label>
-                        <div class="col-sm-10">
-                            <div id="BREAK_FROM" class="form-control">{{info.BREAK_FROM}}</div>
+                <div class="form-group">
+                    <label for="RN_ADDR" class="col-sm-3 control-label">주소</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="RN_ADDR" value="{{info.RN_ADDR}}" disabled>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="TEL" class="col-sm-3 control-label pad-top-0">전화번호</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="TEL" value="{{info.TEL}}" disabled>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="TAG" class="col-sm-3 control-label pad-top-0">태그</label>
+                    <div class="col-sm-8">
+                        {% for tag in info.TAG %}
+                        <span class="dtl_label dtl_label_info">{{tag}}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="DESC" class="col-sm-3 control-label">평가</label>
+                    <div class="col-sm-8">
+                        <textarea class="form-control" id="DESC" rows="5" disabled>{{info.DESC}}</textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="OFF_DAY" class="col-sm-3 control-label pad-top-0">휴무일</label>
+                    <div class="col-sm-98" id="OFF_DAY"></div>
+                </div>
+                <div class="form-group">
+                    <label for="" class="col-sm-3 control-label">영업시간</label>
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label for="SALES_FROM" class="col-sm-2 control-label">FROM</label>
+                            <div class="col-sm-10">
+                                <div id="SALES_FROM" class="form-control">{{info.SALES_FROM}}</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="SALES_TO" class="col-sm-2 control-label">TO</label>
+                            <div class="col-sm-10">
+                                <div id="SALES_TO" class="form-control">{{info.SALES_TO}}</div>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="BREAK_TO" class="col-sm-2 control-label">TO</label>
-                        <div class="col-sm-10">
-                            <div id="BREAK_TO" class="form-control">{{info.BREAK_TO}}</div>
+                </div>
+                <div class="form-group">
+                    <label for="BREAK" class="col-sm-3 control-label">Break Time</label>
+                    <div class="col-sm-8" id="BREAK">
+                        {% if info.BREAK_FROM or info.BREAK_TO %}
+                        <div class="form-group">
+                            <label for="BREAK_FROM" class="col-sm-2 control-label">FROM</label>
+                            <div class="col-sm-10">
+                                <div id="BREAK_FROM" class="form-control">{{info.BREAK_FROM}}</div>
+                            </div>
                         </div>
+                        <div class="form-group">
+                            <label for="BREAK_TO" class="col-sm-2 control-label">TO</label>
+                            <div class="col-sm-10">
+                                <div id="BREAK_TO" class="form-control">{{info.BREAK_TO}}</div>
+                            </div>
+                        </div>
+                        {% else %}
+                        <input type="text" class="form-control" value="없음" disabled>
+                        {% endif %}
                     </div>
-                    {% else %}
-                    <input type="text" class="form-control" value="없음" disabled>
-                    {% endif %}
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="TYPE" class="col-sm-4 control-label">음식유형</label>
-                <div class="col-sm-8" id="TYPE"></div>
-            </div>
-            <div class="form-group">
-                <label for="SUB_TYPE" class="col-sm-4 control-label">대표나라</label>
-                <div class="col-sm-8" id="SUB_TYPE"></div>
-            </div>
-            <div class="form-group">
-                <label for="PARKING" class="col-sm-4 control-label">주차가능여부</label>
-                <div class="col-sm-8">
-                    {% if info.PARKING is "TRUE" %}
-                    <input type="text" class="form-control" id="PARKING" value="가능" disabled>
-                    {% else %}
-                    <input type="text" class="form-control" id="PARKING" value="불가능" disabled>
-                    {% endif %}
+                <div class="form-group">
+                    <label for="TYPE" class="col-sm-4 control-label">음식유형</label>
+                    <div class="col-sm-8" id="TYPE"></div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="TRY" class="col-sm-4 control-label pad-top-0">가서 먹어본 적</label>
-                <div class="col-sm-8">
-                    {% if info.TRY is "TRUE" %}
-                    <input type="text" class="form-control" id="TRY" value="있음" disabled>
-                    {% else %}
-                    <input type="text" class="form-control" id="TRY" value="없음" disabled>
-                    {% endif %}
+                <div class="form-group">
+                    <label for="SUB_TYPE" class="col-sm-4 control-label">대표나라</label>
+                    <div class="col-sm-8" id="SUB_TYPE"></div>
                 </div>
-            </div>
-            <div class="form-group">
-                <!-- <input type="submit" class="btn btn-bebeemap" value="수정" style="margin-left: 50%"> -->
-                <button type="button" class="btn btn-bebeemap wid100" data-toggle="modal" data-target="#regist_modal" data-backdrop="static" data-keyboard="false">
+                <div class="form-group">
+                    <label for="PARKING" class="col-sm-4 control-label">주차가능여부</label>
+                    <div class="col-sm-7">
+                        {% if info.PARKING == "TRUE" %}
+                        <input type="text" class="form-control" id="PARKING" value="가능" disabled>
+                        {% else %}
+                        <input type="text" class="form-control" id="PARKING" value="불가능" disabled>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="TRY" class="col-sm-4 control-label pad-top-0">가서 먹어본 적</label>
+                    <div class="col-sm-7">
+                        {% if info.TRY == "TRUE" %}
+                        <input type="text" class="form-control" id="TRY" value="있음" disabled>
+                        {% else %}
+                        <input type="text" class="form-control" id="TRY" value="없음" disabled>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <!-- <input type="submit" class="btn btn-bebeemap" value="수정" style="margin-left: 50%"> -->
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            <div class="btn-group col-md-12 col-sm-12 col-xs-12 pad-right-0" data-toggle="buttons">
+                <button type="button" class="btn btn-bebeemap wid75" data-toggle="modal" data-target="#regist_modal" data-backdrop="static" data-keyboard="false">
                     수정
                 </button>
+                <button type="button" class="btn btn-danger wid25" id="btn_delete">
+                    삭제
+                </button>
             </div>
-        </form>  
+        </div>
         {% include "mapviews/regist_modal.html" %}
         {% include "mapviews/include/js.html" %}
     </div>
@@ -137,7 +146,7 @@
 
         var DTLMAP = {
             mapInit: function(){
-                var position = new daum.maps.LatLng(DTL.info.lat, DTL.info.lng);
+                var position = new daum.maps.LatLng(DTL.info.location.lat, DTL.info.location.lon);
                 
                 var mapContainer = document.getElementById('detail_map'), // 지도를 표시할 div 
                 mapOption = { 

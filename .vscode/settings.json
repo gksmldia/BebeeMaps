@@ -27,5 +27,6 @@
     ],
     "cSpell.words": [
         "regist"
-    ]
+    ],
+    "python.formatting.provider": "yapf"
 }

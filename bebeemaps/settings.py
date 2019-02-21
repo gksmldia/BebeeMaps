@@ -12,9 +12,41 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 import dj_database_url
+import json
+
+from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Env for dev / deploy
+def get_env(setting, envs):
+    try:
+        return envs[setting]
+    except KeyError:
+        error_msg = "You SHOULD set {} environ".format(setting)
+        raise ImproperlyConfigured(error_msg)
+
+DEV_ENVS = os.path.join(BASE_DIR, "envs_dev.json")
+DEPLOY_ENVS = os.path.join(BASE_DIR, "envs.json")
+
+if os.path.exists(DEV_ENVS): # Develop Env
+    env_file = open(DEV_ENVS)
+elif os.path.exists(DEPLOY_ENVS): # Deploy Env
+    env_file = open(DEPLOY_ENVS)
+else:
+    env_file = None
+
+if env_file is None: # System environ
+    try:
+        FACEBOOK_KEY = os.environ['FACEBOOK_KEY']
+        FACEBOOK_SECRET = os.environ['FACEBOOK_SECRET']
+    except KeyError as error_msg:
+        raise ImproperlyConfigured(error_msg)
+else: # JSON env
+    envs = json.loads(env_file.read())
+    FACEBOOK_KEY = get_env('FACEBOOK_KEY', envs)
+    FACEBOOK_SECRET = get_env('FACEBOOK_SECRET', envs)
 
 
 # Quick-start development settings - unsuitable for production
@@ -24,9 +56,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'h_!yt_@s!=%!-hgol)vnnw3d3&pa6z(gplzefe&4wd4-etgq#7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.herokuapp.com']
 
 
 # Application definition
@@ -39,9 +71,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mapsview',
+    'social_django',
+    'member',
 ]
 
 MIDDLEWARE = [
+    'django.middleware.cache.UpdateCacheMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -49,10 +85,15 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # the next line of code is the one that solved my problems
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.google.GoogleOAuth2', # Google
+    'social_core.backends.facebook.FacebookOAuth2', # Facebook
+    'django.contrib.auth.backends.ModelBackend', # Django 기본 유저모델
+]
+
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ROOT_URLCONF = 'bebeemaps.urls'
 
@@ -86,19 +127,29 @@ DATABASES = {
     }
 }
 '''
+
+'''
+DATABASES = {
+    'default': dj_database_url.config()
+}
+'''
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'djangogirls',
-        'USER': 'name',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '',
+        'NAME': 'dfgve95ikvjnc4',
+        'USER': 'vclgcocyxxgfvl',
+        'PASSWORD': 'fffe84ffb5842d7d4f4b1d5304d9c13be42bdf0e79c0d6207b01d561771a7a11',
+        'HOST': 'ec2-54-243-213-188.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
+'''
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
+'''
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -122,7 +173,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-LANGUAGE_CODE = 'ko-kr'
+LANGUAGE_CODE = 'ko'
 
 TIME_ZONE = 'Asia/Seoul'
 
@@ -135,17 +186,19 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
-
-PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
-PROJECT_DIR = os.path.join(PROJECT_ROOT,'../bebeemaps')
-STATIC_ROOT = os.path.join(PROJECT_DIR,'staticfiles/')
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
 STATIC_URL = '/static/'
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [
+    STATIC_DIR,
+]
 
-# Extra places for collectstatic to find static files.
-STATICFILES_DIRS = (
-    # os.path.join(BASE_DIR, 'static'),
-    os.path.join(PROJECT_ROOT,'static/'),
-)
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+LOGIN_REDIRECT_URL = '/'
+
+# SocialLogin: Facebook
+SOCIAL_AUTH_FACEBOOK_KEY = FACEBOOK_KEY
+SOCIAL_AUTH_FACEBOOK_SECRET = FACEBOOK_SECRET
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+  'fields': 'id, name, email'
+}

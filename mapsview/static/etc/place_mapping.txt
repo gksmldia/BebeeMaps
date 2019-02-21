@@ -1,0 +1,87 @@
+http://127.0.0.1:9200/place
+Headers
+[{"key":"Content-Type","value":"application/json","description":""}]
+Body
+{
+  "settings": {
+    "index": {
+      "analysis": {
+        "tokenizer": {
+          "nori_user_dict": {
+            "type": "nori_tokenizer",
+            "decompound_mode": "mixed"
+          }
+        },
+        "analyzer": {
+          "my_analyzer": {
+            "type": "custom",
+            "tokenizer": "nori_user_dict"
+          }
+        }
+      }
+    }
+  },
+  "mappings": {
+    "doc": {
+      "properties": {
+        "NAME": {
+          "type": "text",
+          "analyzer": "my_analyzer"
+        },
+        "RN_ADDR": {
+          "type": "text",
+          "analyzer": "my_analyzer"
+        },
+        "LB_ADDR": {
+          "type": "text",
+          "analyzer": "my_analyzer"
+        },
+        "DETAIL_ADDR": {
+          "type": "text",
+          "analyzer": "my_analyzer"
+        },
+        "TEL": {
+          "type": "text"
+        },
+        "OFF_DAY": {
+          "type": "text"
+        },
+        "SALES_FROM": {
+          "type": "text"
+        },
+        "SALES_TO": {
+          "type": "text"
+        },
+        "BREAK_FROM": {
+          "type": "text"
+        },
+        "BREAK_TO": {
+          "type": "text"
+        },
+        "PARKING": {
+          "type": "text"
+        },
+        "DESC": {
+          "type": "text",
+          "analyzer": "my_analyzer"
+        },
+        "TYPE": {
+          "type": "text"
+        },
+        "SUB_TYPE": {
+          "type": "text"
+        },
+        "TRY": {
+          "type": "text"
+        },
+        "TAG": {
+          "type": "text",
+          "analyzer": "my_analyzer"
+        },
+        "location": {
+          "type": "geo_point"
+        }
+      }
+    }
+  }
+}

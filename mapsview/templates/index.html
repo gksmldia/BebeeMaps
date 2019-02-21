@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% if user.is_authenticated %}
+    {% include "mapviews/map_list.html" %}
+{% else %}
+    {% include "registration/login.html" %}
+{% endif %}

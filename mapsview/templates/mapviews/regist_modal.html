@@ -372,6 +372,15 @@ var MODAL = {
                 }
                 if(flag) {
                     $("#div_off_list").append(html);
+                    var chk_off_week = $("#chk_off_week").children();
+                    for(var i = 0; i < chk_off_week.length; i++) {
+                        $(chk_off_week[i]).removeClass("active");
+                    }
+
+                    var chk_off_day = $("#chk_off_day").children();
+                    for(var i = 0; i < chk_off_day.length; i++) {
+                        $(chk_off_day[i]).removeClass("active");
+                    }
                 }
             } else {
                 alert("추가할 휴무일을 지정해주세요.");
@@ -433,6 +442,7 @@ var MODAL = {
     },
     getModalSaveData: function() {
         var returnObj = new Object();
+        returnObj.user = "{{user.id}}"
         returnObj.NAME = $("#ipt_name").val();
         returnObj.RN_ADDR = $("#p_addr").text();
 
@@ -445,13 +455,21 @@ var MODAL = {
         }
 
         returnObj.TEL = $("#p_tel").text();
+        
+        returnObj.location = {
+            lat: null,
+            lon: null
+        };
 
         if(MODAL.mat_data != null) {
-            returnObj.lat = MODAL.mat_data.y;
-            returnObj.lng = MODAL.mat_data.x;
-        } else if("{{ info2|escapejs }}" != "") {
-            returnObj.lat = DTL.info.lat;
-            returnObj.lng = DTL.info.lng;
+            returnObj.location.lat = MODAL.mat_data.y*1;
+            returnObj.location.lon = MODAL.mat_data.x*1;
+        } 
+        
+        if("{{ info2|escapejs }}" != "") {
+            console.log(DTL.info.location.lat, DTL.info.location.lon)
+            returnObj.location.lat = DTL.info.location.lat*1;
+            returnObj.location.lon = DTL.info.location.lon*1;
         }
         
         var tagAdded = $(".tag.added");
@@ -467,8 +485,27 @@ var MODAL = {
         if(!$("#chkbox_off").is(":checked")) {
             returnObj.OFF_DAY = [];
             var off_list = $("#div_off_list .dtl_label");
-            for(var i = 0; i < off_list.length; i++) {
-                returnObj.OFF_DAY.push($(off_list[i]).text());
+            if(off_list.length != 0) {
+                for(var i = 0; i < off_list.length; i++) {
+                    returnObj.OFF_DAY.push($(off_list[i]).text());
+                }
+            } else {
+                var day = $("input[name='rdo_off_day']:checked").val();
+                if(day != null) {
+                    var value = "";
+                    var weeks = [];
+                    if($('input[name=chk_off_week]:checked').length != 0) {
+                        var ele = $('input[name=chk_off_week]:checked');
+                        for(var i = 0; i < ele.length; i++) {
+                            weeks.push($(ele[i]).val());
+                        }
+                        value = day + "(" + weeks.join(",") + ")";
+                    } else {
+                        value = day;
+                    }
+
+                    returnObj.OFF_DAY.push(value);
+                }
             }
 
         }

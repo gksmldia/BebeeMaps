@@ -19,5 +19,7 @@ from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'', include('mapsview.urls')),
+    url(r'', include('mapsview.urls', namespace='mapsview')),
+    url(r'^member/', include('member.urls', namespace='member')),
+    url('', include('social_django.urls', namespace='social')),
 ]

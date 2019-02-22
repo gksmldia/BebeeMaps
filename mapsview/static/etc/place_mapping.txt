@@ -6,16 +6,25 @@ Body
   "settings": {
     "index": {
       "analysis": {
-        "tokenizer": {
-          "nori_user_dict": {
-            "type": "nori_tokenizer",
-            "decompound_mode": "mixed"
+        "analyzer": {
+          "nori": {
+            "filter": ["pos_filter", "lowercase", "nori_readingform"],
+            "tokenizer": "nori_user_dict"
           }
         },
-        "analyzer": {
-          "my_analyzer": {
-            "type": "custom",
-            "tokenizer": "nori_user_dict"
+        "tokenizer":{
+          "nori_user_dict": {
+            "mode": "MIXED",
+            "type": "nori_tokenizer",
+            "user_dictionary": "userdic_ko.txt"
+          }
+        },
+        "filter": {
+          "pos_filter": {
+            "type": "nori_part_of_speech",
+            "stoptags": [
+              "E", "IC", "J", "MAG", "MM", "SP", "SSC", "SSO", "SC", "SE", "XPN", "XSA", "XSN", "XSV", "UNA", "NA", "VSV"
+            ]
           }
         }
       }
@@ -26,22 +35,27 @@ Body
       "properties": {
         "NAME": {
           "type": "text",
-          "analyzer": "my_analyzer"
+          "analyzer": "nori",
+          "copy_to": "messages"
         },
         "RN_ADDR": {
           "type": "text",
-          "analyzer": "my_analyzer"
+          "analyzer": "nori",
+          "copy_to": "messages"
         },
         "LB_ADDR": {
           "type": "text",
-          "analyzer": "my_analyzer"
+          "analyzer": "nori",
+          "copy_to": "messages"
         },
         "DETAIL_ADDR": {
           "type": "text",
-          "analyzer": "my_analyzer"
+          "analyzer": "nori",
+          "copy_to": "messages"
         },
         "TEL": {
-          "type": "text"
+          "type": "text",
+          "copy_to": "messages"
         },
         "OFF_DAY": {
           "type": "text"
@@ -63,7 +77,8 @@ Body
         },
         "DESC": {
           "type": "text",
-          "analyzer": "my_analyzer"
+          "analyzer": "nori",
+          "copy_to": "messages"
         },
         "TYPE": {
           "type": "text"
@@ -76,10 +91,15 @@ Body
         },
         "TAG": {
           "type": "text",
-          "analyzer": "my_analyzer"
+          "analyzer": "nori",
+          "copy_to": "messages"
         },
         "location": {
           "type": "geo_point"
+        },
+        "messages": {
+          "type": "text",
+          "analyzer": "nori"
         }
       }
     }

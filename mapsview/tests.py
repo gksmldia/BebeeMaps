@@ -22,20 +22,23 @@ def es_list():
                             doc_type = 'doc',
                             body = {
                                 'size': 100,
-                                "query" : {
-                                    "bool": {
-                                        "must": {
-                                            "match_all" : {}
-                                        },
-                                        "filter": {
-                                            "geo_distance" : {
-                                                "distance" : "1km",
-                                                "location" : {
-                                                    "lat" : 37.48986879,
-                                                    "lon" : 126.9211136
+                                "query": {
+                                    "bool": { 
+                                        "must": [
+                                            { "match": { "messages":   "삼겹" }}
+                                        ],
+                                        "filter": [ 
+                                            { "terms":  {"ID": list(range(1, 65))} },
+                                            {
+                                                "geo_distance": {
+                                                    "distance": "1km",
+                                                    "location": {
+                                                        "lat" : 37.5505802,
+                                                        "lon" : 126.9109228
+                                                    }
                                                 }
                                             }
-                                        }
+                                        ]
                                     }
                                 }
                             })
@@ -109,23 +112,31 @@ def searchByConnetLoc(user_id, query):
 
 def es_multi_search(user_id, query):
     mat_data = es_client.msearch(body=[
-        {"index": "place", "type": "doc"},
+        {"index": "place", "type": "doc"}, 
+        {"query": {"terms": {"ID": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65]}}},
+        {"index": "place", "type": "doc"}, 
         {"query": {
-            "bool": {
-                "must": [{
-                    "multi_match" : {
-                        "query"     : "김피 ",
-                        "type"      : "cross_fields",
-                        "fields"    : [ "NAME", "RN_ADDR", "LB_ADDR", "DETAIL_ADDR", "DESC", "TAG" ],
-                        "operator"  : "or"
-                    }
-                }]
+            # "match": {
+            #     "messages": { 
+            #         "query": "베이*",
+            #         "fuzziness": "AUTO",
+            #         "prefix_length": 3,
+            #         "operator" : "or",
+            #         "zero_terms_query": "all"
+            #     }
+            # }
+            "query_string" : {
+                "default_field" : "messages",
+                "query" : "*김치*",
+                "fuzzy_prefix_length": 5
             }
-        }, "from": 0, "size": 100},
-        # {"index": "place", "type": "doc"},
-        # {"query": {"terms": { "ID": searchByPersonal(user_id) }}},
+        }, "from": 0, "size": 100}, 
     ])
-    print(mat_data)
+    b1 = mat_data['responses'][0]['hits']['hits']
+    b2 = mat_data['responses'][1]['hits']['hits']
+    print("1 >>> " + simplejson.dumps(b1))
+    print("2 >>> " + simplejson.dumps(b2))
+        
    
 def get_coordinates_list(matList, from_sensor=False):
     # query = query.encode('utf-8')
@@ -373,7 +384,7 @@ def es_delete(id):
     return result['result']
 
 if __name__ == '__main__':    # 프로그램의 시작점일 때만 아래 코드 실행
-    # print(es_list())
+    print(es_list())
     # print(es_last_index())
     
     # 데이터 추가 
@@ -389,5 +400,5 @@ if __name__ == '__main__':    # 프로그램의 시작점일 때만 아래 코�
     # print(es_delete(65))
     # csv_to_elasticsearch()
     # searchByConnetLoc(1, '태국')
-    es_multi_search(1, '마포')
+    # es_multi_search(1, '마포')
     

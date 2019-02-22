@@ -8,7 +8,7 @@ import json
 es_client = elasticsearch.Elasticsearch("http://127.0.0.1:9200/")
 def es_list(param):
     print('es_list')
-    query, must = {}, {}
+    must, filters = {}, []
     if param['q'] is None or param['q'] is "":
         print("queryString is None")
         must = { "match_all" : {} }
@@ -17,11 +17,10 @@ def es_list(param):
             print("field is None")
             must = [
                 {
-                    "multi_match" : {
-                        "query"   : param['q'],
-                        "type"    : "cross_fields",
-                        "fields"  : [ "NAME", "RN_ADDR", "LB_ADDR", "DETAIL_ADDR", "DESC", "TAG" ],
-                        "operator": "or"
+                    "query_string" : {
+                        "default_field" : "messages",
+                        "query" : "*" + param['q'] +"*",
+                        "fuzzy_prefix_length": 1
                     }
                 }
             ]
@@ -37,46 +36,40 @@ def es_list(param):
                     }
                 }
             ]
-    
+
+    if not param['is_superuser']:
+        filters.append({ "terms":  {"ID": searchByPersonal(param['user'])} })
+
     if param['loc'] is not None and not param['is_superuser']:
         print(param['loc'])
-        query = {
-                    "bool": {
-                        "must" : must,
-                        "filter": {
+        filters.append({
                             "geo_distance": {
                                 "distance": "1km",
                                 "location": {
-                                    "lon" : param['loc']["lng"],
-                                    "lat" : param['loc']["lat"]
-                                    # "lat" : 37.5505802,
-                                    # "lon" : 126.9109228
+                                    "lon" : param['loc']['lng'],
+                                    "lat" : param['loc']['lat']
                                 }
                             }
-                        }
-                    }
-                }
-    else : 
-        query = {
-                    "bool": {
-                        "must" : must
-                    }
-                }
-        
-    body = [
-        {"index": "place", "type": "doc"},
-        {"query": query, 'from': 0, 'size': 100}
-    ]
-
-    if not param['is_superuser']:
-        body.append({"index": "place", "type": "doc"})
-        body.append({"query": {"terms": { "ID": searchByPersonal(param['user']) }}})
-
-    print(json.dumps(body))
-    data = es_client.msearch(body=body)
-    print(data)
+                        })
     
-    matList = data['responses'][0]['hits']['hits']
+    body = {
+                'size': 100,
+                "query": {
+                    "bool": { 
+                        "must": must,
+                        "filter": filters
+                    }
+                }
+            }
+    print("query >>>\n" + json.dumps(body, indent=2, sort_keys=True, ensure_ascii=False))
+    
+    data = es_client.search(index = 'place',
+                            doc_type = 'doc',
+                            body = body)
+    
+    print("data >>>\n " + str(json.dumps(data, indent=2, sort_keys=True, ensure_ascii=False)))
+    
+    matList = data['hits']['hits']
     
     return matList
 
@@ -144,104 +137,6 @@ def sub_type_list(queryString) :
     sub_type_list = data['hits']['hits']
     return sub_type_list
 
-def es_insert(place):
-    print('es_insert')
-    # es_client = elasticsearch.Elasticsearch("http://127.0.0.1:9200/")
-    location = GeoPoint(lat_lon=True)
-    location = {
-        'lon': float("{0:.7f}".format(place['location']['lon'])), 
-        'lat': float("{0:.7f}".format(place['location']['lat']))
-    }
-    last_index_place = es_last_index('place')+1
-    source = {
-                'ID': last_index_place, 
-                'NAME': place.get('NAME'), 
-                'RN_ADDR': place.get('RN_ADDR'), 
-                'LB_ADDR': place.get('LB_ADDR'), 
-                'DETAIL_ADDR': place.get('DETAIL_ADDR') if 'DETAIL_ADDR' in place else None, 
-                'TEL': place.get('TEL') if 'TEL' in place else None, 
-                'OFF_DAY': place.get('OFF_DAY') if 'OFF_DAY' in place else None, 
-                'SALES_FROM': place.get('SALES_FROM') if 'SALES_FROM' in place else None,
-                'SALES_TO': place.get('SALES_TO') if 'SALES_TO' in place else None,
-                'BREAK_FROM': place.get('BREAK_FROM') if 'BREAK_FROM' in place else None,
-                'BREAK_TO': place.get('BREAK_TO') if 'BREAK_TO' in place else None,
-                'PARKING': place.get('PARKING') if 'PARKING' in place else None,
-                'TYPE': place.get('TYPE') if 'TYPE' in place else None,
-                'SUB_TYPE': place.get('SUB_TYPE') if 'SUB_TYPE' in place else None,
-                'DESC': place.get('DESC') if 'DESC' in place else None,
-                'TRY': place.get('TRY') if 'TRY' in place else None,
-                'TAG': place.get('TAG') if 'TAG' in place else None,
-                'location': location
-            }
-    
-    docs = []
-    for cnt in range(1):
-        docs.append({
-            '_index': 'place',
-            '_type': 'doc',
-            "_id": last_index_place,
-            '_source': source
-        })
-
-    response = elasticsearch.helpers.bulk(es_client, docs)
-
-    es_client2 = elasticsearch.Elasticsearch("http://127.0.0.1:9200/")
-    last_index_personal = es_last_index('personal')+1
-    result2 = es_client2.transport.perform_request(
-                method = 'PUT',
-                url = '/personal/doc/'+ str(last_index_personal),
-                body = {
-                    'M_ID': last_index_place,
-                    'U_ID': int(place.get('user'))
-                }
-            )
-    print(response)
-    return response
-
-def es_request_insert(place):
-    print('es_request_insert')
-    print(type(place['location']['lat']))
-    last_index_place = es_last_index('place')+1
-    source = {
-                'ID': last_index_place, 
-                'NAME': place.get('NAME'), 
-                'RN_ADDR': place.get('RN_ADDR'), 
-                'LB_ADDR': place.get('LB_ADDR'), 
-                'DETAIL_ADDR': place.get('DETAIL_ADDR') if 'DETAIL_ADDR' in place else None, 
-                'TEL': place.get('TEL') if 'TEL' in place else None, 
-                'OFF_DAY': place.get('OFF_DAY') if 'OFF_DAY' in place else None, 
-                'SALES_FROM': place.get('SALES_FROM') if 'SALES_FROM' in place else None,
-                'SALES_TO': place.get('SALES_TO') if 'SALES_TO' in place else None,
-                'BREAK_FROM': place.get('BREAK_FROM') if 'BREAK_FROM' in place else None,
-                'BREAK_TO': place.get('BREAK_TO') if 'BREAK_TO' in place else None,
-                'PARKING': place.get('PARKING') if 'PARKING' in place else None,
-                'TYPE': place.get('TYPE') if 'TYPE' in place else None,
-                'SUB_TYPE': place.get('SUB_TYPE') if 'SUB_TYPE' in place else None,
-                'DESC': place.get('DESC') if 'DESC' in place else None,
-                'TRY': place.get('TRY') if 'TRY' in place else None,
-                'TAG': place.get('TAG') if 'TAG' in place else None,
-                'location': str(place['location']['lat']) + "," + str(place['location']['lon'])
-            }
-    
-    result = es_client.transport.perform_request(
-                method = 'PUT',
-                url = '/place/doc/'+ str(last_index_place),
-                body = source
-            )
-    
-    es_client2 = elasticsearch.Elasticsearch("http://127.0.0.1:9200/")
-    last_index_personal = es_last_index('personal')+1
-    result2 = es_client2.transport.perform_request(
-                method = 'PUT',
-                url = '/personal/doc/'+ str(last_index_personal),
-                body = {
-                    'M_ID': last_index_place,
-                    'U_ID': int(place.get('user'))
-                }
-            )
-    
-    return result
-
 def es_last_index(index):
     # es_client = elasticsearch.Elasticsearch("http://127.0.0.1:9200/")
     print('es_last_index')
@@ -265,52 +160,106 @@ def es_last_index(index):
 
 def es_search_by_id(search_id):
     print('es_search_by_id')
-    # es_client = elasticsearch.Elasticsearch("http://127.0.0.1:9200/")
     data = es_client.get(index = 'place',
                         doc_type = 'doc',
                         id = search_id)
 
     return data['_source']
 
+def es_insert(place):
+    print('es_insert')
+
+    last_index_place = es_last_index('place')+1
+    source = getSource(place, last_index_place)
+    
+    docs = []
+    for cnt in range(1):
+        docs.append({
+            '_index': 'place',
+            '_type': 'doc',
+            "_id": last_index_place,
+            '_source': source
+        })
+
+    response = elasticsearch.helpers.bulk(es_client, docs)
+
+    response2 = es_insert_personal(last_index_place, int(place.get('user')))
+    return (response, response2)
+
+def es_request_insert(place):
+    print('es_request_insert')
+    print(type(place['location']['lat']))
+    last_index_place = es_last_index('place')+1
+    source = getSource(place, last_index_place)
+    
+    response = es_client.transport.perform_request(
+                method = 'PUT',
+                url = '/place/doc/'+ str(last_index_place),
+                body = source
+            )
+    
+    response2 = es_insert_personal(last_index_place, int(place.get('user')))
+    
+    return (response, response2)
+
+def es_insert_personal(p_id, u_id):
+    last_index_personal = es_last_index('personal')+1
+    result = es_client.transport.perform_request(
+                method = 'PUT',
+                url = '/personal/doc/'+ str(last_index_personal),
+                body = {
+                    'M_ID': p_id,
+                    'U_ID': u_id
+                }
+            )
+    print(result)
+
+    return result
+
 def es_update(place):
-    # es_client = elasticsearch.Elasticsearch("http://127.0.0.1:9200/")
     print('es_update')
     up_data = es_client.update(
         index = 'place',
         doc_type = 'doc',
         id = int(place.get('ID')),
-        body = {
-            'doc': {
-                'ID': int(place.get('ID')), 
-                'NAME': place.get('NAME'), 
-                'RN_ADDR': place.get('RN_ADDR'), 
-                'LB_ADDR': place.get('LB_ADDR'), 
-                'DETAIL_ADDR': place.get('DETAIL_ADDR'),
-                'TEL': place.get('TEL'), 
-                'OFF_DAY': place.get('OFF_DAY'), 
-                'PARKING': place.get('PARKING'),
-                'DESC': place.get('DESC'), 
-                'TYPE': place.get('TYPE'), 
-                'BREAK_FROM': place.get('BREAK_FROM'), 
-                'BREAK_TO': place.get('BREAK_TO'), 
-                'SALES_FROM': place.get('SALES_FROM'), 
-                'SALES_TO': place.get('SALES_TO'), 
-                'SUB_TYPE': place.get('SUB_TYPE'), 
-                'TRY': place.get('TRY'),
-                'TAG': place.get('TAG'),
-                'location':{
-                    'lat': place.get('location').get('lat'),
-                    'lon': place.get('location').get('lon')
-                }
-            }
-        }
+        body = getSource(place, int(place.get('ID')))
     )
     print(up_data)
     return up_data
 
-def es_delete(id):
-    # es_client = elasticsearch.Elasticsearch("http://127.0.0.1:9200/")
+def getSource(place, index): 
+    location = GeoPoint(lat_lon=True)
+    location = {
+        'lon': float("{0:.7f}".format(place['location']['lon'])), 
+        'lat': float("{0:.7f}".format(place['location']['lat']))
+    }
     
+    print("index >>" + str(index))
+    source = {
+        'ID': index, 
+        'NAME': place.get('NAME'), 
+        'RN_ADDR': place.get('RN_ADDR'), 
+        'LB_ADDR': place.get('LB_ADDR'), 
+        'DETAIL_ADDR': place.get('DETAIL_ADDR') if 'DETAIL_ADDR' in place else None, 
+        'TEL': place.get('TEL') if 'TEL' in place else None, 
+        'OFF_DAY': place.get('OFF_DAY') if 'OFF_DAY' in place else None, 
+        'SALES_FROM': place.get('SALES_FROM') if 'SALES_FROM' in place else None,
+        'SALES_TO': place.get('SALES_TO') if 'SALES_TO' in place else None,
+        'BREAK_FROM': place.get('BREAK_FROM') if 'BREAK_FROM' in place else None,
+        'BREAK_TO': place.get('BREAK_TO') if 'BREAK_TO' in place else None,
+        'PARKING': place.get('PARKING') if 'PARKING' in place else None,
+        'TYPE': place.get('TYPE') if 'TYPE' in place else None,
+        'SUB_TYPE': place.get('SUB_TYPE') if 'SUB_TYPE' in place else None,
+        'DESC': place.get('DESC') if 'DESC' in place else None,
+        'TRY': place.get('TRY') if 'TRY' in place else None,
+        'TAG': place.get('TAG') if 'TAG' in place else None,
+        'location': location
+    }
+    
+    return source
+
+def es_delete(id):
+
     result = {}
     try:
         result = es_client.delete(index = 'place', doc_type = 'doc', id=id)

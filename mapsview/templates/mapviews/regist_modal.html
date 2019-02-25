@@ -173,7 +173,9 @@ var MODAL = {
         MODAL.dateTimeInit();
         MODAL.modalEventBind();
         MODAL.dropdownInit();
-        MODAL.ifModifyInit();
+        if("{{ info2|escapejs }}" != "") {
+            MODAL.ifModifyInit(DTL.info);
+        }
     },
     inputInit: function() {
         if(param_name != "") {
@@ -199,82 +201,83 @@ var MODAL = {
         var subTypeSource = MODAL.sub_type_list;
         modal_creatDropDown("#sel_sub_type", subTypeSource);
     },
-    ifModifyInit: function() {
+    ifModifyInit: function(info) {
+        $("#ipt_name").val(info.NAME);
         if("{{ info2|escapejs }}" != "") {
-            $("#ipt_name").val(DTL.info.NAME).attr("disabled", true);
-            $("#p_addr").text(DTL.info.RN_ADDR);
-            $("#p_tel").text(DTL.info.TEL);
-            $("#ipt_memo").val(DTL.info.DESC);
+            $("#ipt_name").attr("disabled", true);
+        }
+        $("#p_addr").text(info.RN_ADDR);
+        $("#p_tel").text(info.TEL);
+        $("#ipt_memo").val(info.DESC);
 
-            for(var i in DTL.info.TAG) {
-                var tagStr = DTL.info.TAG[i].substring(1);
-                var html = '<div class="tag added">';
-                    html += DTL.info.TAG[i];
-                    html += '<input type="checkbox" name="tags" value="'+ tagStr +'" checked="checked">';
-                    html += '</div>';
-                $(".tags").prepend(html);
-            }
+        for(var i in info.TAG) {
+            var tagStr = info.TAG[i].substring(1);
+            var html = '<div class="tag added">';
+                html += info.TAG[i];
+                html += '<input type="checkbox" name="tags" value="'+ tagStr +'" checked="checked">';
+                html += '</div>';
+            $(".tags").prepend(html);
+        }
 
-            $(".tag.added").click(function() {
-                if ($(this).hasClass('to-be-crossed')) {
-                    return $(this).remove();
-                } else {
-                    return $(this).addClass('to-be-crossed');
-                }
-            });
-
-            if(DTL.info.OFF_DAY == null || DTL.info.OFF_DAY.length == 0) {
-                $("#chkbox_off").prop("checked", true);
-                $("#chk_off").hide();
+        $(".tag.added").click(function() {
+            if ($(this).hasClass('to-be-crossed')) {
+                return $(this).remove();
             } else {
-                for(var i in DTL.info.OFF_DAY) {
-                    var html = '<span class="dtl_label dtl_label_info">' + DTL.info.OFF_DAY[i] + '<i class="fas fa-times mar-left-10"></i></span>';
-                    $("#div_off_list").append(html);
-                }
+                return $(this).addClass('to-be-crossed');
             }
+        });
 
-            $("#div_off_list .dtl_label .fa-times").click(function() {
-                $($(this).parent()).remove();
-            });
-
-            if(DTL.info.SALES_FROM != null && DTL.info.SALES_FROM != "") {
-                $("#ipt_sales_time_from").val(DTL.info.SALES_FROM);
+        if(info.OFF_DAY == null || info.OFF_DAY.length == 0) {
+            $("#chkbox_off").prop("checked", true);
+            $("#chk_off").hide();
+        } else {
+            for(var i in info.OFF_DAY) {
+                var html = '<span class="dtl_label dtl_label_info">' + info.OFF_DAY[i] + '<i class="fas fa-times mar-left-10"></i></span>';
+                $("#div_off_list").append(html);
             }
+        }
 
-            if(DTL.info.SALES_TO != null && DTL.info.SALES_TO != "") {
-                $("#ipt_sales_time_to").val(DTL.info.SALES_TO);
-            }
+        $("#div_off_list .dtl_label .fa-times").click(function() {
+            $($(this).parent()).remove();
+        });
 
-            if(DTL.info.BREAK_FROM != null && DTL.info.BREAK_FROM != "") {
-                $("#ipt_break_time_from").val(DTL.info.BREAK_FROM);
-            }
+        if(info.SALES_FROM != null && info.SALES_FROM != "") {
+            $("#ipt_sales_time_from").val(info.SALES_FROM);
+        }
 
-            if(DTL.info.BREAK_TO != null && DTL.info.BREAK_TO != "") {
-                $("#ipt_break_time_to").val(DTL.info.BREAK_TO);
-            }
+        if(info.SALES_TO != null && info.SALES_TO != "") {
+            $("#ipt_sales_time_to").val(info.SALES_TO);
+        }
 
-            if(DTL.info.BREAK_TO == null || DTL.info.BREAK_TO == "" || DTL.info.BREAK_FROM == null || DTL.info.BREAK_FROM == "") {
-                $("#chkbox_break").prop("checked", true);
-                $("#div_break_time").hide();
-            }
+        if(info.BREAK_FROM != null && info.BREAK_FROM != "") {
+            $("#ipt_break_time_from").val(info.BREAK_FROM);
+        }
 
-            if(DTL.info.TYPE != null && DTL.info.TYPE != "") {
-                $("#sel_type").jqxDropDownList('selectItem', DTL.info.TYPE);
-            }
+        if(info.BREAK_TO != null && info.BREAK_TO != "") {
+            $("#ipt_break_time_to").val(info.BREAK_TO);
+        }
 
-            if(DTL.info.SUB_TYPE != null && DTL.info.SUB_TYPE != "") {
-                $("#sel_sub_type").jqxDropDownList('selectItem', DTL.info.SUB_TYPE);
-            }
+        if(info.BREAK_TO == null || info.BREAK_TO == "" || info.BREAK_FROM == null || info.BREAK_FROM == "") {
+            $("#chkbox_break").prop("checked", true);
+            $("#div_break_time").hide();
+        }
 
-            if(DTL.info.PARKING == "TRUE") {
-                $("#rdo_parking_t").prop("checked", true);
-            } else if(DTL.info.PARKING == "FALSE") {
-                $("#rdo_parking_f").prop("checked", true);
-            }
+        if(info.TYPE != null && info.TYPE != "") {
+            $("#sel_type").jqxDropDownList('selectItem', info.TYPE);
+        }
 
-            if(DTL.info.TRY == "TRUE") {
-                $("#chkbox_try").prop("checked", true);
-            }
+        if(info.SUB_TYPE != null && info.SUB_TYPE != "") {
+            $("#sel_sub_type").jqxDropDownList('selectItem', info.SUB_TYPE);
+        }
+
+        if(info.PARKING == "TRUE") {
+            $("#rdo_parking_t").prop("checked", true);
+        } else if(info.PARKING == "FALSE") {
+            $("#rdo_parking_f").prop("checked", true);
+        }
+
+        if(info.TRY == "TRUE") {
+            $("#chkbox_try").prop("checked", true);
         }
     },
     modalEventBind: function() {
@@ -286,6 +289,9 @@ var MODAL = {
                     var ps = new daum.maps.services.Places();
                     ps.keywordSearch($(this).val(), placesSearchCB);
                 } else {
+                    $("#p_addr").text("");
+                    $("#p_tel").text("");
+
                     alert("조회할 상호명을 입력 후 엔터");
                 }
             }
@@ -615,8 +621,8 @@ function placesSearchCB (data, status, pagination) {
         
         MODAL.serch_zip = [];
         for(var i in data) {
-            var cate = data[i].category_name.split("> ");
-            if(data[i].category_group_code == "FD6" || cate[cate.length-1] == "식품판매") {
+            var cate = data[i].category_name.split(" > ");
+            if(cate[0] == "음식점" || cate[cate.length-1] == "식품판매") {
                 MODAL.serch_zip.push(data[i]);
             }
         }
@@ -650,17 +656,37 @@ function placesSearchCB (data, status, pagination) {
 
         $(".menu_item").click(function() {
             MODAL.mat_data = JSON.parse($(this).children("span").text());
-            console.log(MODAL.mat_data);
-            $("#ipt_name").val(MODAL.mat_data.place_name);
-            $("#p_addr").text(MODAL.mat_data.road_address_name);
+            
+            $.ajax({
+                url:'/api/searchGetEs?lat=' + MODAL.mat_data.y + '&lng=' + MODAL.mat_data.x,
+                dataType:'json',
+                type:'GET',
+                async: false,
+                success:function(result){
+                    console.log(result)
+                    if(result.length != 0) {
+                        if(!alert("저장된 데이터가 있습니다. 불러오시겠습니까?")) {
+                            // MODAL.formReset();
+                            // MODAL.dropdownInit();
+                            MODAL.ifModifyInit(result[0]._source)
+                        }
+                    } else {
+                        console.log(MODAL.mat_data);
+                        $("#ipt_name").val(MODAL.mat_data.place_name);
+                        $("#p_addr").text(MODAL.mat_data.road_address_name);
 
-            if(MODAL.mat_data.phone == "" || MODAL.mat_data.phone == null) {
-                $("#p_tel").text("").attr("hidden", "true");
-                $("#ipt_tel").prop("type", "number");
-            } else {
-                $("#ipt_tel").prop("type", "hidden");
-                $("#p_tel").removeAttr("hidden").text(MODAL.mat_data.phone);
-            }
+                        if(MODAL.mat_data.phone == "" || MODAL.mat_data.phone == null) {
+                            $("#p_tel").text("").attr("hidden", "true");
+                            $("#ipt_tel").prop("type", "number");
+                        } else {
+                            $("#ipt_tel").prop("type", "hidden");
+                            $("#p_tel").removeAttr("hidden").text(MODAL.mat_data.phone);
+                        }
+                        
+                    }
+                }
+            });
+
             MODAL.view_list.empty();
             MODAL.view_list.css("display", "none");
         });

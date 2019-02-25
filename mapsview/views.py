@@ -35,10 +35,17 @@ def sub_type_list(request):
     for _type in e.sub_type_list(query):
         subTypeList.append(_type['_source'])
 
-    return HttpResponse(
-        json.dumps(subTypeList),
-        content_type='application/json; charset=utf-8')
+    return HttpResponse( json.dumps(subTypeList), content_type='application/json; charset=utf-8')
 
+def searchGetEs(request):
+    loc = {
+        'lat': request.GET.get('lat'),
+        'lon': request.GET.get('lng')
+    }
+    print(loc['lat'])
+    result = e.searchByLocation(loc)
+
+    return HttpResponse(json.dumps(result), content_type='application/json; charset=utf-8')
 
 @csrf_exempt
 @require_POST
@@ -54,10 +61,7 @@ def enroll_map(request):
 def detail_map(request, id):
 
     result = e.es_search_by_id(id)
-    return render(request, 'mapviews/map_detail.html', {
-        'info': result,
-        'info2': json.dumps(result)
-    })
+    return render(request, 'mapviews/map_detail.html', { 'info': result, 'info2': json.dumps(result) })
 
 
 @csrf_exempt

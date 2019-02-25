@@ -499,9 +499,6 @@
       setTimeout(function() {
         $("#Progress_Loading").css("display", "block");
         var loc = null;
-        if (APP.connect.lat != null && APP.connect.lng != null) {
-          loc = APP.connect;
-        }
         SEARCH.doSearch(loc);
       }, 2000);
       $("#query_ipt").val("");

@@ -13,4 +13,5 @@ urlpatterns = [
     url(r'^api/enroll_map/$', views.enroll_map, name='enroll_map'),
     url(r'^api/modify_map/$', views.modify_map, name='modify_map'),
     url(r'^api/delete_map/(\d+)/$', views.delete_map, name='delete_map'),
+    url(r'^api/searchGetEs$', views.searchGetEs, name='searchGetEs'),
 ]

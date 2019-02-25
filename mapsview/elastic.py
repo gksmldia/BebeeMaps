@@ -114,6 +114,29 @@ def searchByConnetLoc(user_id, addr):
                                 })['hits']['hits']
     return mat_data
 
+def searchByLocation(loc):
+    mat_data = es_client.search(index = 'place',
+                                doc_type = 'doc',
+                                body = {
+                                    "query" : {
+                                        "bool": {
+                                            "must" : {
+                                                "match_all" : {}
+                                            },
+                                            "filter" : {
+                                                "geo_distance" : {
+                                                    "distance" : "10m",
+                                                    "location" : {
+                                                        "lat" : loc['lat'],
+                                                        "lon" : loc['lon']
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                })['hits']['hits']
+    return mat_data
+
 def sub_type_list(queryString) :
     print('sub_type_list')
     # es_client = elasticsearch.Elasticsearch("http://127.0.0.1:9200/")

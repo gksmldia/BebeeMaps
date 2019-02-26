@@ -1,0 +1,130 @@
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 1 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "서울 마포구 양화로 46", "LB_ADDR": "합정동 414-5", "SALES_FROM": "17:00", "OFF_DAY": [], "SUB_TYPE": "K", "NAME": "신김치생삼겹살", "BREAK_FROM": "", "SALES_TO": "0:30", "BREAK_TO": "", "TEL": "02-325-8690", "location": {"lon": 126.9141832, "lat": 37.5493362}, "ID": 1, "PARKING": "FALSE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 2 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "서울 마포구 독막로15길 5", "LB_ADDR": "상수동 310-25", "SALES_FROM": "11:00", "OFF_DAY": ["MON"], "SUB_TYPE": "J", "NAME": "더 밥", "BREAK_FROM": "15:00", "SALES_TO": "22:30", "BREAK_TO": "17:00", "TEL": "070-8777-2811", "location": {"lon": 126.9218086, "lat": 37.5481509}, "ID": 2, "PARKING": "FALSE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 3 } }
+{"DETAIL_ADDR": "2층", "RN_ADDR": "서울 마포구 어울마당로 44-1", "LB_ADDR": "서교동 408-27", "SALES_FROM": "11:30", "OFF_DAY": [], "SUB_TYPE": "J", "NAME": "쯔루하시후게츠 홍대점", "BREAK_FROM": "", "SALES_TO": "23:00", "BREAK_TO": "", "TEL": "02-323-5921", "location": {"lon": 126.9209115, "lat": 37.5489167}, "ID": 3, "PARKING": "FALSE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 4 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "서울 마포구 와우산로7길 6", "LB_ADDR": "상수동 328-7", "SALES_FROM": "11:00", "OFF_DAY": [], "SUB_TYPE": "J", "NAME": "라멘트럭", "BREAK_FROM": "", "SALES_TO": "0:00", "BREAK_TO": "", "TEL": "02-336-8455", "location": {"lon": 126.9226606, "lat": 37.5471396}, "ID": 4, "PARKING": "FALSE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 5 } }
+{"DETAIL_ADDR": "공덕시장 족발골목 내", "RN_ADDR": "서울 마포구 만리재로 19", "LB_ADDR": "공덕동 256-11", "SALES_FROM": "7:00", "OFF_DAY": ["every other weekend"], "SUB_TYPE": "K", "NAME": "마포소문난원조족발", "BREAK_FROM": "", "SALES_TO": "1:00", "BREAK_TO": "", "TEL": "02-716-9731", "location": {"lon": 126.9531195, "lat": 37.5446023}, "ID": 5, "PARKING": "FALSE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 6 } }
+{"DETAIL_ADDR": "1층", "RN_ADDR": "서울 마포구 잔다리로 77", "LB_ADDR": "서교동 466-5", "SALES_FROM": "11:30", "OFF_DAY": [], "SUB_TYPE": "J", "NAME": "키움초밥", "BREAK_FROM": "", "SALES_TO": "1:00", "BREAK_TO": "", "TEL": "02-333-1511", "location": {"lon": 126.9160178, "lat": 37.5542519}, "ID": 6, "PARKING": "FALSE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 7 } }
+{"DETAIL_ADDR": "신도림푸르지오1차 167,168-1호", "RN_ADDR": "서울 구로구 경인로 661", "LB_ADDR": "신도림동 337", "SALES_FROM": "17:00", "OFF_DAY": [], "SUB_TYPE": "K", "NAME": "똥집의정석", "BREAK_FROM": "", "SALES_TO": "4:00", "BREAK_TO": "", "TEL": "02-861-3161", "location": {"lon": 126.8877258, "lat": 37.5093957}, "ID": 7, "PARKING": "FALSE", "TYPE": "A"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 8 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "서울 마포구 독막로6길 14", "LB_ADDR": "합정동 361-1", "SALES_FROM": "10:00", "OFF_DAY": ["SUN"], "SUB_TYPE": "A", "NAME": "스냅", "BREAK_FROM": "", "SALES_TO": "22:00", "BREAK_TO": "", "TEL": "02-322-1640", "location": {"lon": 126.9172933, "lat": 37.5474401}, "ID": 8, "PARKING": "FALSE", "TYPE": "D"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 9 } }
+{"DETAIL_ADDR": "2층", "RN_ADDR": "서울 마포구 잔다리로6길 40-6", "LB_ADDR": "서교동 366-13", "SALES_FROM": "12:00", "OFF_DAY": [], "SUB_TYPE": "C", "NAME": "소고산제일루 홍대1호점", "BREAK_FROM": "", "SALES_TO": "0:00", "BREAK_TO": "", "TEL": "02-3141-3045", "location": {"lon": 126.9212574, "lat": 37.5520807}, "ID": 9, "PARKING": "FALSE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 10 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "서울 광진구 아차산로33길 21-5", "LB_ADDR": "화양동 8-86", "SALES_FROM": "18:00", "OFF_DAY": ["SUN"], "SUB_TYPE": "J", "NAME": "유키노하나", "BREAK_FROM": "", "SALES_TO": "3:00", "BREAK_TO": "", "TEL": "02-6085-9512", "location": {"lon": 127.0698394, "lat": 37.5413365}, "ID": 10, "PARKING": "FALSE", "TYPE": "A"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 11 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "경남 통영시 광도면 죽림5로 34", "LB_ADDR": "광도면 죽림리 1570-7", "SALES_FROM": "11:00", "OFF_DAY": [], "SUB_TYPE": "K", "NAME": "밥", "BREAK_FROM": "", "SALES_TO": "21:00", "BREAK_TO": "", "TEL": "055-645-262", "location": {"lon": 128.4195892, "lat": 34.8860336}, "ID": 11, "PARKING": "TRUE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 12 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "경남 통영시 판데1길 14", "LB_ADDR": "당동 201-1", "SALES_FROM": "12:00", "OFF_DAY": ["MON"], "SUB_TYPE": "FC", "NAME": "당촌식당", "BREAK_FROM": "", "SALES_TO": "21:00", "BREAK_TO": "", "TEL": "055-642-8109", "location": {"lon": 128.4078288, "lat": 34.8355559}, "ID": 12, "PARKING": "TRUE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 13 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "경남 고성군 마암면 옥천로 16-1", "LB_ADDR": "마암면 화산리 131", "SALES_FROM": "", "OFF_DAY": [], "SUB_TYPE": "K", "NAME": "솔밭가든", "BREAK_FROM": "", "SALES_TO": "", "BREAK_TO": "", "TEL": "055-672-2120", "location": {"lon": 128.3605204, "lat": 35.0504766}, "ID": 13, "PARKING": "TRUE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 14 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "서울 마포구 월드컵로5길 33-23", "LB_ADDR": "합정동 386-11", "SALES_FROM": "11:30", "OFF_DAY": [], "SUB_TYPE": "A", "NAME": "밤부베이커리", "BREAK_FROM": "", "SALES_TO": "23:00", "BREAK_TO": "", "TEL": "02-3144-0446", "location": {"lon": 126.9109228, "lat": 37.5505802}, "ID": 14, "PARKING": "FALSE", "TYPE": "D"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 15 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "서울 마포구 와우산로27길 7", "LB_ADDR": "서교동 338-1", "SALES_FROM": "11:30", "OFF_DAY": [], "SUB_TYPE": "A", "NAME": "테일러커피 2호점", "BREAK_FROM": "", "SALES_TO": "23:00", "BREAK_TO": "", "TEL": "02-334-0355", "location": {"lon": 126.9276536, "lat": 37.5537662}, "ID": 15, "PARKING": "FALSE", "TYPE": "D"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 16 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "서울 마포구 토정로 35-1", "LB_ADDR": "합정동 368-3", "SALES_FROM": "11:00", "OFF_DAY": [], "SUB_TYPE": "A", "NAME": "빈브라더스 합정점", "BREAK_FROM": "", "SALES_TO": "23:00", "BREAK_TO": "", "TEL": "02-6012-2001", "location": {"lon": 126.914965, "lat": 37.5456779}, "ID": 16, "PARKING": "TRUE", "TYPE": "D"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 17 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "서울 마포구 어울마당로5길 40", "LB_ADDR": "서교동 398-9", "SALES_FROM": "8:30", "OFF_DAY": [], "SUB_TYPE": "A", "NAME": "안녕낯선사람", "BREAK_FROM": "", "SALES_TO": "23:00", "BREAK_TO": "", "TEL": "02-333-5610", "location": {"lon": 126.9185665, "lat": 37.5497846}, "ID": 17, "PARKING": "FALSE", "TYPE": "D"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 18 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "서울 마포구 토정로3길 16", "LB_ADDR": "합정동 367-9", "SALES_FROM": "10:00", "OFF_DAY": [], "SUB_TYPE": "A", "NAME": "비포그레이", "BREAK_FROM": "", "SALES_TO": "22:00", "BREAK_TO": "", "TEL": "02-333-5694", "location": {"lon": 126.9144224, "lat": 37.546264}, "ID": 18, "PARKING": "FALSE", "TYPE": "D"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 19 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "서울 중구 마른내로 154", "LB_ADDR": "광희동1가 250-1", "SALES_FROM": "10:00", "OFF_DAY": ["MON(1,3)"], "SUB_TYPE": "R", "NAME": "파르투내", "BREAK_FROM": "", "SALES_TO": "23:00", "BREAK_TO": "", "TEL": "02-2278-7770", "location": {"lon": 127.0049665, "lat": 37.5645518}, "ID": 19, "PARKING": "FALSE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 20 } }
+{"DETAIL_ADDR": "지하1층", "RN_ADDR": "서울 마포구 월드컵로19길 1", "LB_ADDR": "망원동 57-23", "SALES_FROM": "18:00", "OFF_DAY": ["SUN"], "SUB_TYPE": "S", "NAME": "바르셀로나", "BREAK_FROM": "", "SALES_TO": "1:00", "BREAK_TO": "", "TEL": "02-322-5764", "location": {"lon": 126.9080676, "lat": 37.5562348}, "ID": 20, "PARKING": "FALSE", "TYPE": "A"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 21 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "서울 중구 충무로2길 32", "LB_ADDR": "충무로4가 134-1", "SALES_FROM": "0:00", "OFF_DAY": [], "SUB_TYPE": "K", "NAME": "광안리", "BREAK_FROM": "", "SALES_TO": "0:00", "BREAK_TO": "", "TEL": "011-874-3590", "location": {"lon": 126.9948302, "lat": 37.5622719}, "ID": 21, "PARKING": "FALSE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 22 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "인천 중구 신포로27번길 45", "LB_ADDR": "중앙동3가 2-18", "SALES_FROM": "", "OFF_DAY": ["WED(2,4)"], "SUB_TYPE": "C", "NAME": "중화방", "BREAK_FROM": "", "SALES_TO": "", "BREAK_TO": "", "TEL": "", "location": {"lon": 126.6228805, "lat": 37.4724282}, "ID": 22, "PARKING": "TRUE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 23 } }
+{"DETAIL_ADDR": "1층", "RN_ADDR": "서울 관악구 봉천로 537", "LB_ADDR": "봉천동 1663-7", "SALES_FROM": "11:30", "OFF_DAY": [], "SUB_TYPE": "C", "NAME": "두만강샤브샤브 봉천점", "BREAK_FROM": "", "SALES_TO": "22:00", "BREAK_TO": "", "TEL": "02-885-7966", "location": {"lon": 126.9576725, "lat": 37.4787665}, "ID": 23, "PARKING": "FALSE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 24 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "서울 용산구 이태원로 204", "LB_ADDR": "이태원동 126-2", "SALES_FROM": "9:00", "OFF_DAY": [], "SUB_TYPE": "T", "NAME": "케르반 베이커리", "BREAK_FROM": "", "SALES_TO": "0:00", "BREAK_TO": "", "TEL": "02-790-5585", "location": {"lon": 126.9965047, "lat": 37.5344666}, "ID": 24, "PARKING": "FALSE", "TYPE": "D"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 25 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "서울 용산구 보광로60길 22", "LB_ADDR": "이태원동 132-1", "SALES_FROM": "10:00", "OFF_DAY": [], "SUB_TYPE": "T", "NAME": "살람베이커리", "BREAK_FROM": "", "SALES_TO": "22:30", "BREAK_TO": "", "TEL": "070-4025-7044", "location": {"lon": 126.9954229, "lat": 37.5338852}, "ID": 25, "PARKING": "FALSE", "TYPE": "D"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 26 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "전북 전주시 완산구전라감영3길 13-5", "LB_ADDR": "중앙동1가 61-3", "SALES_FROM": "20:00", "OFF_DAY": [], "SUB_TYPE": "K", "NAME": "진주도가", "BREAK_FROM": "", "SALES_TO": "2:00", "BREAK_TO": "", "TEL": "063-287-3392", "location": {"lon": 127.1430208, "lat": 35.8161663}, "ID": 26, "PARKING": "FALSE", "TYPE": "A"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 27 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "서울 마포구연남로 15", "LB_ADDR": "연남동 566-67", "SALES_FROM": "11:30", "OFF_DAY": [], "SUB_TYPE": "J", "NAME": "사루카메", "BREAK_FROM": "15:00", "SALES_TO": "22:00", "BREAK_TO": "18:00", "TEL": "070-8156-5720", "location": {"lon": 126.922653, "lat": 37.5610317}, "ID": 27, "PARKING": "FALSE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 28 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "서울 서대문구 성산로22길 4", "LB_ADDR": "창천동 91-6", "SALES_FROM": "11:00", "OFF_DAY": ["SUN"], "SUB_TYPE": "J", "NAME": "가마마루이", "BREAK_FROM": "15:00", "SALES_TO": "21:00", "BREAK_TO": "17:00", "TEL": "02-3142-3929", "location": {"lon": 126.9333177, "lat": 37.5603743}, "ID": 28, "PARKING": "FALSE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 29 } }
+{"DETAIL_ADDR": "지하1층", "RN_ADDR": "서울 관악구 관악로14길 37", "LB_ADDR": "봉천동 1603-20", "SALES_FROM": "12:00", "OFF_DAY": [], "SUB_TYPE": "G", "NAME": "황홀경", "BREAK_FROM": "", "SALES_TO": "23:00", "BREAK_TO": "", "TEL": "02-6449-7362", "location": {"lon": 126.9545918, "lat": 37.478906}, "ID": 29, "PARKING": "FALSE", "TYPE": "D"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 30 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "서울 영등포구 경인로 838-1", "LB_ADDR": "영등포동 423-103", "SALES_FROM": "11:00", "OFF_DAY": [], "SUB_TYPE": "I", "NAME": "에베레스트", "BREAK_FROM": "", "SALES_TO": "23:00", "BREAK_TO": "", "TEL": "02-3667-8848", "location": {"lon": 126.9060679, "lat": 37.5158698}, "ID": 30, "PARKING": "FALSE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 31 } }
+{"DETAIL_ADDR": "필운빌딩 1층", "RN_ADDR": "서울 종로구사직로 101", "LB_ADDR": "필운동 214", "SALES_FROM": "11:00", "OFF_DAY": ["SUN"], "SUB_TYPE": "K", "NAME": "옥반상", "BREAK_FROM": "15:00", "SALES_TO": "22:00", "BREAK_TO": "17:00", "TEL": "02-739-0101", "location": {"lon": 126.969987, "lat": 37.5762852}, "ID": 31, "PARKING": "FALSE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 32 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "서울 동대문구 하정로4길 1", "LB_ADDR": "신설동 91-300", "SALES_FROM": "", "OFF_DAY": [], "SUB_TYPE": "K", "NAME": "(간판없는)순대국집", "BREAK_FROM": "", "SALES_TO": "", "BREAK_TO": "", "TEL": "02-921-6402", "location": {"lon": 127.0255106, "lat": 37.5726757}, "ID": 32, "PARKING": "FALSE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 33 } }
+{"DETAIL_ADDR": "대명빌딩 1층", "RN_ADDR": "서울 관악구 관악로12길 47", "LB_ADDR": "봉천동 1610-24", "SALES_FROM": "19:00", "OFF_DAY": ["SUN", "MON"], "SUB_TYPE": "FC", "NAME": "오지 편한식당", "BREAK_FROM": "", "SALES_TO": "1:00", "BREAK_TO": "", "TEL": "010-5048-9914", "location": {"lon": 126.9550708, "lat": 37.4777983}, "ID": 33, "PARKING": "FALSE", "TYPE": "A"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 34 } }
+{"DETAIL_ADDR": "1층", "RN_ADDR": "서울 서대문구 연세로4길 61", "LB_ADDR": "창천동 5-32", "SALES_FROM": "18:00", "OFF_DAY": ["SUN"], "SUB_TYPE": "J", "NAME": "키친31", "BREAK_FROM": "", "SALES_TO": "1:00", "BREAK_TO": "", "TEL": "02-312-6709", "location": {"lon": 126.9395137, "lat": 37.5585209}, "ID": 34, "PARKING": "FALSE", "TYPE": "A"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 35 } }
+{"DETAIL_ADDR": "1층", "RN_ADDR": "서울 마포구 동교로38길 33-15", "LB_ADDR": "연남동 390-30", "SALES_FROM": "11:30", "OFF_DAY": [], "SUB_TYPE": "J", "NAME": "카쿠시타", "BREAK_FROM": "14:30", "SALES_TO": "1:00", "BREAK_TO": "17:00", "TEL": "070-4187-8787", "location": {"lon": 126.9261064, "lat": 37.5618128}, "ID": 35, "PARKING": "FALSE", "TYPE": "A"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 36 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "서울 종로구창경궁로35나길 1", "LB_ADDR": "혜화동 71-10", "SALES_FROM": "11:00", "OFF_DAY": ["TUE"], "SUB_TYPE": "A", "NAME": "아뻬 서울", "BREAK_FROM": "", "SALES_TO": "22:00", "BREAK_TO": "", "TEL": "070-7716-1910", "location": {"lon": 127.0012003, "lat": 37.5872838}, "ID": 36, "PARKING": "FALSE", "TYPE": "D"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 37 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "서울 마포구 포은로 74", "LB_ADDR": "망원동 401-34", "SALES_FROM": "", "OFF_DAY": ["MON(2,4)"], "SUB_TYPE": "C", "NAME": "천지양꼬치", "BREAK_FROM": "", "SALES_TO": "", "BREAK_TO": "", "TEL": "02-322-1020", "location": {"lon": 126.9058377, "lat": 37.5537805}, "ID": 37, "PARKING": "FALSE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 38 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "경기 구리시 경춘로242번길 27", "LB_ADDR": "수택동 527-19", "SALES_FROM": "17:00", "OFF_DAY": [], "SUB_TYPE": "C", "NAME": "명점", "BREAK_FROM": "", "SALES_TO": "22:00", "BREAK_TO": "", "TEL": "031-567-5888", "location": {"lon": 127.1435262, "lat": 37.6006079}, "ID": 38, "PARKING": "TRUE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 39 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "서울 종로구 삼일대로26길 20", "LB_ADDR": "낙원동 85-7", "SALES_FROM": "11:30", "OFF_DAY": ["SUN(1,3,5)"], "SUB_TYPE": "K", "NAME": "호반", "BREAK_FROM": "", "SALES_TO": "22:00", "BREAK_TO": "", "TEL": "02-745-6618", "location": {"lon": 126.9891286, "lat": 37.5732637}, "ID": 39, "PARKING": "FALSE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 40 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "서울 마포구 동교로8길 39", "LB_ADDR": "합정동 448-18", "SALES_FROM": "13:00", "OFF_DAY": ["SUN", "MON"], "SUB_TYPE": "TH", "NAME": "금붕어식당", "BREAK_FROM": "16:00", "SALES_TO": "21:30", "BREAK_TO": "18:00", "TEL": "", "location": {"lon": 126.9056101, "lat": 37.5503067}, "ID": 40, "PARKING": "FALSE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 41 } }
+{"DETAIL_ADDR": "2층", "RN_ADDR": "서울 광진구 아차산로29길 22", "LB_ADDR": "화양동 9-25", "SALES_FROM": "11:00", "OFF_DAY": [], "SUB_TYPE": "C", "NAME": "천지샤브샤브 2호점", "BREAK_FROM": "", "SALES_TO": "0:00", "BREAK_TO": "", "TEL": "02-466-6334", "location": {"lon": 127.068612, "lat": 37.541762}, "ID": 41, "PARKING": "FALSE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 42 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "서울 용산구 한남대로20길 47", "LB_ADDR": "한남동 31-13", "SALES_FROM": "11:30", "OFF_DAY": ["MON"], "SUB_TYPE": "J", "NAME": "모또", "BREAK_FROM": "", "SALES_TO": "20:00", "BREAK_TO": "", "TEL": "02-3785-0997", "location": {"lon": 127.009466, "lat": 37.5348679}, "ID": 42, "PARKING": "FALSE", "TYPE": "D"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 43 } }
+{"DETAIL_ADDR": "1층", "RN_ADDR": "서울 관악구 관악로14길 31", "LB_ADDR": "봉천동 1603-15", "SALES_FROM": "12:00", "OFF_DAY": [], "SUB_TYPE": "J", "NAME": "쿠모식당", "BREAK_FROM": "14:00", "SALES_TO": "21:30", "BREAK_TO": "17:00", "TEL": "070-8623-6996", "location": {"lon": 126.9542856, "lat": 37.4789727}, "ID": 43, "PARKING": "FALSE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 44 } }
+{"DETAIL_ADDR": "광진빌딩 1층", "RN_ADDR": "서울 광진구 뚝섬로31길 59", "LB_ADDR": "자양4동 4-1", "SALES_FROM": "12:00", "OFF_DAY": [], "SUB_TYPE": "C", "NAME": "명봉샤브샤브양꼬치", "BREAK_FROM": "", "SALES_TO": "2:00", "BREAK_TO": "", "TEL": "02-498-8808", "location": {"lon": 127.0686501, "lat": 37.5380635}, "ID": 44, "PARKING": "FALSE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 45 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "서울 영등포구 대방천로 175", "LB_ADDR": "신길동 3741-53", "SALES_FROM": "11:30", "OFF_DAY": [], "SUB_TYPE": "K", "NAME": "순흥골 신길점", "BREAK_FROM": "", "SALES_TO": "22:00", "BREAK_TO": "", "TEL": "02-848-1888", "location": {"lon": 126.9105181, "lat": 37.4992876}, "ID": 45, "PARKING": "TRUE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 46 } }
+{"DETAIL_ADDR": "창은빌딩 1층", "RN_ADDR": "서울 마포구 망원로 97", "LB_ADDR": "망원동 482-3", "SALES_FROM": "11:30", "OFF_DAY": ["SUN"], "SUB_TYPE": "K", "NAME": "청어람", "BREAK_FROM": "14:00", "SALES_TO": "22:00", "BREAK_TO": "17:00", "TEL": "02-332-1411", "location": {"lon": 126.9074864, "lat": 37.5580595}, "ID": 46, "PARKING": "FALSE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 47 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "서울 마포구망원로 46", "LB_ADDR": "망원동 416-22", "SALES_FROM": "12:00", "OFF_DAY": ["SUN", "MON(2,4)"], "SUB_TYPE": "F", "NAME": "빙하의별", "BREAK_FROM": "", "SALES_TO": "22:00", "BREAK_TO": "", "TEL": "02-336-0604", "location": {"lon": 126.901976, "lat": 37.5565694}, "ID": 47, "PARKING": "FALSE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 48 } }
+{"DETAIL_ADDR": "1층", "RN_ADDR": "서울 양천구 중앙로36길 40", "LB_ADDR": "신정동 1048-18", "SALES_FROM": "11:30", "OFF_DAY": [], "SUB_TYPE": "J", "NAME": "니코리", "BREAK_FROM": "15:00", "SALES_TO": "22:00", "BREAK_TO": "18:00", "TEL": "02-2061-5288", "location": {"lon": 126.8583925, "lat": 37.5197156}, "ID": 48, "PARKING": "FALSE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 49 } }
+{"DETAIL_ADDR": "지하1층", "RN_ADDR": "서울 송파구백제고분로48길 29", "LB_ADDR": "방이동 142-16", "SALES_FROM": "16:00", "OFF_DAY": [], "SUB_TYPE": "K", "NAME": "참치한마리", "BREAK_FROM": "", "SALES_TO": "1:00", "BREAK_TO": "", "TEL": "02-415-4592", "location": {"lon": 127.1162619, "lat": 37.5107951}, "ID": 49, "PARKING": "FALSE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 50 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "서울 서대문구 연세로5다길 22-7", "LB_ADDR": "창천동 62-21", "SALES_FROM": "12:00", "OFF_DAY": [], "SUB_TYPE": "F", "NAME": "몰리스", "BREAK_FROM": "", "SALES_TO": "23:00", "BREAK_TO": "", "TEL": "02-6015-2442", "location": {"lon": 126.9343856, "lat": 37.5569195}, "ID": 50, "PARKING": "FALSE", "TYPE": "D"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 51 } }
+{"DETAIL_ADDR": "밀레니엄타워", "RN_ADDR": "서울 노원구화랑로51길 38", "LB_ADDR": "공릉동 113", "SALES_FROM": "", "OFF_DAY": [], "SUB_TYPE": "A", "NAME": "하품", "BREAK_FROM": "", "SALES_TO": "", "BREAK_TO": "", "TEL": "02-978-2988", "location": {"lon": 127.0890701,"lat": 37.6249129}, "ID": 51,"PARKING": "FALSE", "TYPE": "D" }
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 52 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "서울 서대문구 연세로5나길 20", "LB_ADDR": "창천동 57-61", "SALES_FROM": "11:00", "OFF_DAY": [], "SUB_TYPE": "A", "NAME": "파이홀", "BREAK_FROM": "", "SALES_TO": "23:00", "BREAK_TO": "", "TEL": "02-334-1181", "location": {"lon": 126.9350431, "lat": 37.5570056}, "ID": 52, "PARKING": "FALSE", "TYPE": "D"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 53 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "서울 강남구 선릉로155길 23-3", "LB_ADDR": "신사동 656-7", "SALES_FROM": "18:00", "OFF_DAY": "SUN", "SUB_TYPE": "J", "NAME": "이치에", "BREAK_FROM": "", "SALES_TO": "0:00", "BREAK_TO": "", "TEL": "070-4273-4087", "location": {"lon": 127.0376706, "lat": 37.5253356}, "ID": 53, "PARKING": "FALSE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 54 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "서울 강남구 논현로151길 52", "LB_ADDR": "신사동 543-8", "SALES_FROM": "10:00", "OFF_DAY": [], "SUB_TYPE": "J", "NAME": "도쿄팡야 가로수길", "BREAK_FROM": "", "SALES_TO": "22:00", "BREAK_TO": "", "TEL": "02-547-7790", "location": {"lon": 127.0238961, "lat": 37.5196406}, "ID": 54, "PARKING": "FALSE", "TYPE": "D"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 55 } }
+{"DETAIL_ADDR": "강남출판문화센터 1층", "RN_ADDR": "서울 강남구 도산대로1길 62", "LB_ADDR": "신사동 506", "SALES_FROM": "11:30", "OFF_DAY": [], "SUB_TYPE": "A", "NAME": "레빠쥬", "BREAK_FROM": "", "SALES_TO": "23:00", "BREAK_TO": "", "TEL": "02-540-3240", "location": {"lon": 127.0194099, "lat": 37.5207424}, "ID": 55, "PARKING": "FALSE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 56 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "서울 강동구 구천면로 221", "LB_ADDR": "천호동 402-", "SALES_FROM": "", "OFF_DAY": [], "SUB_TYPE": "K", "NAME": "광주횟집", "BREAK_FROM": "", "SALES_TO": "", "BREAK_TO": "", "TEL": "02-476-5007", "location": {"lon": 127.1290575, "lat": 37.5409276}, "ID": 56, "PARKING": "TRUE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 57 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "서울 종로구 삼일대로 430", "LB_ADDR": "낙원동 66", "SALES_FROM": "10:00", "OFF_DAY": [], "SUB_TYPE": "K", "NAME": "여진곱", "BREAK_FROM": "15:00", "SALES_TO": "23:00", "BREAK_TO": "16:00", "TEL": "02-762-5157", "location": {"lon": 126.9883214, "lat": 37.5730991}, "ID": 57, "PARKING": "FALSE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 58 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "서울 서초구 남부순환로315길 84", "LB_ADDR": "서초동 1479-1", "SALES_FROM": "12:00", "OFF_DAY": ["MON", "TUE"], "SUB_TYPE": "F", "NAME": "메종조", "BREAK_FROM": "", "SALES_TO": "20:00", "BREAK_TO": "", "TEL": "02-584-3373", "location": {"lon": 127.0074128, "lat": 37.4822188}, "ID": 58, "PARKING": "FALSE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 59 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "서울 광진구 동일로18길 68", "LB_ADDR": "자양동 11-3", "SALES_FROM": "12:00", "OFF_DAY": [], "SUB_TYPE": "C", "NAME": "얼땅쟈", "BREAK_FROM": "", "SALES_TO": "3:00", "BREAK_TO": "", "TEL": "02-467-2886", "location": {"lon": 127.0664091, "lat": 37.5387396}, "ID": 59, "PARKING": "FALSE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 60 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "경남 진주시 촉석로 165", "LB_ADDR": "중안동 101", "SALES_FROM": "10:00", "OFF_DAY": ["SUN"], "SUB_TYPE": "K", "NAME": "원깐돌이", "BREAK_FROM": "", "SALES_TO": "17:00", "BREAK_TO": "", "TEL": "055-742-3937", "location": {"lon": 128.0802353, "lat": 35.1946696}, "ID": 60, "PARKING": "FALSE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 61 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "경남 창원시 의창구 천주로12번길 25", "LB_ADDR": "의창구 중동 707", "SALES_FROM": "11:00", "OFF_DAY": [], "SUB_TYPE": "K", "NAME": "목민정", "BREAK_FROM": "16:00", "SALES_TO": "22:00", "BREAK_TO": "17:00", "TEL": "055-255-7111", "location": {"lon": 128.621216, "lat": 35.262901}, "ID": 61, "PARKING": "TRUE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 62 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "경남 창원시 마산합포구 밤밭고개로 371", "LB_ADDR": "마산합포구 월영동 593-2", "SALES_FROM": "10:00", "OFF_DAY": [], "SUB_TYPE": "K", "NAME": "화인찜식당", "BREAK_FROM": "", "SALES_TO": "22:00", "BREAK_TO": "", "TEL": "055-247-7232", "location": {"lon": 128.5553647, "lat": 35.1749536}, "ID": 62, "PARKING": "FALSE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 63 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "경남 창원시 성산구 반송로 72-1", "LB_ADDR": "성산구 반지동 66-8", "SALES_FROM": "11:00", "OFF_DAY": [], "SUB_TYPE": "K", "NAME": "수복해물찜전문", "BREAK_FROM": "", "SALES_TO": "22:00", "BREAK_TO": "", "TEL": "055-273-3623", "location": {"lon": 128.6644619, "lat": 35.2396169}, "ID": 63, "PARKING": "TRUE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 64 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "경남 진주시 창렬로 71", "LB_ADDR": "상봉동 1108-16", "SALES_FROM": "6:30", "OFF_DAY": ["WED(1,3)"], "SUB_TYPE": "K", "NAME": "산청돼지국밥전문", "BREAK_FROM": "", "SALES_TO": "22:00", "BREAK_TO": "", "TEL": "055-742-2938", "location": {"lon": 128.068995, "lat": 35.1948586}, "ID": 64, "PARKING": "TRUE", "TYPE": "M"}
+{ "index" : { "_index": "place", "_type" : "doc", "_id" : 65 } }
+{"DETAIL_ADDR": "", "RN_ADDR": "제주특별자치도 제주시 한경면 조수2길 34", "LB_ADDR": "한경면 조수리 254-1", "SALES_FROM": "16:00", "OFF_DAY": ["TUE"], "SUB_TYPE": "K", "NAME": "제주돗", "BREAK_FROM": "", "SALES_TO": "22:00", "BREAK_TO": "", "TEL": "064-772-0505", "location": {"lon": 126.23085700158272, "lat": 33.33314561082263}, "ID": 65, "PARKING": "TRUE", "TYPE": "M"}

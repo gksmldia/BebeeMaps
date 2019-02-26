@@ -53,7 +53,8 @@ def es_list(param):
                         })
     
     body = {
-                'size': 100,
+                "size": 100,
+                "sort": { "ID": "desc" },
                 "query": {
                     "bool": { 
                         "must": must,
@@ -85,7 +86,7 @@ def searchByPersonal(user_id):
                                         }
                                     })['hits']['hits']
             
-    personal_mat_ids = [x['_source']['M_ID'] for x in personal_data]
+    personal_mat_ids = [x['_source']['P_ID'] for x in personal_data]
     personal_mat_ids.sort()
 
     return list(set(personal_mat_ids))
@@ -189,6 +190,23 @@ def es_search_by_id(search_id):
 
     return data['_source']
 
+def es_search_by_persnal_detail(p_id, u_id):
+    print('es_search_by_persnal_detail')
+    person_data = es_client.search(index = 'personal',
+                                    doc_type = 'doc',
+                                    body = {
+                                        "query" : {
+                                            "bool": {
+                                                "must": [
+                                                    { "match": { "P_ID": p_id } },
+                                                    { "match": { "U_ID": u_id } }
+                                                ]
+                                            }
+                                        }
+                                    })['hits']['hits'][0]['_source']
+
+    return person_data
+
 def es_insert(place):
     print('es_insert')
 
@@ -231,7 +249,7 @@ def es_insert_personal(p_id, u_id):
                 method = 'PUT',
                 url = '/personal/doc/'+ str(last_index_personal),
                 body = {
-                    'M_ID': p_id,
+                    'P_ID': p_id,
                     'U_ID': u_id
                 }
             )

@@ -239,14 +239,14 @@
         var level = 14;
 
         if (APP.query != null && APP.query != "") {
+          center = getCenter(relist);
+          level = 5;
+          APP.map.setBounds(APP.bounds);
+        } else {
           center = {
             x: 36.03061547397786,
             y: 127.95191690000001
           };
-          level = 5;
-          APP.map.setBounds(APP.bounds);
-        } else {
-          center = getCenter(relist);
           APP.map.setLevel(level);
         }
 
@@ -359,7 +359,7 @@
         card += '<div class="card__title">' + (i * 1 + 1) + ". " + list[i].NAME;
         card += '<div class="card_span_div">';
         card += '<span class="card_i_span card_open">';
-        card += '<a href="detail/' + list[i].ID + '/" >'
+        card += '<a href="detail/' + Number(APP.user_id) + '/' + Number(list[i].ID) + '/" >'
         card += '<i class="fas fa-door-open"></i></a></span>';
         card += '<span class="card_i_span pad-left-10 card_delete">';
         card += '<a href="#" class="delete" data="' + list[i].ID + '">'

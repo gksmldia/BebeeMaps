@@ -58,10 +58,14 @@ def enroll_map(request):
         return HttpResponse(json.dumps(result), content_type='application/json; charset=utf-8')
 
 
-def detail_map(request, id):
+def detail_map(request, user, id):
 
     result = e.es_search_by_id(id)
-    return render(request, 'mapviews/map_detail.html', { 'info': result, 'info2': json.dumps(result) })
+    result2 = e.es_search_by_persnal_detail(id, user)
+    return render(request, 'mapviews/map_detail.html', { 'p_info': result
+                                                        , 'p_info2': json.dumps(result)
+                                                        , 'u_info': result2
+                                                        , 'u_info2': json.dumps(result2) })
 
 
 @csrf_exempt

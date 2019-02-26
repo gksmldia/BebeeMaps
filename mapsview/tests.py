@@ -298,7 +298,7 @@ def es_last_index():
 def bulk_to_json_file() :
     es_client = elasticsearch.Elasticsearch("http://127.0.0.1:9200")
     
-    MyFile= open("C:\\Users\\gksml\\Programing\\git\BebeeMaps\\mapsview\\static\\json\\personal.json", 'r', encoding='UTF8').read()
+    MyFile= open("C:\\Users\\gksml\\Programing\\git\BebeeMaps\\mapsview\\static\\json\\personal_py.json", 'r', encoding='UTF8').read()
     ClearData = MyFile.splitlines(True)
     
     i=0
@@ -383,8 +383,42 @@ def es_delete(id):
 
     return result['result']
 
+def dataOutput():
+
+    data = es_client.search(index = 'personal',
+                                doc_type = 'doc',
+                                body = {
+                                    "size": 100,
+                                    "sort": {"P_ID": "asc"}, 
+                                    "_source": ["P_ID", "U_ID", "DESC", "TAG", "TRY"],
+                                    "query": {
+                                        "bool": {
+                                            "must" : {
+                                                "match_all" : {}
+                                            }
+                                        }
+                                    }
+                                })['hits']
+
+    source = []
+    print(data['total'])
+    id = 0
+    for index in data['hits']:
+        # source.append(index['_source'])
+        if(index['_source']['P_ID'] >= 51):
+            index['_source']['P_ID'] = index['_source']['P_ID']+1
+        
+        print('{ "index" : { "_index": "place", "_type" : "doc", "_id" : ' + str(index['_source']['P_ID']) + ' } }')
+        print(index['_source'])
+        id = id + 1
+
+    # print(simplejson.dumps(source, indent=2, sort_keys=True, ensure_ascii=False))
+    # "ID":    list(set(personal_mat_ids))
+    # "LB_ADDR": '*상수동*'
+
 if __name__ == '__main__':    # 프로그램의 시작점일 때만 아래 코드 실행
-    print(es_list())
+    dataOutput()
+    # print(es_list())
     # print(es_last_index())
     
     # 데이터 추가 

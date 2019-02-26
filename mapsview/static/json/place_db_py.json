@@ -1,0 +1,1297 @@
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 1,
+"LB_ADDR": "합정동 414-5",
+"NAME": "신김치생삼겹살",
+"OFF_DAY": [],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 마포구 양화로 46",
+"SALES_FROM": "17:00",
+"SALES_TO": "0:30",
+"SUB_TYPE": "K",
+"TEL": "02-325-8690",
+"TYPE": "M",
+"location": {
+    "lat": 37.5493362,
+    "lon": 126.9141832
+}
+},
+{
+"BREAK_FROM": "15:00",
+"BREAK_TO": "17:00",
+"DETAIL_ADDR": "",
+"ID": 2,
+"LB_ADDR": "상수동 310-25",
+"NAME": "더 밥",
+"OFF_DAY": ["MON"],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 마포구 독막로15길 5",
+"SALES_FROM": "11:00",
+"SALES_TO": "22:30",
+"SUB_TYPE": "J",
+"TEL": "070-8777-2811",
+"TYPE": "M",
+"location": {
+    "lat": 37.5481509,
+    "lon": 126.9218086
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "2층",
+"ID": 3,
+"LB_ADDR": "서교동 408-27",
+"NAME": "쯔루하시후게츠 홍대점",
+"OFF_DAY": [],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 마포구 어울마당로 44-1",
+"SALES_FROM": "11:30",
+"SALES_TO": "23:00",
+"SUB_TYPE": "J",
+"TEL": "02-323-5921",
+"TYPE": "M",
+"location": {
+    "lat": 37.5489167,
+    "lon": 126.9209115
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 4,
+"LB_ADDR": "상수동 328-7",
+"NAME": "라멘트럭",
+"OFF_DAY": [],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 마포구 와우산로7길 6",
+"SALES_FROM": "11:00",
+"SALES_TO": "0:00",
+"SUB_TYPE": "J",
+"TEL": "02-336-8455",
+"TYPE": "M",
+"location": {
+    "lat": 37.5471396,
+    "lon": 126.9226606
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "공덕시장 족발골목 내",
+"ID": 5,
+"LB_ADDR": "공덕동 256-11",
+"NAME": "마포소문난원조족발",
+"OFF_DAY": ["every other weekend"],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 마포구 만리재로 19",
+"SALES_FROM": "7:00",
+"SALES_TO": "1:00",
+"SUB_TYPE": "K",
+"TEL": "02-716-9731",
+"TYPE": "M",
+"location": {
+    "lat": 37.5446023,
+    "lon": 126.9531195
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "1층",
+"ID": 6,
+"LB_ADDR": "서교동 466-5",
+"NAME": "키움초밥",
+"OFF_DAY": [],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 마포구 잔다리로 77",
+"SALES_FROM": "11:30",
+"SALES_TO": "1:00",
+"SUB_TYPE": "J",
+"TEL": "02-333-1511",
+"TYPE": "M",
+"location": {
+    "lat": 37.5542519,
+    "lon": 126.9160178
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "신도림푸르지오1차 167,168-1호",
+"ID": 7,
+"LB_ADDR": "신도림동 337",
+"NAME": "똥집의정석",
+"OFF_DAY": [],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 구로구 경인로 661",
+"SALES_FROM": "17:00",
+"SALES_TO": "4:00",
+"SUB_TYPE": "K",
+"TEL": "02-861-3161",
+"TYPE": "A",
+"location": {
+    "lat": 37.5093957,
+    "lon": 126.8877258
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 8,
+"LB_ADDR": "합정동 361-1",
+"NAME": "스냅",
+"OFF_DAY": ["SUN"],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 마포구 독막로6길 14",
+"SALES_FROM": "10:00",
+"SALES_TO": "22:00",
+"SUB_TYPE": "A",
+"TEL": "02-322-1640",
+"TYPE": "D",
+"location": {
+    "lat": 37.5474401,
+    "lon": 126.9172933
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "2층",
+"ID": 9,
+"LB_ADDR": "서교동 366-13",
+"NAME": "소고산제일루 홍대1호점",
+"OFF_DAY": [],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 마포구 잔다리로6길 40-6",
+"SALES_FROM": "12:00",
+"SALES_TO": "0:00",
+"SUB_TYPE": "C",
+"TEL": "02-3141-3045",
+"TYPE": "M",
+"location": {
+    "lat": 37.5520807,
+    "lon": 126.9212574
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 10,
+"LB_ADDR": "화양동 8-86",
+"NAME": "유키노하나",
+"OFF_DAY": ["SUN"],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 광진구 아차산로33길 21-5",
+"SALES_FROM": "18:00",
+"SALES_TO": "3:00",
+"SUB_TYPE": "J",
+"TEL": "02-6085-9512",
+"TYPE": "A",
+"location": {
+    "lat": 37.5413365,
+    "lon": 127.0698394
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 11,
+"LB_ADDR": "광도면 죽림리 1570-7",
+"NAME": "밥",
+"OFF_DAY": [],
+"PARKING": "TRUE",
+"RN_ADDR": "경남 통영시 광도면 죽림5로 34",
+"SALES_FROM": "11:00",
+"SALES_TO": "21:00",
+"SUB_TYPE": "K",
+"TEL": "055-645-262",
+"TYPE": "M",
+"location": {
+    "lat": 34.8860336,
+    "lon": 128.4195892
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 12,
+"LB_ADDR": "당동 201-1",
+"NAME": "당촌식당",
+"OFF_DAY": ["MON"],
+"PARKING": "TRUE",
+"RN_ADDR": "경남 통영시 판데1길 14",
+"SALES_FROM": "12:00",
+"SALES_TO": "21:00",
+"SUB_TYPE": "FC",
+"TEL": "055-642-8109",
+"TYPE": "M",
+"location": {
+    "lat": 34.8355559,
+    "lon": 128.4078288
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 13,
+"LB_ADDR": "마암면 화산리 131",
+"NAME": "솔밭가든",
+"OFF_DAY": [],
+"PARKING": "TRUE",
+"RN_ADDR": "경남 고성군 마암면 옥천로 16-1",
+"SALES_FROM": "",
+"SALES_TO": "",
+"SUB_TYPE": "K",
+"TEL": "055-672-2120",
+"TYPE": "M",
+"location": {
+    "lat": 35.0504766,
+    "lon": 128.3605204
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 14,
+"LB_ADDR": "합정동 386-11",
+"NAME": "밤부베이커리",
+"OFF_DAY": [],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 마포구 월드컵로5길 33-23",
+"SALES_FROM": "11:30",
+"SALES_TO": "23:00",
+"SUB_TYPE": "A",
+"TEL": "02-3144-0446",
+"TYPE": "D",
+"location": {
+    "lat": 37.5505802,
+    "lon": 126.9109228
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 15,
+"LB_ADDR": "서교동 338-1",
+"NAME": "테일러커피 2호점",
+"OFF_DAY": [],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 마포구 와우산로27길 7",
+"SALES_FROM": "11:30",
+"SALES_TO": "23:00",
+"SUB_TYPE": "A",
+"TEL": "02-334-0355",
+"TYPE": "D",
+"location": {
+    "lat": 37.5537662,
+    "lon": 126.9276536
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 16,
+"LB_ADDR": "합정동 368-3",
+"NAME": "빈브라더스 합정점",
+"OFF_DAY": [],
+"PARKING": "TRUE",
+"RN_ADDR": "서울 마포구 토정로 35-1",
+"SALES_FROM": "11:00",
+"SALES_TO": "23:00",
+"SUB_TYPE": "A",
+"TEL": "02-6012-2001",
+"TYPE": "D",
+"location": {
+    "lat": 37.5456779,
+    "lon": 126.914965
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 17,
+"LB_ADDR": "서교동 398-9",
+"NAME": "안녕낯선사람",
+"OFF_DAY": [],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 마포구 어울마당로5길 40",
+"SALES_FROM": "8:30",
+"SALES_TO": "23:00",
+"SUB_TYPE": "A",
+"TEL": "02-333-5610",
+"TYPE": "D",
+"location": {
+    "lat": 37.5497846,
+    "lon": 126.9185665
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 18,
+"LB_ADDR": "합정동 367-9",
+"NAME": "비포그레이",
+"OFF_DAY": [],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 마포구 토정로3길 16",
+"SALES_FROM": "10:00",
+"SALES_TO": "22:00",
+"SUB_TYPE": "A",
+"TEL": "02-333-5694",
+"TYPE": "D",
+"location": {
+    "lat": 37.546264,
+    "lon": 126.9144224
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 19,
+"LB_ADDR": "광희동1가 250-1",
+"NAME": "파르투내",
+"OFF_DAY": ["MON(1,3)"],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 중구 마른내로 154",
+"SALES_FROM": "10:00",
+"SALES_TO": "23:00",
+"SUB_TYPE": "R",
+"TEL": "02-2278-7770",
+"TYPE": "M",
+"location": {
+    "lat": 37.5645518,
+    "lon": 127.0049665
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "지하1층",
+"ID": 20,
+"LB_ADDR": "망원동 57-23",
+"NAME": "바르셀로나",
+"OFF_DAY": ["SUN"],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 마포구 월드컵로19길 1",
+"SALES_FROM": "18:00",
+"SALES_TO": "1:00",
+"SUB_TYPE": "S",
+"TEL": "02-322-5764",
+"TYPE": "A",
+"location": {
+    "lat": 37.5562348,
+    "lon": 126.9080676
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 21,
+"LB_ADDR": "충무로4가 134-1",
+"NAME": "광안리",
+"OFF_DAY": [],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 중구 충무로2길 32",
+"SALES_FROM": "0:00",
+"SALES_TO": "0:00",
+"SUB_TYPE": "K",
+"TEL": "011-874-3590",
+"TYPE": "M",
+"location": {
+    "lat": 37.5622719,
+    "lon": 126.9948302
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 22,
+"LB_ADDR": "중앙동3가 2-18",
+"NAME": "중화방",
+"OFF_DAY": ["WED(2,4)"],
+"PARKING": "TRUE",
+"RN_ADDR": "인천 중구 신포로27번길 45",
+"SALES_FROM": "",
+"SALES_TO": "",
+"SUB_TYPE": "C",
+"TEL": "",
+"TYPE": "M",
+"location": {
+    "lat": 37.4724282,
+    "lon": 126.6228805
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "1층",
+"ID": 23,
+"LB_ADDR": "봉천동 1663-7",
+"NAME": "두만강샤브샤브 봉천점",
+"OFF_DAY": [],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 관악구 봉천로 537",
+"SALES_FROM": "11:30",
+"SALES_TO": "22:00",
+"SUB_TYPE": "C",
+"TEL": "02-885-7966",
+"TYPE": "M",
+"location": {
+    "lat": 37.4787665,
+    "lon": 126.9576725
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 24,
+"LB_ADDR": "이태원동 126-2",
+"NAME": "케르반 베이커리",
+"OFF_DAY": [],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 용산구 이태원로 204",
+"SALES_FROM": "9:00",
+"SALES_TO": "0:00",
+"SUB_TYPE": "T",
+"TEL": "02-790-5585",
+"TYPE": "D",
+"location": {
+    "lat": 37.5344666,
+    "lon": 126.9965047
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 25,
+"LB_ADDR": "이태원동 132-1",
+"NAME": "살람베이커리",
+"OFF_DAY": [],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 용산구 보광로60길 22",
+"SALES_FROM": "10:00",
+"SALES_TO": "22:30",
+"SUB_TYPE": "T",
+"TEL": "070-4025-7044",
+"TYPE": "D",
+"location": {
+    "lat": 37.5338852,
+    "lon": 126.9954229
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 26,
+"LB_ADDR": "중앙동1가 61-3",
+"NAME": "진주도가",
+"OFF_DAY": [],
+"PARKING": "FALSE",
+"RN_ADDR": "전북 전주시 완산구전라감영3길 13-5",
+"SALES_FROM": "20:00",
+"SALES_TO": "2:00",
+"SUB_TYPE": "K",
+"TEL": "063-287-3392",
+"TYPE": "A",
+"location": {
+    "lat": 35.8161663,
+    "lon": 127.1430208
+}
+},
+{
+"BREAK_FROM": "15:00",
+"BREAK_TO": "18:00",
+"DETAIL_ADDR": "",
+"ID": 27,
+"LB_ADDR": "연남동 566-67",
+"NAME": "사루카메",
+"OFF_DAY": [],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 마포구연남로 15",
+"SALES_FROM": "11:30",
+"SALES_TO": "22:00",
+"SUB_TYPE": "J",
+"TEL": "070-8156-5720",
+"TYPE": "M",
+"location": {
+    "lat": 37.5610317,
+    "lon": 126.922653
+}
+},
+{
+"BREAK_FROM": "15:00",
+"BREAK_TO": "17:00",
+"DETAIL_ADDR": "",
+"ID": 28,
+"LB_ADDR": "창천동 91-6",
+"NAME": "가마마루이",
+"OFF_DAY": ["SUN"],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 서대문구 성산로22길 4",
+"SALES_FROM": "11:00",
+"SALES_TO": "21:00",
+"SUB_TYPE": "J",
+"TEL": "02-3142-3929",
+"TYPE": "M",
+"location": {
+    "lat": 37.5603743,
+    "lon": 126.9333177
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "지하1층",
+"ID": 29,
+"LB_ADDR": "봉천동 1603-20",
+"NAME": "황홀경",
+"OFF_DAY": [],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 관악구 관악로14길 37",
+"SALES_FROM": "12:00",
+"SALES_TO": "23:00",
+"SUB_TYPE": "G",
+"TEL": "02-6449-7362",
+"TYPE": "D",
+"location": {
+    "lat": 37.478906,
+    "lon": 126.9545918
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 30,
+"LB_ADDR": "영등포동 423-103",
+"NAME": "에베레스트",
+"OFF_DAY": [],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 영등포구 경인로 838-1",
+"SALES_FROM": "11:00",
+"SALES_TO": "23:00",
+"SUB_TYPE": "I",
+"TEL": "02-3667-8848",
+"TYPE": "M",
+"location": {
+    "lat": 37.5158698,
+    "lon": 126.9060679
+}
+},
+{
+"BREAK_FROM": "15:00",
+"BREAK_TO": "17:00",
+"DETAIL_ADDR": "필운빌딩 1층",
+"ID": 31,
+"LB_ADDR": "필운동 214",
+"NAME": "옥반상",
+"OFF_DAY": ["SUN"],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 종로구사직로 101",
+"SALES_FROM": "11:00",
+"SALES_TO": "22:00",
+"SUB_TYPE": "K",
+"TEL": "02-739-0101",
+"TYPE": "M",
+"location": {
+    "lat": 37.5762852,
+    "lon": 126.969987
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 32,
+"LB_ADDR": "신설동 91-300",
+"NAME": "(간판없는)순대국집",
+"OFF_DAY": [],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 동대문구 하정로4길 1",
+"SALES_FROM": "",
+"SALES_TO": "",
+"SUB_TYPE": "K",
+"TEL": "02-921-6402",
+"TYPE": "M",
+"location": {
+    "lat": 37.5726757,
+    "lon": 127.0255106
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "대명빌딩 1층",
+"ID": 33,
+"LB_ADDR": "봉천동 1610-24",
+"NAME": "오지 편한식당",
+"OFF_DAY": ["SUN", "MON"],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 관악구 관악로12길 47",
+"SALES_FROM": "19:00",
+"SALES_TO": "1:00",
+"SUB_TYPE": "FC",
+"TEL": "010-5048-9914",
+"TYPE": "A",
+"location": {
+    "lat": 37.4777983,
+    "lon": 126.9550708
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "1층",
+"ID": 34,
+"LB_ADDR": "창천동 5-32",
+"NAME": "키친31",
+"OFF_DAY": ["SUN"],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 서대문구 연세로4길 61",
+"SALES_FROM": "18:00",
+"SALES_TO": "1:00",
+"SUB_TYPE": "J",
+"TEL": "02-312-6709",
+"TYPE": "A",
+"location": {
+    "lat": 37.5585209,
+    "lon": 126.9395137
+}
+},
+{
+"BREAK_FROM": "14:30",
+"BREAK_TO": "17:00",
+"DETAIL_ADDR": "1층",
+"ID": 35,
+"LB_ADDR": "연남동 390-30",
+"NAME": "카쿠시타",
+"OFF_DAY": [],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 마포구 동교로38길 33-15",
+"SALES_FROM": "11:30",
+"SALES_TO": "1:00",
+"SUB_TYPE": "J",
+"TEL": "070-4187-8787",
+"TYPE": "A",
+"location": {
+    "lat": 37.5618128,
+    "lon": 126.9261064
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 36,
+"LB_ADDR": "혜화동 71-10",
+"NAME": "아뻬 서울",
+"OFF_DAY": ["TUE"],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 종로구창경궁로35나길 1",
+"SALES_FROM": "11:00",
+"SALES_TO": "22:00",
+"SUB_TYPE": "A",
+"TEL": "070-7716-1910",
+"TYPE": "D",
+"location": {
+    "lat": 37.5872838,
+    "lon": 127.0012003
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 37,
+"LB_ADDR": "망원동 401-34",
+"NAME": "천지양꼬치",
+"OFF_DAY": ["MON(2,4)"],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 마포구 포은로 74",
+"SALES_FROM": "",
+"SALES_TO": "",
+"SUB_TYPE": "C",
+"TEL": "02-322-1020",
+"TYPE": "M",
+"location": {
+    "lat": 37.5537805,
+    "lon": 126.9058377
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 38,
+"LB_ADDR": "수택동 527-19",
+"NAME": "명점",
+"OFF_DAY": [],
+"PARKING": "TRUE",
+"RN_ADDR": "경기 구리시 경춘로242번길 27",
+"SALES_FROM": "17:00",
+"SALES_TO": "22:00",
+"SUB_TYPE": "C",
+"TEL": "031-567-5888",
+"TYPE": "M",
+"location": {
+    "lat": 37.6006079,
+    "lon": 127.1435262
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 39,
+"LB_ADDR": "낙원동 85-7",
+"NAME": "호반",
+"OFF_DAY": ["SUN(1,3,5)"],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 종로구 삼일대로26길 20",
+"SALES_FROM": "11:30",
+"SALES_TO": "22:00",
+"SUB_TYPE": "K",
+"TEL": "02-745-6618",
+"TYPE": "M",
+"location": {
+    "lat": 37.5732637,
+    "lon": 126.9891286
+}
+},
+{
+"BREAK_FROM": "16:00",
+"BREAK_TO": "18:00",
+"DETAIL_ADDR": "",
+"ID": 40,
+"LB_ADDR": "합정동 448-18",
+"NAME": "금붕어식당",
+"OFF_DAY": ["SUN", "MON"],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 마포구 동교로8길 39",
+"SALES_FROM": "13:00",
+"SALES_TO": "21:30",
+"SUB_TYPE": "TH",
+"TEL": "",
+"TYPE": "M",
+"location": {
+    "lat": 37.5503067,
+    "lon": 126.9056101
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "2층",
+"ID": 41,
+"LB_ADDR": "화양동 9-25",
+"NAME": "천지샤브샤브 2호점",
+"OFF_DAY": [],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 광진구 아차산로29길 22",
+"SALES_FROM": "11:00",
+"SALES_TO": "0:00",
+"SUB_TYPE": "C",
+"TEL": "02-466-6334",
+"TYPE": "M",
+"location": {
+    "lat": 37.541762,
+    "lon": 127.068612
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 42,
+"LB_ADDR": "한남동 31-13",
+"NAME": "모또",
+"OFF_DAY": ["MON"],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 용산구 한남대로20길 47",
+"SALES_FROM": "11:30",
+"SALES_TO": "20:00",
+"SUB_TYPE": "J",
+"TEL": "02-3785-0997",
+"TYPE": "D",
+"location": {
+    "lat": 37.5348679,
+    "lon": 127.009466
+}
+},
+{
+"BREAK_FROM": "14:00",
+"BREAK_TO": "17:00",
+"DETAIL_ADDR": "1층",
+"ID": 43,
+"LB_ADDR": "봉천동 1603-15",
+"NAME": "쿠모식당",
+"OFF_DAY": [],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 관악구 관악로14길 31",
+"SALES_FROM": "12:00",
+"SALES_TO": "21:30",
+"SUB_TYPE": "J",
+"TEL": "070-8623-6996",
+"TYPE": "M",
+"location": {
+    "lat": 37.4789727,
+    "lon": 126.9542856
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "광진빌딩 1층",
+"ID": 44,
+"LB_ADDR": "자양4동 4-1",
+"NAME": "명봉샤브샤브양꼬치",
+"OFF_DAY": [],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 광진구 뚝섬로31길 59",
+"SALES_FROM": "12:00",
+"SALES_TO": "2:00",
+"SUB_TYPE": "C",
+"TEL": "02-498-8808",
+"TYPE": "M",
+"location": {
+    "lat": 37.5380635,
+    "lon": 127.0686501
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 45,
+"LB_ADDR": "신길동 3741-53",
+"NAME": "순흥골 신길점",
+"OFF_DAY": [],
+"PARKING": "TRUE",
+"RN_ADDR": "서울 영등포구 대방천로 175",
+"SALES_FROM": "11:30",
+"SALES_TO": "22:00",
+"SUB_TYPE": "K",
+"TEL": "02-848-1888",
+"TYPE": "M",
+"location": {
+    "lat": 37.4992876,
+    "lon": 126.9105181
+}
+},
+{
+"BREAK_FROM": "14:00",
+"BREAK_TO": "17:00",
+"DETAIL_ADDR": "창은빌딩 1층",
+"ID": 46,
+"LB_ADDR": "망원동 482-3",
+"NAME": "청어람",
+"OFF_DAY": ["SUN"],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 마포구 망원로 97",
+"SALES_FROM": "11:30",
+"SALES_TO": "22:00",
+"SUB_TYPE": "K",
+"TEL": "02-332-1411",
+"TYPE": "M",
+"location": {
+    "lat": 37.5580595,
+    "lon": 126.9074864
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 47,
+"LB_ADDR": "망원동 416-22",
+"NAME": "빙하의별",
+"OFF_DAY": ["SUN", "MON(2,4)"],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 마포구망원로 46",
+"SALES_FROM": "12:00",
+"SALES_TO": "22:00",
+"SUB_TYPE": "F",
+"TEL": "02-336-0604",
+"TYPE": "M",
+"location": {
+    "lat": 37.5565694,
+    "lon": 126.901976
+}
+},
+{
+"BREAK_FROM": "15:00",
+"BREAK_TO": "18:00",
+"DETAIL_ADDR": "1층",
+"ID": 48,
+"LB_ADDR": "신정동 1048-18",
+"NAME": "니코리",
+"OFF_DAY": [],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 양천구 중앙로36길 40",
+"SALES_FROM": "11:30",
+"SALES_TO": "22:00",
+"SUB_TYPE": "J",
+"TEL": "02-2061-5288",
+"TYPE": "M",
+"location": {
+    "lat": 37.5197156,
+    "lon": 126.8583925
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "지하1층",
+"ID": 49,
+"LB_ADDR": "방이동 142-16",
+"NAME": "참치한마리",
+"OFF_DAY": [],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 송파구백제고분로48길 29",
+"SALES_FROM": "16:00",
+"SALES_TO": "1:00",
+"SUB_TYPE": "K",
+"TEL": "02-415-4592",
+"TYPE": "M",
+"location": {
+    "lat": 37.5107951,
+    "lon": 127.1162619
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 50,
+"LB_ADDR": "창천동 62-21",
+"NAME": "몰리스",
+"OFF_DAY": [],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 서대문구 연세로5다길 22-7",
+"SALES_FROM": "12:00",
+"SALES_TO": "23:00",
+"SUB_TYPE": "F",
+"TEL": "02-6015-2442",
+"TYPE": "D",
+"location": {
+    "lat": 37.5569195,
+    "lon": 126.9343856
+}
+},
+{
+"ID": 51,
+"NAME": "하품",
+"RN_ADDR": "서울 노원구화랑로51길 38",
+"LB_ADDR": "공릉동 113",
+"DETAIL_ADDR": "밀레니엄타워",
+"TEL": "02-978-2988",
+"OFF_DAY": [],
+"SALES_FROM": "",
+"SALES_TO": "",
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"PARKING": "FALSE",
+"TYPE": "D",
+"SUB_TYPE": "A",
+"location": { "lon": 127.0890701, "lat": 37.6249129 }
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 52,
+"LB_ADDR": "창천동 57-61",
+"NAME": "파이홀",
+"OFF_DAY": [],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 서대문구 연세로5나길 20",
+"SALES_FROM": "11:00",
+"SALES_TO": "23:00",
+"SUB_TYPE": "A",
+"TEL": "02-334-1181",
+"TYPE": "D",
+"location": {
+    "lat": 37.5570056,
+    "lon": 126.9350431
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 53,
+"LB_ADDR": "신사동 656-7",
+"NAME": "이치에",
+"OFF_DAY": "SUN",
+"PARKING": "FALSE",
+"RN_ADDR": "서울 강남구 선릉로155길 23-3",
+"SALES_FROM": "18:00",
+"SALES_TO": "0:00",
+"SUB_TYPE": "J",
+"TEL": "070-4273-4087",
+"TYPE": "M",
+"location": {
+    "lat": 37.5253356,
+    "lon": 127.0376706
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 54,
+"LB_ADDR": "신사동 543-8",
+"NAME": "도쿄팡야 가로수길",
+"OFF_DAY": [],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 강남구 논현로151길 52",
+"SALES_FROM": "10:00",
+"SALES_TO": "22:00",
+"SUB_TYPE": "J",
+"TEL": "02-547-7790",
+"TYPE": "D",
+"location": {
+    "lat": 37.5196406,
+    "lon": 127.0238961
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "강남출판문화센터 1층",
+"ID": 55,
+"LB_ADDR": "신사동 506",
+"NAME": "레빠쥬",
+"OFF_DAY": [],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 강남구 도산대로1길 62",
+"SALES_FROM": "11:30",
+"SALES_TO": "23:00",
+"SUB_TYPE": "A",
+"TEL": "02-540-3240",
+"TYPE": "M",
+"location": {
+    "lat": 37.5207424,
+    "lon": 127.0194099
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 56,
+"LB_ADDR": "천호동 402-",
+"NAME": "광주횟집",
+"OFF_DAY": [],
+"PARKING": "TRUE",
+"RN_ADDR": "서울 강동구 구천면로 221",
+"SALES_FROM": "",
+"SALES_TO": "",
+"SUB_TYPE": "K",
+"TEL": "02-476-5007",
+"TYPE": "M",
+"location": {
+    "lat": 37.5409276,
+    "lon": 127.1290575
+}
+},
+{
+"BREAK_FROM": "15:00",
+"BREAK_TO": "16:00",
+"DETAIL_ADDR": "",
+"ID": 57,
+"LB_ADDR": "낙원동 66",
+"NAME": "여진곱",
+"OFF_DAY": [],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 종로구 삼일대로 430",
+"SALES_FROM": "10:00",
+"SALES_TO": "23:00",
+"SUB_TYPE": "K",
+"TEL": "02-762-5157",
+"TYPE": "M",
+"location": {
+    "lat": 37.5730991,
+    "lon": 126.9883214
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 58,
+"LB_ADDR": "서초동 1479-1",
+"NAME": "메종조",
+"OFF_DAY": ["MON", "TUE"],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 서초구 남부순환로315길 84",
+"SALES_FROM": "12:00",
+"SALES_TO": "20:00",
+"SUB_TYPE": "F",
+"TEL": "02-584-3373",
+"TYPE": "M",
+"location": {
+    "lat": 37.4822188,
+    "lon": 127.0074128
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 59,
+"LB_ADDR": "자양동 11-3",
+"NAME": "얼땅쟈",
+"OFF_DAY": [],
+"PARKING": "FALSE",
+"RN_ADDR": "서울 광진구 동일로18길 68",
+"SALES_FROM": "12:00",
+"SALES_TO": "3:00",
+"SUB_TYPE": "C",
+"TEL": "02-467-2886",
+"TYPE": "M",
+"location": {
+    "lat": 37.5387396,
+    "lon": 127.0664091
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 60,
+"LB_ADDR": "중안동 101",
+"NAME": "원깐돌이",
+"OFF_DAY": ["SUN"],
+"PARKING": "FALSE",
+"RN_ADDR": "경남 진주시 촉석로 165",
+"SALES_FROM": "10:00",
+"SALES_TO": "17:00",
+"SUB_TYPE": "K",
+"TEL": "055-742-3937",
+"TYPE": "M",
+"location": {
+    "lat": 35.1946696,
+    "lon": 128.0802353
+}
+},
+{
+"BREAK_FROM": "16:00",
+"BREAK_TO": "17:00",
+"DETAIL_ADDR": "",
+"ID": 61,
+"LB_ADDR": "의창구 중동 707",
+"NAME": "목민정",
+"OFF_DAY": [],
+"PARKING": "TRUE",
+"RN_ADDR": "경남 창원시 의창구 천주로12번길 25",
+"SALES_FROM": "11:00",
+"SALES_TO": "22:00",
+"SUB_TYPE": "K",
+"TEL": "055-255-7111",
+"TYPE": "M",
+"location": {
+    "lat": 35.262901,
+    "lon": 128.621216
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 62,
+"LB_ADDR": "마산합포구 월영동 593-2",
+"NAME": "화인찜식당",
+"OFF_DAY": [],
+"PARKING": "FALSE",
+"RN_ADDR": "경남 창원시 마산합포구 밤밭고개로 371",
+"SALES_FROM": "10:00",
+"SALES_TO": "22:00",
+"SUB_TYPE": "K",
+"TEL": "055-247-7232",
+"TYPE": "M",
+"location": {
+    "lat": 35.1749536,
+    "lon": 128.5553647
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 63,
+"LB_ADDR": "성산구 반지동 66-8",
+"NAME": "수복해물찜전문",
+"OFF_DAY": [],
+"PARKING": "TRUE",
+"RN_ADDR": "경남 창원시 성산구 반송로 72-1",
+"SALES_FROM": "11:00",
+"SALES_TO": "22:00",
+"SUB_TYPE": "K",
+"TEL": "055-273-3623",
+"TYPE": "M",
+"location": {
+    "lat": 35.2396169,
+    "lon": 128.6644619
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 64,
+"LB_ADDR": "상봉동 1108-16",
+"NAME": "산청돼지국밥전문",
+"OFF_DAY": ["WED(1,3)"],
+"PARKING": "TRUE",
+"RN_ADDR": "경남 진주시 창렬로 71",
+"SALES_FROM": "6:30",
+"SALES_TO": "22:00",
+"SUB_TYPE": "K",
+"TEL": "055-742-2938",
+"TYPE": "M",
+"location": {
+    "lat": 35.1948586,
+    "lon": 128.068995
+}
+},
+{
+"BREAK_FROM": "",
+"BREAK_TO": "",
+"DETAIL_ADDR": "",
+"ID": 65,
+"LB_ADDR": "한경면 조수리 254-1",
+"NAME": "제주돗",
+"OFF_DAY": ["TUE"],
+"PARKING": "TRUE",
+"RN_ADDR": "제주특별자치도 제주시 한경면 조수2길 34",
+"SALES_FROM": "16:00",
+"SALES_TO": "22:00",
+"SUB_TYPE": "K",
+"TEL": "064-772-0505",
+"TYPE": "M",
+"location": {
+    "lat": 33.33314561082263,
+    "lon": 126.23085700158272
+}
+}

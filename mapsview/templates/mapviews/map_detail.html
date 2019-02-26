@@ -15,25 +15,25 @@
                 <div class="form-group">
                     <label for="NAME" class="col-sm-3 control-label">NAME</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="NAME" value="{{info.NAME}}" disabled>
+                        <input type="text" class="form-control" id="NAME" value="{{p_info.NAME}}" disabled>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="RN_ADDR" class="col-sm-3 control-label">주소</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="RN_ADDR" value="{{info.RN_ADDR}}" disabled>
+                        <input type="text" class="form-control" id="RN_ADDR" value="{{p_info.RN_ADDR}}" disabled>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="TEL" class="col-sm-3 control-label pad-top-0">전화번호</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="TEL" value="{{info.TEL}}" disabled>
+                        <input type="text" class="form-control" id="TEL" value="{{p_info.TEL}}" disabled>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="TAG" class="col-sm-3 control-label pad-top-0">태그</label>
                     <div class="col-sm-8">
-                        {% for tag in info.TAG %}
+                        {% for tag in u_info.TAG %}
                         <span class="dtl_label dtl_label_info">{{tag}}</span>
                         {% endfor %}
                     </div>
@@ -41,7 +41,7 @@
                 <div class="form-group">
                     <label for="DESC" class="col-sm-3 control-label">평가</label>
                     <div class="col-sm-8">
-                        <textarea class="form-control" id="DESC" rows="5" disabled>{{info.DESC}}</textarea>
+                        <textarea class="form-control" id="DESC" rows="5" disabled>{{u_info.DESC}}</textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -54,13 +54,13 @@
                         <div class="form-group">
                             <label for="SALES_FROM" class="col-sm-2 control-label">FROM</label>
                             <div class="col-sm-10">
-                                <div id="SALES_FROM" class="form-control">{{info.SALES_FROM}}</div>
+                                <div id="SALES_FROM" class="form-control">{{p_info.SALES_FROM}}</div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="SALES_TO" class="col-sm-2 control-label">TO</label>
                             <div class="col-sm-10">
-                                <div id="SALES_TO" class="form-control">{{info.SALES_TO}}</div>
+                                <div id="SALES_TO" class="form-control">{{p_info.SALES_TO}}</div>
                             </div>
                         </div>
                     </div>
@@ -68,17 +68,17 @@
                 <div class="form-group">
                     <label for="BREAK" class="col-sm-3 control-label">Break Time</label>
                     <div class="col-sm-8" id="BREAK">
-                        {% if info.BREAK_FROM or info.BREAK_TO %}
+                        {% if p_info.BREAK_FROM or p_info.BREAK_TO %}
                         <div class="form-group">
                             <label for="BREAK_FROM" class="col-sm-2 control-label">FROM</label>
                             <div class="col-sm-10">
-                                <div id="BREAK_FROM" class="form-control">{{info.BREAK_FROM}}</div>
+                                <div id="BREAK_FROM" class="form-control">{{p_info.BREAK_FROM}}</div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="BREAK_TO" class="col-sm-2 control-label">TO</label>
                             <div class="col-sm-10">
-                                <div id="BREAK_TO" class="form-control">{{info.BREAK_TO}}</div>
+                                <div id="BREAK_TO" class="form-control">{{p_info.BREAK_TO}}</div>
                             </div>
                         </div>
                         {% else %}
@@ -97,7 +97,7 @@
                 <div class="form-group">
                     <label for="PARKING" class="col-sm-4 control-label">주차가능여부</label>
                     <div class="col-sm-7">
-                        {% if info.PARKING == "TRUE" %}
+                        {% if p_info.PARKING == "TRUE" %}
                         <input type="text" class="form-control" id="PARKING" value="가능" disabled>
                         {% else %}
                         <input type="text" class="form-control" id="PARKING" value="불가능" disabled>
@@ -107,7 +107,7 @@
                 <div class="form-group">
                     <label for="TRY" class="col-sm-4 control-label pad-top-0">가서 먹어본 적</label>
                     <div class="col-sm-7">
-                        {% if info.TRY == "TRUE" %}
+                        {% if u_info.TRY == "TRUE" %}
                         <input type="text" class="form-control" id="TRY" value="있음" disabled>
                         {% else %}
                         <input type="text" class="form-control" id="TRY" value="없음" disabled>
@@ -133,10 +133,12 @@
     </div>
     <script type="text/javascript">
         var DTL = {
-            info: null,
+            p_info: null,
+            u_info: null,
         }
         $(document).ready(function(){
-            DTL.info = JSON.parse("{{ info2|escapejs }}");
+            DTL.p_info = JSON.parse("{{ p_info2|escapejs }}");
+            DTL.u_info = JSON.parse("{{ u_info2|escapejs }}");
             DTLMAP.mapInit();
             DTLMAP.dropdownInit();
             DTLMAP.setData();
@@ -145,7 +147,7 @@
 
         var DTLMAP = {
             mapInit: function(){
-                var position = new daum.maps.LatLng(DTL.info.location.lat, DTL.info.location.lon);
+                var position = new daum.maps.LatLng(DTL.p_info.location.lat, DTL.p_info.location.lon);
                 
                 var mapContainer = document.getElementById('detail_map'), // 지도를 표시할 div 
                 mapOption = { 
@@ -161,7 +163,7 @@
                 });
 
                 var content = '<span class="dtl_label dtl_label_info">';
-                    content += DTL.info.NAME;
+                    content += DTL.p_info.NAME;
                     content += '</span>';
 
                 var customOverlay = new daum.maps.CustomOverlay({
@@ -183,7 +185,7 @@
 
                 var subTypeSource = [];
                 $.ajax({
-                    url:'/api/sub_type_list/?q='+DTL.info.SUB_TYPE,
+                    url:'/api/sub_type_list/?q='+DTL.p_info.SUB_TYPE,
                     dataType:'json',
                     type:'GET',
                     async: false,
@@ -198,17 +200,17 @@
                 var off_str = "";
                 var off_day = "";
                 var off_week_list = [];
-                if(DTL.info.OFF_DAY != null && DTL.info.OFF_DAY.length != 0) {
-                    for(var i in DTL.info.OFF_DAY) {
-                        if(DTL.info.OFF_DAY[i].indexOf('(') != -1 && DTL.info.OFF_DAY[i].indexOf(')' != -1 )) {
-                            var temp_off = DTL.info.OFF_DAY[i].substr(0,DTL.info.OFF_DAY[i].length-1).split('(');
+                if(DTL.p_info.OFF_DAY != null && DTL.p_info.OFF_DAY.length != 0) {
+                    for(var i in DTL.p_info.OFF_DAY) {
+                        if(DTL.p_info.OFF_DAY[i].indexOf('(') != -1 && DTL.p_info.OFF_DAY[i].indexOf(')' != -1 )) {
+                            var temp_off = DTL.p_info.OFF_DAY[i].substr(0,DTL.p_info.OFF_DAY[i].length-1).split('(');
                             off_week_list = temp_off[1].split(",");
                             for(var j in off_week_list) {
                                 off_str += (returnWeekName(off_week_list[j]) + "주 ");
                             }
                             off_str += returnDayName(temp_off[0]);
                         } else {
-                            off_str = returnDayName(DTL.info.OFF_DAY[i])
+                            off_str = returnDayName(DTL.p_info.OFF_DAY[i])
                         }
                         
                         var off_day_contents = '<span class="dtl_label dtl_label_info">' + off_str + '</span>';
@@ -219,8 +221,8 @@
                     $("#OFF_DAY").append(off_day_contents);
                 }
 
-                $("#TYPE").jqxDropDownList('selectItem', DTL.info.TYPE);
-                $("#SUB_TYPE").jqxDropDownList('selectItem', DTL.info.SUB_TYPE);
+                $("#TYPE").jqxDropDownList('selectItem', DTL.p_info.TYPE);
+                $("#SUB_TYPE").jqxDropDownList('selectItem', DTL.p_info.SUB_TYPE);
             }, 
             dtlEventBind: function() {
                 $('#regist_modal').on('shown.bs.modal', function () {

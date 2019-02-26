@@ -1,0 +1,130 @@
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 1 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "약간이른시간이나저녁시간피해가야함", "P_ID": 1}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 2 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "덮밥류", "P_ID": 2}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 3 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "오꼬노미야끼,기다리기힘들면신촌점ㄱ", "P_ID": 3}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 4 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "", "P_ID": 4}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 5 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "맛있고친절", "P_ID": 5}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 6 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "가성비,불친절", "P_ID": 6}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 7 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "", "P_ID": 7}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 8 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "", "P_ID": 8}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 9 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "수요미식회81회,홍대에위치한훠궈와양꼬치전문점", "P_ID": 9}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 10 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "가성비,연어", "P_ID": 10}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 11 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "그냥밥집", "P_ID": 11}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 12 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "", "P_ID": 12}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 13 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "오리고기", "P_ID": 13}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 14 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "크루아상", "P_ID": 14}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 15 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "", "P_ID": 15}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 16 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "", "P_ID": 16}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 17 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "라떼류", "P_ID": 17}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 18 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "", "P_ID": 18}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 19 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "우즈벡음식전문점", "P_ID": 19}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 20 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "봄맞이냉이파스타(미깡)", "P_ID": 20}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 21 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "횟집,연어갑,예약만받음", "P_ID": 21}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 22 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "진짜고수는차이나타운근처에있지,가격도반값", "P_ID": 22}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 23 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "그냥", "P_ID": 23}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 24 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "먹고갈수있다,장난안치는돈두르마를판다,중동식쿠키가더맛", "P_ID": 24}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 25 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "먹고갈수없지만바클라바가존맛,터키식빵에크맥이존맛", "P_ID": 25}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 26 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "모스코뮬꼭드세요!술이깨는술맛", "P_ID": 26}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 27 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "찬란히빛나는사루라멘12,000원", "P_ID": 27}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 28 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "공깃밥과마파두부는무한리필,온천달걀매력적", "P_ID": 28}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 29 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "독일식팬케잌,더치베이비후르츠존맛,분위기개깡패", "P_ID": 29}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 30 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "인도식커리", "P_ID": 30}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 31 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "서울쪽곰탕중탑", "P_ID": 31}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 32 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "사실상돼지국밥", "P_ID": 32}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 33 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "한국쏘주안팔지만맛있음,3인이상은문의해야가능", "P_ID": 33}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 34 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "테이블4개밖이지만남들에게알리기싫은술집", "P_ID": 34}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 35 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "죽기전에후냐후냐오믈렛을먹어봐야함", "P_ID": 35}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 36 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "직접양봉한꿀로디저트를만들어파는곳", "P_ID": 36}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 37 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "양꼬치의또다른신세계,양갈비꼬치", "P_ID": 37}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 38 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "다먹어보고싶은곳", "P_ID": 38}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 39 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "익선동,순대", "P_ID": 39}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 40 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "태국음식점", "P_ID": 40}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 41 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "훠궈무한리필,3가지탕을한번에", "P_ID": 41}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 42 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "대표메뉴:타마고산도(7,500원),당고세트(6,800원)", "P_ID": 42}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 43 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "카츠산도맛집", "P_ID": 43}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 44 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "수요미식가,가지볶음", "P_ID": 44}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 45 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "고독한미식가갈비집보다뛰어남", "P_ID": 45}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 46 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "곱창전골존맛탱", "P_ID": 46}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 47 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "프랑스가정식,아이스크림장인이하는아이스크림을판다", "P_ID": 47}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 48 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "오열주의", "P_ID": 48}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 49 } }
+{"TRY": "TRUE", "TAG": [], "U_ID": 1, "DESC": "참치양이푸짐", "P_ID": 49}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 50 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "20년경력의파티쉐,메뉴가다맛있다.", "P_ID": 50}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 51 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "밀크티빙수, 밀크티를 좋아한다면 꼭", "P_ID": 51}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 52 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "모든파이다맛있음,스모어를데워서한입먹으면에펠탑이보이는착시현상", "P_ID": 52}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 53 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "우니이꾸라동에반드시시켜야하는고등어볶음밥", "P_ID": 53}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 54 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "", "P_ID": 54}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 55 } }
+{"TRY": "FALSE", "TAG": [], "U_ID": 1, "DESC": "블루베리마스카포네!!봉골레피자", "P_ID": 55}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 56 } }
+{"TRY": "TRUE", "TAG": [], "U_ID": 1, "DESC": "이렇게두꺼운회는처음봄", "P_ID": 56}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 57 } }
+{"TRY": "FALSE", "TAG": ["#알곱창", "#세상고소", "#한우곱창부대전골", "#가볼까"], "U_ID": 1, "DESC": "여기가진짜곱창이라는가게이름값을합니다.알곱창드세요.제가여태껏먹었던곱창은곱창껍데기같은거였나....곱꽉차있고세상고소하고진짜....예약하지않으면수량이없는날도있으니주의!한우곱창부대전골도안주로최고예요.", "P_ID": 57}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 58 } }
+{"TRY": "FALSE", "TAG": ["#예당", "#예당맛집", "#샤퀴테리전문점", "#테이블하나"], "U_ID": 1, "DESC": "예당에서떨어져있긴하지만슬렁슬렁걸어서갈수있는위치.샤퀴테리전문점.여기테린도그렇고햄도그렇고쫀쫀하니맛있다.테이블이 하나있고식사도가능한데궁금한메뉴들이한두개가아니라다음번예당갈때먹어볼예정.메뉴에파슬리마늘버터로볶은오소리감투,버터에구운닭염통과대파,팬에구운돼지귀테린과아이올리소스+야채볶음,버터에구운부당바스크와감자랑사과구이,'바스크식천엽스튜'(이게제일궁금함)", "P_ID": 58}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 59 } }
+{"TRY": "FALSE", "TAG": ["#촨촨샹", "#훠궈"], "U_ID": 1, "DESC": "촨촨샹전문점.육수의진하기에놀라고재료들관리된것에한번더놀라고인당3만원~4만원선으로든든하게먹을수있다.하이디라오보다나을정도로서울에서먹어본것중제일맛있는훠궈!", "P_ID": 59}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 60 } }
+{"TRY": "FALSE", "TAG": ["#진주맛집", "#진주", "#알쓸신잡"], "U_ID": 1, "DESC": "알쓸신잡나왔던곳,이모님솜씨가좋아서뭘먹어도맛있을듯", "P_ID": 60}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 61 } }
+{"TRY": "FALSE", "TAG": ["#창원", "#한정식"], "U_ID": 1, "DESC": "반찬은대략15가지정도되는데모두다맛있고,메인메뉴는청국장&생선구이&돌솥밥까지나오는데1인12000원", "P_ID": 61}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 62 } }
+{"TRY": "FALSE", "TAG": ["#마산", "#댓거리", "#해물찜"], "U_ID": 1, "DESC": "울아버지맛집,잘먹고딴소리하시는아버지가맛있다고한몇안되는집,", "P_ID": 62}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 63 } }
+{"TRY": "FALSE", "TAG": ["#창원", "#인생맛집", "#해물찜"], "U_ID": 1, "DESC": "특소자(20000원)로세명이서배부르게먹는데맛도있고해물도듬뿍", "P_ID": 63}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 64 } }
+{"TRY": "FALSE", "TAG": ["#진주", "#돼지국밥", "#얼큰"], "U_ID": 1, "DESC": "국밥에고기도퍽퍽한살안쓰고비계붙은살써서부드럽고고소함,육수도사골스타일아니고시장국밥스타일이라서얼큰하다", "P_ID": 64}
+{ "index" : { "_index": "personal", "_type" : "doc", "_id" : 65 } }
+{"TRY": "FALSE", "TAG": ["#제주도", "#제주맛집", "#흑돼지"], "U_ID": 1, "DESC": "이런데식당이있을까하는곳에식당이있음,여름에가면넓은평원에서고기를구울수있다.", "P_ID": 65}

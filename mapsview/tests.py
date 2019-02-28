@@ -69,7 +69,7 @@ def searchByPersonal(user_id):
                                         }
                                     })['hits']['hits']
             
-    personal_mat_ids = [x['_source']['M_ID'] for x in personal_data]
+    personal_mat_ids = [x['_source']['P_ID'] for x in personal_data]
     personal_mat_ids.sort()
 
     return list(set(personal_mat_ids))
@@ -113,30 +113,31 @@ def searchByConnetLoc(user_id, query):
 def es_multi_search(user_id, query):
     mat_data = es_client.msearch(body=[
         {"index": "place", "type": "doc"}, 
-        {"query": {"terms": {"ID": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65]}}},
+        {"query": {"terms": {"ID": [14, 65]}}},
         {"index": "place", "type": "doc"}, 
         {"query": {
-            # "match": {
-            #     "messages": { 
-            #         "query": "베이*",
-            #         "fuzziness": "AUTO",
-            #         "prefix_length": 3,
-            #         "operator" : "or",
-            #         "zero_terms_query": "all"
-            #     }
-            # }
-            "query_string" : {
-                "default_field" : "messages",
-                "query" : "*김치*",
-                "fuzzy_prefix_length": 5
+            "size": 100,
+            "sort": { "ID": "desc" },
+            "query": {
+                "bool": { 
+                    "must": must,
+                    "filter": filters
+                }
             }
         }, "from": 0, "size": 100}, 
     ])
-    b1 = mat_data['responses'][0]['hits']['hits']
-    b2 = mat_data['responses'][1]['hits']['hits']
-    print("1 >>> " + simplejson.dumps(b1))
-    print("2 >>> " + simplejson.dumps(b2))
-        
+    p1 = mat_data['responses'][0]['hits']['hits']
+    p2 = mat_data['responses'][1]['hits']['hits']
+    # print("data 1 >>> " + simplejson.dumps(p1, indent=2, sort_keys=True, ensure_ascii=False))
+    # print("data 2 >>> " + simplejson.dumps(p2, indent=2, sort_keys=True, ensure_ascii=False))
+    
+    p_q_list = []
+    for private in p1:
+        for query in p2:
+            if(query["_source"]["ID"] == private["_source"]["ID"]):
+                p_q_list.append(private)
+    
+    print("result >>> " + simplejson.dumps(p_q_list, indent=2, sort_keys=True, ensure_ascii=False))
    
 def get_coordinates_list(matList, from_sensor=False):
     # query = query.encode('utf-8')
@@ -261,7 +262,7 @@ def es_insert2():
     es_client = elasticsearch.Elasticsearch("http://127.0.0.1:9200")
 
     source = {
-                'M_ID': 65,
+                'P_ID': 65,
                 'U_ID': 1,
             }
     
@@ -272,7 +273,7 @@ def es_insert2():
             '_type': 'doc',
             '_id': cnt,
             '_source': {
-                'M_ID': cnt,
+                'P_ID': cnt,
                 'U_ID': 1,
             }
         })
@@ -417,7 +418,7 @@ def dataOutput():
     # "LB_ADDR": '*상수동*'
 
 if __name__ == '__main__':    # 프로그램의 시작점일 때만 아래 코드 실행
-    dataOutput()
+    # dataOutput()
     # print(es_list())
     # print(es_last_index())
     
@@ -434,5 +435,5 @@ if __name__ == '__main__':    # 프로그램의 시작점일 때만 아래 코�
     # print(es_delete(65))
     # csv_to_elasticsearch()
     # searchByConnetLoc(1, '태국')
-    # es_multi_search(1, '마포')
+    es_multi_search(1, '마포')
     

@@ -12,6 +12,39 @@ def es_list(param):
     if param['q'] is None or param['q'] is "":
         print("queryString is None")
         must = { "match_all" : {} }
+
+        if not param['is_superuser']:
+            filters.append({ "terms":  {"ID": searchByPersonal(param['user'])} })
+
+            if param['loc'] is not None:
+                print(param['loc'])
+                filters.append({
+                                    "geo_distance": {
+                                        "distance": "1km",
+                                        "location": {
+                                            "lon" : param['loc']['lng'],
+                                            "lat" : param['loc']['lat']
+                                        }
+                                    }
+                                })
+        
+        body = {
+                    "size": 100,
+                    "sort": { "ID": "desc" },
+                    "query": {
+                        "bool": { 
+                            "must": must,
+                            "filter": filters
+                        }
+                    }
+                }
+        print("query >>>\n" + json.dumps(body, indent=2, sort_keys=True, ensure_ascii=False))
+        
+        data = es_client.search(index = 'place',
+                                doc_type = 'doc',
+                                body = body)
+        
+        matList = data['hits']['hits']
     else:
         if param['field'] is None or param['field'] is "":
             print("field is None")
@@ -37,40 +70,6 @@ def es_list(param):
                 }
             ]
 
-    if not param['is_superuser']:
-        filters.append({ "terms":  {"ID": searchByPersonal(param['user'])} })
-
-    if param['loc'] is not None and not param['is_superuser']:
-        print(param['loc'])
-        filters.append({
-                            "geo_distance": {
-                                "distance": "1km",
-                                "location": {
-                                    "lon" : param['loc']['lng'],
-                                    "lat" : param['loc']['lat']
-                                }
-                            }
-                        })
-    
-    body = {
-                "size": 100,
-                "sort": { "ID": "desc" },
-                "query": {
-                    "bool": { 
-                        "must": must,
-                        "filter": filters
-                    }
-                }
-            }
-    print("query >>>\n" + json.dumps(body, indent=2, sort_keys=True, ensure_ascii=False))
-    
-    data = es_client.search(index = 'place',
-                            doc_type = 'doc',
-                            body = body)
-    
-    print("data >>>\n " + str(json.dumps(data, indent=2, sort_keys=True, ensure_ascii=False)))
-    
-    matList = data['hits']['hits']
     
     return matList
 
@@ -137,6 +136,34 @@ def searchByLocation(loc):
                                     }
                                 })['hits']['hits']
     return mat_data
+
+def get_multi_search_data(id, field, query):
+    if field is None or field is "":
+        data = es_client.msearch(body=[
+            {"index": "place", "type": "doc"}, 
+            {"query": {"terms": {"ID": searchByPersonal(user_id)}}},
+            {"index": "place", "type": "doc"}, 
+            {"query": {
+                "query_string" : {
+                    "default_field" : "messages",
+                    "query" : "*" + query +"*",
+                    "fuzzy_prefix_length": 1
+                }
+            }, "from": 0, "size": 100}, 
+        ])
+    else:
+        data = es_client.msearch(body=[
+            {"index": "place", "type": "doc"}, 
+            {"query": {"terms": {"ID": searchByPersonal(user_id)}}},
+            {"index": "place", "type": "doc"}, 
+            {"query": {
+                "query_string" : {
+                    "default_field" : "messages",
+                    "query" : "*" + query +"*",
+                    "fuzzy_prefix_length": 1
+                }
+            }, "from": 0, "size": 100}, 
+        ])
 
 def sub_type_list(queryString) :
     print('sub_type_list')

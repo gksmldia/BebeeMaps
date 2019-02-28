@@ -112,32 +112,25 @@ def searchByConnetLoc(user_id, query):
 
 def es_multi_search(user_id, query):
     mat_data = es_client.msearch(body=[
+        {"index": "personal", "type": "doc"}, 
+        {"query": {"term": {"U_ID": user_id}}, "from": 0, "size": 100},
         {"index": "place", "type": "doc"}, 
-        {"query": {"terms": {"ID": [14, 65]}}},
-        {"index": "place", "type": "doc"}, 
-        {"query": {
-            "size": 100,
-            "sort": { "ID": "desc" },
-            "query": {
-                "bool": { 
-                    "must": must,
-                    "filter": filters
-                }
-            }
-        }, "from": 0, "size": 100}, 
+        {"query": { "bool": { "must": [{ "fuzzy" : { "RN_ADDR": { "value" : "서울", "fuzziness" : 1 } } }] } }, "from": 0, "size": 100}, 
     ])
     p1 = mat_data['responses'][0]['hits']['hits']
     p2 = mat_data['responses'][1]['hits']['hits']
     # print("data 1 >>> " + simplejson.dumps(p1, indent=2, sort_keys=True, ensure_ascii=False))
     # print("data 2 >>> " + simplejson.dumps(p2, indent=2, sort_keys=True, ensure_ascii=False))
-    
+    print("data 1 length >>> " + str(len(p1)))
+    print("data 2 length >>> " + str(len(p2)))
     p_q_list = []
     for private in p1:
         for query in p2:
-            if(query["_source"]["ID"] == private["_source"]["ID"]):
-                p_q_list.append(private)
+            if(query["_source"]["ID"] == private["_source"]["P_ID"]):
+                p_q_list.append(query)
     
-    print("result >>> " + simplejson.dumps(p_q_list, indent=2, sort_keys=True, ensure_ascii=False))
+    # print("result >>> " + simplejson.dumps(p_q_list, indent=2, sort_keys=True, ensure_ascii=False))
+    print("length >>> " + str(len(p_q_list)))
    
 def get_coordinates_list(matList, from_sensor=False):
     # query = query.encode('utf-8')

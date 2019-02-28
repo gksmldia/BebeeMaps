@@ -27,50 +27,27 @@ def es_list(param):
                                         }
                                     }
                                 })
-        
+
         body = {
                     "size": 100,
                     "sort": { "ID": "desc" },
                     "query": {
-                        "bool": { 
+                        "bool": {
                             "must": must,
                             "filter": filters
                         }
                     }
                 }
         print("query >>>\n" + json.dumps(body, indent=2, sort_keys=True, ensure_ascii=False))
-        
+
         data = es_client.search(index = 'place',
                                 doc_type = 'doc',
                                 body = body)
-        
+
         matList = data['hits']['hits']
     else:
-        if param['field'] is None or param['field'] is "":
-            print("field is None")
-            must = [
-                {
-                    "query_string" : {
-                        "default_field" : "messages",
-                        "query" : "*" + param['q'] +"*",
-                        "fuzzy_prefix_length": 1
-                    }
-                }
-            ]
-        else:
-            print("queryString and field are not None")
-            must = [
-                {
-                    "fuzzy" : {
-                        param['field']: {
-                            "value"    : param['q'],
-                            "fuzziness": 1
-                        }
-                    }
-                }
-            ]
+        matList = get_multi_search_data(param['user'], param['field'], param['q'])
 
-    
     return matList
 
 
@@ -84,7 +61,7 @@ def searchByPersonal(user_id):
                                             "term" : {"U_ID" : user_id}
                                         }
                                     })['hits']['hits']
-            
+
     personal_mat_ids = [x['_source']['P_ID'] for x in personal_data]
     personal_mat_ids.sort()
 
@@ -137,33 +114,58 @@ def searchByLocation(loc):
                                 })['hits']['hits']
     return mat_data
 
-def get_multi_search_data(id, field, query):
+def get_multi_search_data(u_id, field, query):
+    multi_search_body = [
+        {"index": "personal", "type": "doc"}, 
+        {"query": {"term": {"U_ID": u_id}}, "from": 0, "size": 100},
+        {"index": "place", "type": "doc"}
+    ]
     if field is None or field is "":
-        data = es_client.msearch(body=[
-            {"index": "place", "type": "doc"}, 
-            {"query": {"terms": {"ID": searchByPersonal(user_id)}}},
-            {"index": "place", "type": "doc"}, 
-            {"query": {
-                "query_string" : {
-                    "default_field" : "messages",
-                    "query" : "*" + query +"*",
-                    "fuzzy_prefix_length": 1
+        multi_search_body.append({
+            "query": {
+                "bool" : {
+                    "must" : {
+                        "query_string" : {
+                            "default_field" : "messages",
+                            "query" : "*" + query + "*",
+                            "fuzzy_prefix_length": 5
+                        }
+                    }
                 }
-            }, "from": 0, "size": 100}, 
-        ])
+            }, "from": 0, "size": 100
+        })
+
     else:
-        data = es_client.msearch(body=[
-            {"index": "place", "type": "doc"}, 
-            {"query": {"terms": {"ID": searchByPersonal(user_id)}}},
-            {"index": "place", "type": "doc"}, 
-            {"query": {
-                "query_string" : {
-                    "default_field" : "messages",
-                    "query" : "*" + query +"*",
-                    "fuzzy_prefix_length": 1
+        multi_search_body.append({
+            "query": {
+                "bool" : {
+                    "must" : [{
+                        "fuzzy" : {
+                            field: {
+                                "value"     : query,
+                                "fuzziness" : 1
+                            }
+                        }
+                    }]
                 }
-            }, "from": 0, "size": 100}, 
-        ])
+            }, "from": 0, "size": 100
+        })
+
+    print("query >>>\n" + json.dumps(multi_search_body, indent=2, sort_keys=True, ensure_ascii=False))
+    data = es_client.msearch(body = multi_search_body)
+
+    p1 = data['responses'][0]['hits']['hits']
+    p2 = data['responses'][1]['hits']['hits']
+    # print("data 1 >>> " + simplejson.dumps(p1, indent=2, sort_keys=True, ensure_ascii=False))
+    # print("data 2 >>> " + simplejson.dumps(p2, indent=2, sort_keys=True, ensure_ascii=False))
+
+    mat_data = []
+    for private in p1:
+        for query in p2:
+            if(query["_source"]["ID"] == private["_source"]["P_ID"]):
+                mat_data.append(query)
+
+    return mat_data
 
 def sub_type_list(queryString) :
     print('sub_type_list')
@@ -201,12 +203,12 @@ def es_last_index(index):
                                 "sort": {field: 'desc'},
                                 "size": 1
                             })
-    
+
     print(total['hits']['hits'])
     id = 0
     for one in total['hits']['hits']:
        id = one['_id']
-    
+
     return int(id)
 
 def es_search_by_id(search_id):
@@ -239,7 +241,7 @@ def es_insert(place):
 
     last_index_place = es_last_index('place')+1
     source = getSource(place, last_index_place)
-    
+
     docs = []
     for cnt in range(1):
         docs.append({
@@ -259,15 +261,15 @@ def es_request_insert(place):
     print(type(place['location']['lat']))
     last_index_place = es_last_index('place')+1
     source = getSource(place, last_index_place)
-    
+
     response = es_client.transport.perform_request(
                 method = 'PUT',
                 url = '/place/doc/'+ str(last_index_place),
                 body = source
             )
-    
+
     response2 = es_insert_personal(last_index_place, int(place.get('user')))
-    
+
     return (response, response2)
 
 def es_insert_personal(p_id, u_id):
@@ -295,22 +297,22 @@ def es_update(place):
     print(up_data)
     return up_data
 
-def getSource(place, index): 
+def getSource(place, index):
     location = GeoPoint(lat_lon=True)
     location = {
-        'lon': float("{0:.7f}".format(place['location']['lon'])), 
+        'lon': float("{0:.7f}".format(place['location']['lon'])),
         'lat': float("{0:.7f}".format(place['location']['lat']))
     }
-    
+
     print("index >>" + str(index))
     source = {
-        'ID': index, 
-        'NAME': place.get('NAME'), 
-        'RN_ADDR': place.get('RN_ADDR'), 
-        'LB_ADDR': place.get('LB_ADDR'), 
-        'DETAIL_ADDR': place.get('DETAIL_ADDR') if 'DETAIL_ADDR' in place else None, 
-        'TEL': place.get('TEL') if 'TEL' in place else None, 
-        'OFF_DAY': place.get('OFF_DAY') if 'OFF_DAY' in place else None, 
+        'ID': index,
+        'NAME': place.get('NAME'),
+        'RN_ADDR': place.get('RN_ADDR'),
+        'LB_ADDR': place.get('LB_ADDR'),
+        'DETAIL_ADDR': place.get('DETAIL_ADDR') if 'DETAIL_ADDR' in place else None,
+        'TEL': place.get('TEL') if 'TEL' in place else None,
+        'OFF_DAY': place.get('OFF_DAY') if 'OFF_DAY' in place else None,
         'SALES_FROM': place.get('SALES_FROM') if 'SALES_FROM' in place else None,
         'SALES_TO': place.get('SALES_TO') if 'SALES_TO' in place else None,
         'BREAK_FROM': place.get('BREAK_FROM') if 'BREAK_FROM' in place else None,
@@ -323,7 +325,7 @@ def getSource(place, index):
         'TAG': place.get('TAG') if 'TAG' in place else None,
         'location': location
     }
-    
+
     return source
 
 def es_delete(id):
@@ -334,4 +336,4 @@ def es_delete(id):
     except Exception as e:
         result['result'] = e.args[1]
     return result
-        
+

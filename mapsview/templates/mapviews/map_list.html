@@ -164,7 +164,11 @@
 
             MAP.addMarker(APP.mapList);
             INFO_D.add_info_detail(APP.mapList);
-          });
+          }, function(error){ 
+            console.log('====================================');
+            console.log(error);
+            console.log('====================================');
+          }, {maximumAge:60000, timeout:5000, enableHighAccuracy:true});
         });
       }
     },

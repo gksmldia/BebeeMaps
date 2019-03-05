@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% block content %}
-<div class="col-md-8 col-sm-12 col-xs-12">
+<div class="col-md-7 col-sm-12 col-xs-12">
   <div class="row">
     <div class="dropdown col-md-3 col-sm-3 col-xs-5 pad-right-0">
       <select class="form-control col-md-12" id="field">
@@ -9,13 +9,7 @@
       </select>
     </div>
     <div class="input-group col-md-9 col-sm-9 col-xs-7 pad-right-15">
-      <input
-        id="query_ipt"
-        type="text"
-        class="form-control"
-        placeholder="Search"
-        aria-describedby="basic-addon2"
-      />
+      <input id="query_ipt" type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon2" />
       <span class="input-group-addon" id="list_search">
         <i class="fas fa-search"></i>
       </span>
@@ -27,15 +21,13 @@
     </div>
   </div>
   <div class="row mar-top-10">
+    <div class="col-md-12">
+      <div id="searched_cards"></div>
+    </div>
+  </div>
+  <div class="row mar-top-10">
     <div class="col-md-6">
-      <button
-        type="button"
-        class="btn btn-bebeemap wid100"
-        data-toggle="modal"
-        data-target="#regist_modal"
-        data-backdrop="static"
-        data-keyboard="false"
-      >
+      <button type="button" class="btn btn-bebeemap wid100" data-toggle="modal" data-target="#regist_modal" data-backdrop="static" data-keyboard="false" >
         <span id="pls_regi">플레이스 등록</span>
       </button>
     </div>
@@ -49,22 +41,14 @@
     </div>
   </div>
 </div>
-<div
-  class="col-md-4 col-sm-12 col-xs-12 map_info mar-top-10"
-  id="info_detail_div"
->
-  <ul class="cards" id="cards"></ul>
+<div class="col-md-5 col-sm-12 col-xs-12 map_info mar-top-10 detail_lg_div detail_md_div" id="info_detail_div" >
+  <ul class="cards" id="my_cards"></ul>
 </div>
 <div class="modal fade bs-example-modal-sm" id="confirm_modal">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header">
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
           <span aria-hidden="true">&times;</span>
         </button>
         <h4 class="modal-title">Confirm</h4>
@@ -244,16 +228,16 @@
 
         if (APP.query != null && APP.query != "") {
           center = getCenter(relist);
-          level = 5;
+          level = getLine(relist);
           APP.map.setBounds(APP.bounds);
         } else {
           center = {
             x: 36.03061547397786,
             y: 127.95191690000001
           };
-          APP.map.setLevel(level);
         }
 
+        APP.map.setLevel(level);
         APP.map.setCenter(new daum.maps.LatLng(center.x, center.y));
         MAP.addMarker(relist);
       } else {
@@ -348,7 +332,7 @@
 
   var INFO_D = {
     add_info_detail: function(list) {
-      var cards = $("#cards");
+      var cards = $("#my_cards");
       if (cards.children.length != 0) {
         cards.empty();
       }
@@ -472,6 +456,48 @@
     center.y = (y1 + (y2 - y1) / 2);
 
     return center;
+  }
+
+  function getLine(list) {
+    var min_index = 0, max_index = 0;
+    var min = list[0].location.lon, max=list[0].location.lon;
+    for(var i = 1; i < list.length; i++) {
+      if(list[i].location.lon < min) {
+        min = list[i].location.lon;
+        min_index = i;
+      }
+
+      if(list[i].location.lon > max) {
+        max = list[i].location.lon;
+        max_index = i;
+      }
+    }
+    console.log(min)
+    console.log(min_index)
+    console.log(max)
+    console.log(max_index)
+
+    var polyline = new daum.maps.Polyline({
+      path: [
+          new daum.maps.LatLng(list[min_index].location.lat, list[min_index].location.lon),
+          new daum.maps.LatLng(list[max_index].location.lat, list[max_index].location.lon)
+      ], // 선을 구성하는 좌표배열 입니다
+    });
+
+    var distance = polyline.getLength();
+    console.log(distance)
+    console.log(getLevel(distance))
+    return getLevel(distance);
+  }
+
+  function getLevel(distance) {
+    var level = distance < 1000 ? 4 
+              : distance < 5000 ? 6
+              : distance < 100000 ? 9
+              : distance < 200000 ? 12
+              : 14;
+    
+    return level;
   }
 
   function listEventBind() {

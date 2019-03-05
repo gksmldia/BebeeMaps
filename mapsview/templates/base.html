@@ -1,5 +1,6 @@
 <html>
-    <head>
+    {% load static %}    
+<head>
         <title>BebeeMaps</title>
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -16,7 +17,7 @@
                 <div class="headitem2">
                     {% if user.is_authenticated %}
                     <span style="margin-right: 40px; color: rgb(104, 41, 130);"> 
-                        <i class="fab fa-forumbee" style="color: #f1e007"></i> {{user.username}}
+                        <img src="{% static 'img/bee.png' %}" style="width: 50px;" /> {{user.username}}
                     </span>
                     <a href="{% url 'member:logout' %}">
                         <i class="fas fa-sign-out-alt"></i> Logout
@@ -25,13 +26,13 @@
                     <a href="{% url 'member:login' %}" style="margin-right: 40px;"> 
                             <i class="fas fa-sign-in-alt"></i> Login
                     </a>
-                    <a href=""> 
+                    <a href="{% url 'member:signup' %}"> 
                         <span class="fas fa-circle fa-user"></span> Signup
                     </a>
                     {% endif %}
                 </div>
             </div>
-            <div style="height: 83%;">
+            <div class="content_div" >
                 {% block content %}
                 {% endblock %}
             </div>

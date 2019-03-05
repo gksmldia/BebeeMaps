@@ -14,7 +14,6 @@ body {
   font-style: normal;
   font-weight: 400;
   letter-spacing: 0;
-  padding: 1rem;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -52,7 +51,7 @@ img {
 .cards__item {
   display: flex;
   padding: 0 1rem 2rem 1rem;
-  width: 100%;
+  width: 50%;
 }
 
 @media (max-width: 992px) {
@@ -91,7 +90,7 @@ img {
   overflow: hidden;
   position: relative;
   transition: filter 0.5s cubic-bezier(0.43, 0.41, 0.22, 0.91);
-  height: 100px;
+  height: 150px;
 }
 .card__image::before {
   content: "";

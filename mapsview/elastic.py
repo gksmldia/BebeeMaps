@@ -125,10 +125,14 @@ def get_multi_search_data(u_id, field, query):
             "query": {
                 "bool" : {
                     "must" : {
-                        "query_string" : {
-                            "default_field" : "messages",
-                            "query" : "*" + query + "*",
-                            "fuzzy_prefix_length": 5
+                        "fuzzy" : {
+                            "messages" : {
+                                "value": query,
+                                "boost": 1.0,
+                                "fuzziness": 1,
+                                "prefix_length": 0,
+                                "max_expansions": 100
+                            }
                         }
                     }
                 }

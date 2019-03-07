@@ -76,11 +76,16 @@ body > * {
 #searched_cards {
     border: solid 3px rgb(148, 145, 145);
     height: 24%;
+    white-space: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 15px;
 }
 
 .map_info {
     height: 92% ;
     overflow-y: auto;
+    border: solid 3px rgb(148, 145, 145);
 }
 
 .panel {
@@ -147,15 +152,9 @@ select option {
     margin-right: 5px;
 }
 
-@media (min-width: 1200px) {
-    .detail_lg_div {
-        height: 100%;
-        /* padding-right: o; */
-    }
-}
 @media (min-width: 768px) {
     .detail_md_div {
-        height: 96%;
-        padding-right: 0;
+        padding-top: 20px;
+        height: 100%;
     }
 }

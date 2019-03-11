@@ -197,23 +197,19 @@ def sub_type_list(queryString) :
 def es_last_index(index):
     # es_client = elasticsearch.Elasticsearch("http://127.0.0.1:9200/")
     print('es_last_index')
-    field = None
-    if index is 'personal' : field = '_id'
-    else : field = 'ID'
 
     total = es_client.search(index = index,
                             doc_type = 'doc',
                             body = {
-                                "sort": {field: 'desc'},
-                                "size": 1
+                                "query": {
+                                    "match_all": {}
+                                }
                             })
 
-    print(total['hits']['hits'])
-    id = 0
-    for one in total['hits']['hits']:
-       id = one['_id']
+    print(total['hits']['total'])
+    id = int(total['hits']['total'])+1
 
-    return int(id)
+    return id
 
 def es_search_by_id(search_id):
     print('es_search_by_id')
@@ -236,15 +232,20 @@ def es_search_by_persnal_detail(p_id, u_id):
                                                 ]
                                             }
                                         }
-                                    })['hits']['hits'][0]['_source']
+                                    })['hits']['hits'][0]
+    
+    person_return_data = person_data['_source']
+    person_return_data['_id'] = person_data['_id']
 
-    return person_data
+    return person_return_data
 
 def es_insert(place):
     print('es_insert')
 
     last_index_place = es_last_index('place')+1
-    source = getSource(place, last_index_place)
+    last_index_personal = es_last_index('personal')+1
+    p_source = getSourcePlace(place, last_index_place)
+    u_source = getSourcePersonal(place, last_index_place)
 
     docs = []
     for cnt in range(1):
@@ -252,38 +253,47 @@ def es_insert(place):
             '_index': 'place',
             '_type': 'doc',
             "_id": last_index_place,
-            '_source': source
+            '_source': p_source
+        })
+
+        docs.append({
+            '_index': 'personal',
+            '_type': 'doc',
+            "_id": last_index_personal,
+            '_source': u_source
         })
 
     response = elasticsearch.helpers.bulk(es_client, docs)
 
-    response2 = es_insert_personal(last_index_place, int(place.get('user')))
-    return (response, response2)
+    # response2 = es_insert_personal(last_index_place, int(place.get('user')))
+    return response
 
 def es_request_insert(place):
     print('es_request_insert')
-    print(type(place['location']['lat']))
     last_index_place = es_last_index('place')+1
-    source = getSource(place, last_index_place)
+    p_source = getSourcePlace(place, last_index_place)
 
     response = es_client.transport.perform_request(
                 method = 'PUT',
                 url = '/place/doc/'+ str(last_index_place),
-                body = source
+                body = p_source
             )
 
-    response2 = es_insert_personal(last_index_place, int(place.get('user')))
+    response2 = es_insert_personal(place, last_index_place)
 
     return (response, response2)
 
-def es_insert_personal(p_id, u_id):
+def es_insert_personal(data, p_id):
     last_index_personal = es_last_index('personal')+1
     result = es_client.transport.perform_request(
                 method = 'PUT',
                 url = '/personal/doc/'+ str(last_index_personal),
                 body = {
                     'P_ID': p_id,
-                    'U_ID': u_id
+                    'U_ID': int(data.get('user')),
+                    'DESC': data.get('DESC') if 'DESC' in data else None,
+                    'TRY': data.get('TRY') if 'TRY' in data else None,
+                    'TAG': data.get('TAG') if 'TAG' in data else None
                 }
             )
     print(result)
@@ -292,16 +302,27 @@ def es_insert_personal(p_id, u_id):
 
 def es_update(place):
     print('es_update')
-    up_data = es_client.update(
+    place_body = getSourcePlace(place, int(place.get('ID')))
+    print("place_update >>>\n" + json.dumps(place_body, indent=2, sort_keys=True, ensure_ascii=False))
+    place_update = es_client.update(
         index = 'place',
         doc_type = 'doc',
         id = int(place.get('ID')),
-        body = getSource(place, int(place.get('ID')))
+        body = place_body
     )
-    print(up_data)
-    return up_data
 
-def getSource(place, index):
+    personal_body = getSourcePersonal(place, int(place.get('ID')))
+    print("personal_update >>>\n" + json.dumps(personal_body, indent=2, sort_keys=True, ensure_ascii=False))
+    personal_update = es_client.update(
+        index = 'personal',
+        doc_type = 'doc',
+        id = int(place.get('personal_id')),
+        body = personal_body
+    )
+    print(place_update)
+    return (place_update, personal_update)
+
+def getSourcePlace(place, index):
     location = GeoPoint(lat_lon=True)
     location = {
         'lon': float("{0:.7f}".format(place['location']['lon'])),
@@ -323,11 +344,20 @@ def getSource(place, index):
         'BREAK_TO': place.get('BREAK_TO') if 'BREAK_TO' in place else None,
         'PARKING': place.get('PARKING') if 'PARKING' in place else None,
         'TYPE': place.get('TYPE') if 'TYPE' in place else None,
-        'SUB_TYPE': place.get('SUB_TYPE') if 'SUB_TYPE' in place else None,
-        'DESC': place.get('DESC') if 'DESC' in place else None,
-        'TRY': place.get('TRY') if 'TRY' in place else None,
-        'TAG': place.get('TAG') if 'TAG' in place else None,
+        'SUB_TYPE': place.get('SUB_TYPE') if 'SUB_TYPE' in place else None,\
         'location': location
+    }
+
+    return source
+
+def getSourcePersonal(personal, p_index):
+
+    source = {
+        'U_ID': personal.get('user'),
+        'P_ID': p_index,
+        'DESC': personal.get('DESC') if 'DESC' in personal else None,
+        'TRY': personal.get('TRY') if 'TRY' in personal else None,
+        'TAG': personal.get('TAG') if 'TAG' in personal else None
     }
 
     return source

@@ -31,11 +31,13 @@
                 </div>
                 <div class="form-group">
                     <label for="ipt_tag" id="lab_tag">태그</label>
-                    <div class="new-tag ">
+                    <!-- <div class="new-tag ">
                         <div class="tags">
                             <input type="text" placeholder="add a new tag" class="new-tag-input form-control">
                         </div>
-                    </div>
+                    </div> -->
+                    <!-- <div class="bootstrap-tagsinput" data-role="tagsinput"></div> -->
+                    <input type="text" data-role="tagsinput" id="ipt_tag" class="form-control" />
                 </div>
                 <div class="form-group">
                     <label for="ipt_memo" id="lab_memo">한줄평</label>
@@ -166,23 +168,25 @@ var MODAL = {
     sub_type_list : null,
     serch_zip : null,
     name_ipt_tooltip: false,
-    modalInit: function(name) {
-        param_name = name;
+    modalInit: function() {
+        // param_name = name;
         modal_getSubTypeList();
         MODAL.inputInit();
         MODAL.dateTimeInit();
         MODAL.modalEventBind();
         MODAL.dropdownInit();
-        if("{{ info2|escapejs }}" != "") {
-            MODAL.ifModifyInit(DTL.info);
+        if("{{ p_info2|escapejs }}" != "" && "{{ u_info2|escapejs }}" != "") {
+            var merge_info = Object.assign(DTL.p_info, DTL.u_info)
+            MODAL.ifModifyInit(merge_info);
         }
+        $(".bootstrap-tagsinput").css("width", "100%");
     },
     inputInit: function() {
-        if(param_name != "") {
-            $("#ipt_name").val(param_name);
-            var ps = new daum.maps.services.Places();
-            ps.keywordSearch(param_name, placesSearchCB);
-        }
+        // if(param_name != "") {
+        //     $("#ipt_name").val(param_name);
+        //     var ps = new daum.maps.services.Places();
+        //     ps.keywordSearch(param_name, placesSearchCB);
+        // }
     },
     dateTimeInit: function() {
         var elements = ["#ipt_sales_time_from", "#ipt_sales_time_to", "#ipt_break_time_from", "#ipt_break_time_to"];
@@ -203,7 +207,7 @@ var MODAL = {
     },
     ifModifyInit: function(info) {
         $("#ipt_name").val(info.NAME);
-        if("{{ info2|escapejs }}" != "") {
+        if("{{ p_info2|escapejs }}" != "" && "{{ u_info2|escapejs }}" != "") {
             $("#ipt_name").attr("disabled", true);
         }
         $("#p_addr").text(info.RN_ADDR);
@@ -211,21 +215,11 @@ var MODAL = {
         $("#ipt_memo").val(info.DESC);
 
         for(var i in info.TAG) {
-            var tagStr = info.TAG[i].substring(1);
-            var html = '<div class="tag added">';
-                html += info.TAG[i];
-                html += '<input type="checkbox" name="tags" value="'+ tagStr +'" checked="checked">';
-                html += '</div>';
-            $(".tags").prepend(html);
+            $("#ipt_tag").tagsinput({
+                itemValue: true
+            });
+            $('#ipt_tag').tagsinput('add', info.TAG[i]);
         }
-
-        $(".tag.added").click(function() {
-            if ($(this).hasClass('to-be-crossed')) {
-                return $(this).remove();
-            } else {
-                return $(this).addClass('to-be-crossed');
-            }
-        });
 
         if(info.OFF_DAY == null || info.OFF_DAY.length == 0) {
             $("#chkbox_off").prop("checked", true);
@@ -405,11 +399,7 @@ var MODAL = {
         $("#p_tel").text("");
         $("#ipt_tel").val("");
 
-        var tag = $(".tag.added");
-        for(var i = 0; i < tag.length; i++) {
-            $(tag[i]).remove();
-        }
-        $(".new-tag-input").val("");
+        $('#ipt_tag').tagsinput('removeAll');
 
         $("#ipt_memo").val("");
 
@@ -456,8 +446,8 @@ var MODAL = {
             var lbAddrArr = MODAL.mat_data.address_name.split(" ");
             lbAddrArr.splice(0, 2);
             returnObj.LB_ADDR = lbAddrArr.join(" ");
-        } else if("{{ info2|escapejs }}" != "") {
-            returnObj.LB_ADDR = DTL.info.LB_ADDR;
+        } else if("{{ p_info2|escapejs }}" != "" && "{{ u_info2|escapejs }}" != "") {
+            returnObj.LB_ADDR = DTL.p_info.LB_ADDR;
         }
 
         returnObj.TEL = $("#p_tel").text();
@@ -472,17 +462,17 @@ var MODAL = {
             returnObj.location.lon = MODAL.mat_data.x*1;
         } 
         
-        if("{{ info2|escapejs }}" != "") {
-            console.log(DTL.info.location.lat, DTL.info.location.lon)
-            returnObj.location.lat = DTL.info.location.lat*1;
-            returnObj.location.lon = DTL.info.location.lon*1;
+        if("{{ p_info2|escapejs }}" != "" && "{{ u_info2|escapejs }}" != "") {
+            console.log(DTL.p_info.location.lat, DTL.p_info.location.lon)
+            returnObj.location.lat = DTL.p_info.location.lat*1;
+            returnObj.location.lon = DTL.p_info.location.lon*1;
         }
         
-        var tagAdded = $(".tag.added");
-        returnObj.TAG = new Array();
-        for(var i in tagAdded) {
-            if(!isNaN(i*1)) {
-                returnObj.TAG.push($(tagAdded[i]).text());
+        returnObj.TAG = $('#ipt_tag').tagsinput('items');
+        // returnObj.TAG = new Array();
+        for(var i in returnObj.TAG) {
+            if(returnObj.TAG[i].indexOf("#") > 0) {
+                returnObj.TAG[i] = "#" + returnObj.TAG[i];
             }
         }
         
@@ -544,14 +534,18 @@ var MODAL = {
         }
         
         var flag = true;
-        if("{{ info2|escapejs }}" != "") {
+        if("{{ p_info2|escapejs }}" != "" && "{{ u_info2|escapejs }}" != "") {
             var oriData = new Object;
             var newData = MODAL.getModalSaveData();
             $.each(newData, function(k, v) {
-                $.each(DTL.info, function(k2, v2) {
+                $.each(DTL.p_info, function(k2, v2) {
                     if(k == k2) {
                         if(k == 'SALES_FROM' || k == 'SALES_TO' || k == 'BREAK_FROM' || k == 'BREAK_TO' ) {
-                            oriData[k] = toHHMM(v2);
+                            if(v2 != null) {
+                                oriData[k] = toHHMM(v2);
+                            } else {
+                                oriData[k] = null;
+                            }
                         } else {
                             oriData[k] = v2;
                         }
@@ -564,8 +558,16 @@ var MODAL = {
                 newData.OFF_DAY = newData.OFF_DAY.sort();
             }
             if(newData.hasOwnProperty('TAG')) {
-                oriData.TAG = oriData.TAG.sort();
-                newData.TAG = newData.TAG.sort();
+                if(oriData.TAG != null && oriData.TAG.length != 0) {
+                    oriData.TAG = oriData.TAG.sort();
+                } else {
+                    oriData.TAG = [];
+                }
+                if(newData.TAG != null && newData.TAG.length != 0) {
+                    newData.TAG = newData.TAG.sort();
+                } else {
+                    newData.TAG = [];
+                }
             }
 
             if(Object.equals(newData, oriData)) {
@@ -583,9 +585,10 @@ var MODAL = {
             var paramData = MODAL.getModalSaveData();
             var confirmMsg = "등록하시겠습니까?";
 
-            if("{{ info2|escapejs }}" != "") {
+            if("{{ p_info2|escapejs }}" != "" && "{{ u_info2|escapejs }}" != "") {
                 paramUrl = '/api/modify_map/';
-                paramData.ID = DTL.info.ID;
+                paramData.ID = DTL.p_info.ID;
+                paramData.personal_id = DTL.u_info._id
                 confirmMsg = "수정하시겠습니까?";
             }
             if(confirm(confirmMsg)) {

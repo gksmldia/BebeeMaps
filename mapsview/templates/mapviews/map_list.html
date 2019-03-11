@@ -46,30 +46,6 @@
 <div class="col-md-5 col-sm-12 col-xs-12 map_info detail_lg_div detail_md_div" id="info_detail_div" >
   <ul class="cards" id="my_cards"></ul>
 </div>
-<div class="modal fade bs-example-modal-sm" id="confirm_modal">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <h4 class="modal-title">Confirm</h4>
-      </div>
-      <div class="modal-body">
-        <span>데이터가 없습니다. 등록하시겠습니까?</span>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">
-          Cancle
-        </button>
-        <button type="button" class="btn btn-bebeemap" id="btn_ok">Ok</button>
-      </div>
-    </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
 {% include "mapviews/regist_modal.html" %}
 <script type="text/javascript">
   var APP = {
@@ -304,10 +280,6 @@
         var resultMap = JSON.parse(result);
         MAP.redrawMap(resultMap);
         INFO_D.add_info_detail(resultMap);
-
-        if (resultMap.length == 0) {
-          $("#confirm_modal").modal("show");
-        }
       });
 
       if(APP.query != null && APP.query != "") {
@@ -353,16 +325,17 @@
           }
           for(var i in APP.new_place_list) {
             var card = '<li class="new_cards__item">';
-            card += '<div class="new_card">';
-            card += '<input type="hidden" class="card__lat" value=' + APP.new_place_list[i].y + ">";
+            card += '<div class="new__card">';
+            card += '<input type="hidden" class="card__lat" value=' + APP.new_place_list[i].y + '>';
             card += '<input type="hidden" class="card__lng" value=' + APP.new_place_list[i].x + ">";
             card += '<div class="new_card__image card__image--food_new"></div>';
             card += '<div class="card__content">';
             card += '<div class="card__title">' + APP.new_place_list[i].place_name;
             card += '<div class="card_span_div">';
             card += '<span class="card_i_span card_save">';
-            card += '<a href="" >'
+            card += '<a href="#" class="add_new">'
             card += '<i class="fab fa-forumbee"></i></a></span>';
+            card += '<textarea class="card__data" style="display: none" >' + JSON.stringify(APP.new_place_list[i]) + '</textarea>';
             card += '</div></div>';
             card += '<p class="card__text">' + APP.new_place_list[i].road_address_name + "</p>";
             card += "</div>";
@@ -370,6 +343,33 @@
             card += "</li>";
             new_cards.append(card)
           }
+
+          $(".card_save .add_new").click(function() {
+            console.log(Number($($(this).parents(".card__content")).siblings(".card__lat").val()))
+            var data = JSON.parse($(this).parent().parent().find(".card__data").text());
+            var param_data = {
+              "user": APP.user_id,
+              "NAME": data.place_name,
+              "RN_ADDR": data.road_address_name,
+              "LB_ADDR": data.address_name.split("시")[1].trim(),
+              "TEL": data.phone,
+              "location": {
+                "lat": Number($($(this).parents(".card__content")).siblings(".card__lat").val()),
+                "lon": Number($($(this).parents(".card__content")).siblings(".card__lng").val()),
+              }
+            };
+            if (confirm("내 저장소로 담으시겠습니까?")) {
+              $.ajax({
+                url: "/api/enroll_map/",
+                headers: { "Content-Type": "text/plain; charset=utf-8" },
+                dataType: "text",
+                type: "POST",
+                data: JSON.stringify(param_data),
+                success: function(result) {},
+                done: function(result) {}
+              });
+            }
+          });
         } else {
           $("#new_cards").empty();
           $("#new_cards").text("검색 데이터가 없습니다.");
@@ -530,10 +530,10 @@
   }
 
   function getLevel(distance) {
-    var level = distance < 1000 ? 4 
-              : distance < 5000 ? 6
-              : distance < 100000 ? 9
-              : distance < 200000 ? 12
+    var level = distance < 1000 ? 5 
+              : distance < 5000 ? 8
+              : distance < 100000 ? 11
+              : distance < 200000 ? 13
               : 14;
     
     return level;
@@ -559,8 +559,7 @@
     });
 
     $("#regist_modal").on("shown.bs.modal", function() {
-      var name = $("#query_ipt").val();
-      MODAL.modalInit(name);
+      MODAL.modalInit();
     });
 
     $("#regist_modal").on("hide.bs.modal", function() {
@@ -571,11 +570,6 @@
         SEARCH.doSearch(loc);
       }, 2000);
       $("#query_ipt").val("");
-    });
-
-    $("#btn_ok").click(function() {
-      $("#regist_modal").modal("show");
-      $("#confirm_modal").modal("hide");
     });
   }
 </script>

@@ -1,0 +1,58 @@
+{
+  "settings": {
+    "index": {
+      "analysis": {
+        "analyzer": {
+          "nori": {
+            "filter": ["pos_filter", "lowercase", "nori_readingform"],
+            "tokenizer": "nori_user_dict"
+          }
+        },
+        "tokenizer":{
+          "nori_user_dict": {
+            "mode": "MIXED",
+            "type": "nori_tokenizer",
+            "user_dictionary": "userdic_ko.txt"
+          }
+        },
+        "filter": {
+          "pos_filter": {
+            "type": "nori_part_of_speech",
+            "stoptags": [
+              "E", "IC", "J", "MAG", "MM", "SP", "SSC", "SSO", "SC", "SE", "XPN", "XSA", "XSN", "XSV", "UNA", "NA", "VSV"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "mappings": {
+    "doc": {
+      "properties": {
+        "P_ID": {
+          "type": "integer"
+        },
+        "U_ID": {
+          "type": "integer"
+        },
+        "DESC": {
+          "type": "text",
+          "analyzer": "nori",
+          "copy_to": "messages"
+        },
+        "TRY": {
+          "type": "text"
+        },
+        "TAG": {
+          "type": "keyword",
+          "analyzer": "nori",
+          "copy_to": "messages"
+        },
+        "messages": {
+          "type": "text",
+          "analyzer": "nori"
+        }
+      }
+    }
+  }
+}

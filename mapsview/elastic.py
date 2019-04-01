@@ -207,7 +207,7 @@ def es_last_index(index):
                             })
 
     print(total['hits']['total'])
-    id = int(total['hits']['total'])+1
+    id = int(total['hits']['total'])
 
     return id
 

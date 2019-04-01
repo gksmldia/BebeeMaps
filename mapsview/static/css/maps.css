@@ -155,6 +155,6 @@ select option {
 @media (min-width: 768px) {
     .detail_md_div {
         padding-top: 20px;
-        height: 100%;
+        height: 95%;
     }
 }
